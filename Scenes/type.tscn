@@ -31,3 +31,29 @@ offset_right = 952.0
 offset_bottom = 169.0
 bbcode_enabled = true
 text = "According to all known laws of aviation, there is no way a bee should be able to fly. Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyway because bees don't care what humans think is impossible."
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=176311075]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=39757345]
+offset_left = 52.0
+offset_top = 27.0
+offset_right = 1082.0
+offset_bottom = 594.0
+alignment = 2
+
+[node name="TopRow" type="HBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=1314500255]
+layout_mode = 2
+
+[node name="MiddleRow" type="HBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=1480587279]
+layout_mode = 2
+
+[node name="BottomRow" type="HBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=109938397]
+layout_mode = 2
+
+[node name="fingers-remaining" type="Label" parent="CanvasLayer/VBoxContainer/BottomRow" unique_id=1195731871]
+layout_mode = 2
+text = "Fingers Remaining:"
+
+[node name="fingers-value" type="Label" parent="CanvasLayer/VBoxContainer/BottomRow" unique_id=797904249]
+layout_mode = 2
+text = "10/10"
