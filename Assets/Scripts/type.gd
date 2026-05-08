@@ -5,6 +5,8 @@ var current_letter_index: int = -1 # undefined
 
 @onready var enemy_container = $EnemyContainer
 
+var current_mistakes: String = ""
+
 #func _ready() -> void:
 	#start_game()
 
@@ -23,24 +25,37 @@ func find_new_active_enemy(typed_character: String):
 			active_enemy.set_next_character(current_letter_index)
 	return
 
+func _check_win(prompt: String) -> void:
+	if current_letter_index == prompt.length() and current_mistakes.length() == 0:
+		print("done")
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.is_pressed() and not event.is_echo():
 		var typed_event = event as InputEventKey
 		var key_typed = PackedByteArray([typed_event.unicode]).get_string_from_utf8()
-
 		if active_enemy == null:
 			find_new_active_enemy(key_typed)
+			return
+		if event.keycode == KEY_BACKSPACE:
+			if current_mistakes.length() > 0:
+				current_mistakes = current_mistakes.erase(current_mistakes.length() - 1)
+			elif current_letter_index > 0:
+				current_letter_index -= 1
+			active_enemy.set_next_character(current_letter_index, current_mistakes)
+			return
+		var prompt = active_enemy.get_prompt()
+		var next_character = prompt.substr(current_letter_index, 1)
+		if current_mistakes.length() > 0:
+			current_mistakes += key_typed
 		else:
-			var prompt = active_enemy.get_prompt()
-			var next_character = prompt.substr(current_letter_index, 1)
 			if key_typed == next_character:
 				print("successfully typed %s" % key_typed)
 				current_letter_index += 1
-				active_enemy.set_next_character(current_letter_index)
-				if current_letter_index == prompt.length():
-					print("done")
 			else:
+				current_mistakes += key_typed
 				print("incorrectly typed %s instead of %s" % [key_typed, next_character])
+		active_enemy.set_next_character(current_letter_index, current_mistakes)
+		_check_win(prompt)
 
 #func start_game():
 	##game_over_screen.hide()
