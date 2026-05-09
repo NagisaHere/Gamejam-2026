@@ -2,7 +2,6 @@
 #include <BLEServer.h>
 #include <BLEUtils.h>
 #include <BLE2902.h>
-#include <ESP32Servo.h>
 
 // The standard Nordic UART Service (NUS) UUIDs
 #define SERVICE_UUID           "6E400001-B5A3-F393-E0A9-E50E24DCCA9E" // UART Service
@@ -13,9 +12,9 @@
 
 #define SERVO_PIN_1 4
 #define SERVO_PIN_2 5
-#define SERVO_PIN_3 6
-#define SERVO_PIN_4 7
-#define SERVO_PIN_5 15
+#define SERVO_PIN_3 12
+#define SERVO_PIN_4 13
+#define SERVO_PIN_5 14
 
 #define VIBRATE_PIN_1 16
 #define VIBRATE_PIN_2 17
@@ -29,15 +28,18 @@
 #define SERVO_MIN 0
 #define SERVO_MAX 180
 
-// Microsecond bounds for attach()
-#define MIN_MICROS 500
-#define MAX_MICROS 2400
-
 #define NUM_SERVOS 5
+#define NUM_VIBS 5 // Fixed missing definition
 
-// --- NEW: Arrays for cleaner multi-servo management ---
-Servo myServos[NUM_SERVOS]; // Array of 5 servo objects
 int servoPins[NUM_SERVOS] = {SERVO_PIN_1, SERVO_PIN_2, SERVO_PIN_3, SERVO_PIN_4, SERVO_PIN_5};
+int vibratePins[NUM_VIBS] = {VIBRATE_PIN_1, VIBRATE_PIN_2, VIBRATE_PIN_3, VIBRATE_PIN_4, VIBRATE_PIN_5}; // Fixed missing array
+
+// --- Native ESP32 v3 writeServo Helper ---
+void writeServo(int pin, int angle) {
+  angle = constrain(angle, 0, 180);
+  int dutyCycle = map(angle, 0, 180, 102, 492);
+  analogWrite(pin, dutyCycle);
+}
 
 // Server Callbacks to handle reconnecting
 class MyServerCallbacks: public BLEServerCallbacks {
@@ -63,12 +65,12 @@ class MyCallbacks: public BLECharacteristicCallbacks {
           if (rxValue[i] == SERVO_CMD_FORWARD) {
                 // Loop through all 5 servos and set to MAX (180 deg)
                 for(int s = 0; s < NUM_SERVOS; s++) {
-                    myServos[s].write(SERVO_MAX);
+                    writeServo(servoPins[s], SERVO_MAX);
                 }
           } else if (rxValue[i] == SERVO_CMD_STOP) {
                 // Loop through all 5 servos and set to MIN (0 deg)
                 for(int s = 0; s < NUM_SERVOS; s++) {
-                    myServos[s].write(SERVO_MIN);
+                    writeServo(servoPins[s], SERVO_MIN);
                 }
           }
         }
@@ -78,42 +80,42 @@ class MyCallbacks: public BLECharacteristicCallbacks {
 };
 
 void startupSweep() {
-  Serial.println("Performing startup servo sweep on ALL servos...");
+  Serial.println("Performing startup servo sweep sequentially...");
   
-  // Set all to MIN
+  // Loop through each servo one by one
   for(int s = 0; s < NUM_SERVOS; s++) {
-      myServos[s].write(SERVO_MIN);
+      Serial.print("Testing Servo on Pin: ");
+      Serial.println(servoPins[s]);
+
+      // Set to 0 degrees
+      writeServo(servoPins[s], SERVO_MIN);
+      delay(1000); 
+      
+      // Set to 180 degrees
+      writeServo(servoPins[s], SERVO_MAX);
+      delay(1000);
+      
+      // Set back to 0 degrees
+      writeServo(servoPins[s], SERVO_MIN);
+      delay(1000);
   }
-  delay(500); // Wait for servos to reach position
   
-  // Set all to MAX
-  for(int s = 0; s < NUM_SERVOS; s++) {
-      myServos[s].write(SERVO_MAX);
-  }
-  delay(500);
-  
-  // Set all back to MIN
-  for(int s = 0; s < NUM_SERVOS; s++) {
-      myServos[s].write(SERVO_MIN);
-  }
-  delay(500);
-  
-  Serial.println("Sweep complete.");
+  Serial.println("Sequential sweep complete.");
 }
 
 void setup() {
   Serial.begin(BAUD_RATE);
 
-  ESP32PWM::allocateTimer(0);
-  ESP32PWM::allocateTimer(1);
-  ESP32PWM::allocateTimer(2);
-  ESP32PWM::allocateTimer(3);
-
-  // Initialize and attach all 5 servos using a loop
+  // Initialize and configure all 5 servos using native v3 API
   for (int i = 0; i < NUM_SERVOS; i++) {
-    myServos[i].setPeriodHertz(50); // Standard 50Hz
-    // Attach using the pin from our array, and standard microsecond bounds
-    myServos[i].attach(servoPins[i], MIN_MICROS, MAX_MICROS); 
+    pinMode(servoPins[i], OUTPUT);
+    analogWriteFrequency(servoPins[i], 50); 
+    analogWriteResolution(servoPins[i], 12); 
+  }
+
+  // Fixed the loop logic: changed i++ to j++ and used the new vibratePins array
+  for (int j = 0; j < NUM_VIBS; j++) {
+    pinMode(vibratePins[j], OUTPUT);
   }
 
   startupSweep();
@@ -130,9 +132,9 @@ void setup() {
 
   // Create a BLE Characteristic for Receiving Data (RX)
   BLECharacteristic *pRxCharacteristic = pService->createCharacteristic(
-                       CHARACTERISTIC_UUID_RX,
-                       BLECharacteristic::PROPERTY_WRITE
-                     );
+                         CHARACTERISTIC_UUID_RX,
+                         BLECharacteristic::PROPERTY_WRITE
+                       );
 
   pRxCharacteristic->setCallbacks(new MyCallbacks());
   pService->start();
