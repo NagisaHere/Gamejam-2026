@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://cvn3gxuile5mo"
-path="res://.godot/imported/PolarVortex-raAA.ttf-8c7c1ae6fe9c2c31e0da36cccd3b56c4.fontdata"
+path="res://.godot/imported/PolarVortex-raAA.ttf-7e23193d7de55bb38e128398fb6c3458.fontdata"
 
 [deps]
 
-source_file="res://PolarVortex-raAA.ttf"
-dest_files=["res://.godot/imported/PolarVortex-raAA.ttf-8c7c1ae6fe9c2c31e0da36cccd3b56c4.fontdata"]
+source_file="res://Gus additions/Menu/PolarVortex-raAA.ttf"
+dest_files=["res://.godot/imported/PolarVortex-raAA.ttf-7e23193d7de55bb38e128398fb6c3458.fontdata"]
 
 [params]
 
