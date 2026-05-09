@@ -22,6 +22,7 @@ buses/default_bus_layout="uid://cwgmsi2grxud4"
 [autoload]
 
 Leaderboard="*uid://bt6jq6s0ac5os"
+SaveManager="*uid://bxavgeq022cqr"
 
 [display]
 

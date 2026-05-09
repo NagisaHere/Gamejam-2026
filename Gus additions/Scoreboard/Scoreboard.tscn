@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://44u224oawx27"]
+
+[ext_resource type="Script" uid="uid://blarljc23boon" path="res://Gus additions/Scoreboard/score_board_root.gd" id="1_yemvh"]
+[ext_resource type="PackedScene" uid="uid://duq2aie5xo0dt" path="res://Gus additions/Scoreboard/scoreboard_row.tscn" id="2_0v5ew"]
+[ext_resource type="Script" uid="uid://8y5qy2yt1iu3" path="res://Gus additions/Scoreboard/scoreboard_scroller.gd" id="3_rukjy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yemvh"]
+bg_color = Color(0.3312, 0.6552, 0.72, 0.30980393)
+
+[sub_resource type="Theme" id="Theme_1oo4x"]
+
+[sub_resource type="Gradient" id="Gradient_wpv6j"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.4, 0.4, 0.4, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1oo4x"]
+gradient = SubResource("Gradient_wpv6j")
+width = 631
+height = 46
+fill_from = Vector2(0, 0.35612535)
+fill_to = Vector2(0.982906, 0.4074074)
+
+[node name="placeholder game scene" type="Node2D" unique_id=2046757466]
+script = ExtResource("1_yemvh")
+row_scene = ExtResource("2_0v5ew")
+
+[node name="Panel" type="Panel" parent="." unique_id=1586504077]
+offset_right = 1154.0
+offset_bottom = 647.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_yemvh")
+
+[node name="Panel" type="Panel" parent="Panel" unique_id=1838848462]
+modulate = Color(1.5157021, 1.5157021, 1.5157021, 0.2627451)
+layout_mode = 0
+offset_left = 233.0
+offset_top = 70.0
+offset_right = 868.0
+offset_bottom = 686.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel" unique_id=930138343]
+layout_mode = 0
+offset_left = 235.0
+offset_top = 123.0
+offset_right = 867.0
+offset_bottom = 553.0
+theme = SubResource("Theme_1oo4x")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScrollContainer" unique_id=1211571040]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("3_rukjy")
+
+[node name="TextureRect" type="TextureRect" parent="Panel" unique_id=2006525659]
+layout_mode = 0
+offset_left = 235.0
+offset_top = 72.0
+offset_right = 867.0
+offset_bottom = 118.0
+texture = SubResource("GradientTexture2D_1oo4x")
+stretch_mode = 2
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Panel/TextureRect" unique_id=1058129959]
+layout_mode = 0
+offset_left = 230.0
+offset_top = 1.0
+offset_right = 394.0
+offset_bottom = 48.0
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "Time Left"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/TextureRect" unique_id=1248033906]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 2.0
+offset_right = 117.0
+offset_bottom = 50.0
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "Name"
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="Panel/TextureRect" unique_id=420869449]
+layout_mode = 0
+offset_left = 451.0
+offset_top = 1.0
+offset_right = 634.0
+offset_bottom = 47.0
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "Fingers Left"
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="Panel/TextureRect" unique_id=1036136634]
+layout_mode = 0
+offset_left = 157.0
+offset_top = -60.0
+offset_right = 483.0
+offset_bottom = 3.0
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "Leaderboard"
