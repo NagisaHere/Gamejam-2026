@@ -23,13 +23,19 @@ buses/default_bus_layout="uid://cwgmsi2grxud4"
 
 Leaderboard="*uid://bt6jq6s0ac5os"
 
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/stretch/scale=2.5
+
 [dotnet]
 
 project/assembly_name="frigid-digits"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/easy_leaderboards/plugin.cfg")
+enabled=PackedStringArray()
 
 [physics]
 
