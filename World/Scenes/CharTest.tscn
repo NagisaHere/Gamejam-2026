@@ -129,8 +129,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5a4g4"]
-radius = 5.0
-height = 14.0
+radius = 39.0
+height = 240.0
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=98430758]
 script = ExtResource("1_pggyh")
@@ -145,8 +145,8 @@ texture = ExtResource("2_pggyh")
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_e8w14")
 animation = &"idle"
-frame_progress = 0.3566995
+frame_progress = 0.08366061
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1589559054]
-position = Vector2(0, 1)
+position = Vector2(-9, 1)
 shape = SubResource("CapsuleShape2D_5a4g4")

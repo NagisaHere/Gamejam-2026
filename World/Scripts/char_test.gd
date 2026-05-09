@@ -1,12 +1,12 @@
 extends CharacterBody2D
 
-@export var speed := 200.0
+@export var speed := 400.0
 @export var vertical_factor := 0.5
 @onready var anim = $AnimatedSprite2D
 
 var cutscene_mode := false
 
-var min_pos := Vector2(-500, 130)
+var min_pos := Vector2(-1922, 130)
 var max_pos := Vector2(500, 250)
 
 func _physics_process(delta):

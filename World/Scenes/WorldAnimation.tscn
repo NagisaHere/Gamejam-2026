@@ -1,12 +1,17 @@
 [gd_scene format=3 uid="uid://co756xlaahvf3"]
 
 [ext_resource type="Script" uid="uid://ckgjcjsv83gqs" path="res://World/Scripts/world_animation.gd" id="1_y18wd"]
-[ext_resource type="Texture2D" uid="uid://dn3ihrcvkgdwa" path="res://World/AssetsWorld/opening.png" id="2_kt2uj"]
+[ext_resource type="Texture2D" uid="uid://3qjhya0ditie" path="res://World/AssetsWorld/PNG/background 1/Plan 3.png" id="2_hjaft"]
+[ext_resource type="Texture2D" uid="uid://kwvpta1siu4t" path="res://World/AssetsWorld/bg.png" id="2_w3uqr"]
 [ext_resource type="PackedScene" uid="uid://4d2uksj4uxh7" path="res://World/Scenes/CharTest.tscn" id="3_hjaft"]
 [ext_resource type="Script" uid="uid://cyp33mx6hxdx3" path="res://World/Scripts/camera_2d.gd" id="4_5rygh"]
 [ext_resource type="Script" uid="uid://l7bb0d65ceqy" path="res://World/Scripts/animation_player.gd" id="5_w3uqr"]
+[ext_resource type="Texture2D" uid="uid://df56ecjb6qm3h" path="res://World/AssetsWorld/icicles.png" id="7_hjaft"]
+[ext_resource type="Script" uid="uid://1dywgkgfnqgd" path="res://World/Scenes/collision_shape_2d.gd" id="8_5rygh"]
+[ext_resource type="Script" uid="uid://dd1wklsst8agy" path="res://World/Scenes/interact_terminal.gd" id="8_w3uqr"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xychh"]
+distance = 684.0
 
 [sub_resource type="Animation" id="Animation_p36mi"]
 resource_name = "Introa"
@@ -26,7 +31,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CanvasLayer/ColorRect:color")
+tracks/1/path = NodePath("ColorRect:color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -46,10 +51,10 @@ tracks/0/path = NodePath("Camera2D:zoom")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.099999905, 1.1666666),
+"times": PackedFloat32Array(0.099999905, 1.17),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0.9, 0.9), Vector2(3, 3)]
+"values": [Vector2(0.9, 0.9), Vector2(1.5, 1.5)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -105,7 +110,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CanvasLayer/ColorRect:color")
+tracks/3/path = NodePath("ColorRect:color")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -122,25 +127,35 @@ _data = {
 &"RESET": SubResource("Animation_44u0j")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5rygh"]
+size = Vector2(204, 263)
+
 [node name="IntroWorld" type="Node2D" unique_id=27276651]
 script = ExtResource("1_y18wd")
-metadata/_edit_vertical_guides_ = [-644.0, -639.0]
-metadata/_edit_horizontal_guides_ = [129.0, 257.0, 257.0]
+metadata/_edit_horizontal_guides_ = [233.0]
+metadata/_edit_vertical_guides_ = [-1917.0]
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1732421221]
+position = Vector2(-627, -22)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_kt2uj")
+texture = ExtResource("2_w3uqr")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1336253906]
+visible = false
+position = Vector2(-5.333313, 4)
+scale = Vector2(2.3148148, 2.3148148)
+texture = ExtResource("2_hjaft")
 
 [node name="Player" parent="." unique_id=98430758 instance=ExtResource("3_hjaft")]
 position = Vector2(161, -301)
-scale = Vector2(0.4, 0.4)
+scale = Vector2(0.8, 0.8)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1072134139 node_paths=PackedStringArray("target")]
 scale = Vector2(1.5, 1.5)
 zoom = Vector2(0.9, 0.9)
-limit_left = -642
+limit_left = -1916
 limit_top = -10000001
-limit_right = 638
+limit_right = 662
 limit_bottom = 9999999
 script = ExtResource("4_5rygh")
 target = NodePath("../Player")
@@ -154,9 +169,10 @@ scale = Vector2(0.25, 0.25)
 shape = SubResource("WorldBoundaryShape2D_xychh")
 
 [node name="LeftWall" type="StaticBody2D" parent="." unique_id=1145458307]
+position = Vector2(-713, -295)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=1603038863]
-position = Vector2(-639, 299)
+position = Vector2(-1200, 299)
 rotation = 1.5707964
 scale = Vector2(0.25, 0.25)
 shape = SubResource("WorldBoundaryShape2D_xychh")
@@ -165,16 +181,31 @@ shape = SubResource("WorldBoundaryShape2D_xychh")
 libraries/ = SubResource("AnimationLibrary_p36mi")
 script = ExtResource("5_w3uqr")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=661692338]
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=570291922]
+visible = false
+position = Vector2(76, -77)
+scale = Vector2(0.6423032, 0.68819445)
+texture = ExtResource("7_hjaft")
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=898206922]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=898206922]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 12.0
-offset_bottom = 26.0
+offset_left = -674.0
+offset_top = -374.0
+offset_right = 678.0
+offset_bottom = 373.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1978342843]
+script = ExtResource("8_w3uqr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1917922537]
+position = Vector2(-1745, 47.5)
+shape = SubResource("RectangleShape2D_5rygh")
+script = ExtResource("8_5rygh")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
