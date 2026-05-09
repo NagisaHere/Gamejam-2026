@@ -81,3 +81,88 @@ func _unhandled_input(event: InputEvent) -> void:
 	##spawn_timer.start()
 	##difficulty_timer.start()
 	#spawn_enemy()
+
+
+# UUIDs from your ESP32 code (Note: BLE plugins often require lowercase UUIDs)
+const TARGET_DEVICE_NAME = "ESP32S3_BLE_UART"
+const SERVICE_UUID = "6e400001-b5a3-f393-e0a9-e50e24dcca9e"
+const CHAR_UUID_RX = "6e400002-b5a3-f393-e0a9-e50e24dcca9e"
+
+var bluetooth_manager: BluetoothManager
+var connected_device: BleDevice = null
+
+func _ready():
+	# 1. Instantiate the BluetoothManager and add it to the scene tree
+	bluetooth_manager = BluetoothManager.new()
+	add_child(bluetooth_manager)
+	
+	# 2. Connect core manager signals
+	bluetooth_manager.adapter_initialized.connect(_on_adapter_initialized)
+	bluetooth_manager.device_discovered.connect(_on_device_discovered)
+	bluetooth_manager.scan_stopped.connect(_on_scan_stopped)
+	
+	# 3. Initialize directly (Desktop needs no special permissions)
+	bluetooth_manager.initialize()
+
+# --- BLUETOOTH MANAGER CALLBACKS ---
+
+func _on_adapter_initialized(success: bool, error: String):
+	if success:
+		print("Bluetooth Adapter Ready! Starting scan...")
+		# Start scanning for 10 seconds
+		bluetooth_manager.start_scan(10.0)
+	else:
+		print("Failed to initialize Bluetooth: ", error)
+
+func _on_device_discovered(device_info: Dictionary):
+	var device_name = device_info.get("name", "Unknown")
+	
+	# Check if we found our ESP32
+	if device_name == TARGET_DEVICE_NAME:
+		var address = device_info.get("address")
+		print("Found ESP32 at address: ", address)
+		
+		# Stop scanning immediately to save resources
+		bluetooth_manager.stop_scan()
+		
+		# Proceed to connection
+		connect_to_esp32(address)
+
+func _on_scan_stopped():
+	if connected_device == null:
+		print("Scan finished. ESP32 not found. Make sure it is powered on and advertising.")
+
+# --- DEVICE CONNECTION & COMMUNICATION ---
+
+func connect_to_esp32(address: String):
+	# Fetch the specific BleDevice object
+	connected_device = bluetooth_manager.connect_device(address)
+	
+	if connected_device:
+		# Wire up the device-specific signals
+		connected_device.connected.connect(_on_device_connected)
+		connected_device.services_discovered.connect(_on_services_discovered)
+		connected_device.characteristic_written.connect(_on_characteristic_written)
+		
+		print("Attempting to connect...")
+		connected_device.connect_async()
+
+func _on_device_connected():
+	print("Successfully Connected to ESP32! Discovering services...")
+	# You must discover services before you can read/write to them
+	connected_device.discover_services()
+
+func _on_services_discovered(services: Array):
+	print("Services discovered. Sending Servo command...")
+	
+	# Send the '1' command (convert string to PackedByteArray/utf8 buffer)
+	var data_to_send = "S".to_utf8_buffer()
+	
+	# write_characteristic(service_uuid, char_uuid, data, with_response)
+	# with_response = false is standard for simple UART streams
+	connected_device.write_characteristic(SERVICE_UUID, CHAR_UUID_RX, data_to_send, false)
+
+func _on_characteristic_written(char_uuid: String):
+	print("Data successfully written to characteristic: ", char_uuid)
+	# Optional: Disconnect after sending if you only need a single burst
+	# connected_device.disconnect()
