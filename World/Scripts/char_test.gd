@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var speed := 200.0
 @export var vertical_factor := 0.5
+@onready var anim = $AnimatedSprite2D
 
 var cutscene_mode := false
 
@@ -25,3 +26,15 @@ func _physics_process(delta):
 
 	global_position.x = clamp(global_position.x, min_pos.x, max_pos.x)
 	global_position.y = clamp(global_position.y, min_pos.y, max_pos.y)
+	
+	# Animation
+	if input_vector.length() > 0:
+		anim.play("walk")
+	else:
+		anim.play("idle")
+
+	# Flip
+	if input_vector.x < 0:
+		anim.flip_h = true
+	elif input_vector.x > 0:
+		anim.flip_h = false
