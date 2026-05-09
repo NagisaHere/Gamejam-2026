@@ -4,45 +4,319 @@
 [ext_resource type="Texture2D" uid="uid://iaeahcsacts3" path="res://Gus additions/BadEnding/BadEnding_1.jpeg" id="1_rh6a4"]
 [ext_resource type="Texture2D" uid="uid://beu3klspq2f3q" path="res://Gus additions/BadEnding/Bad Ending_2.jpeg" id="2_jwdyd"]
 [ext_resource type="Texture2D" uid="uid://b2xkjriadsgb3" path="res://Gus additions/BadEnding/BadEnding3.jpeg" id="3_bvueo"]
+[ext_resource type="Texture2D" uid="uid://cxw43ic5xcqiy" path="res://Gus additions/BadEnding/NothingBadEnding.jpeg" id="4_hu78o"]
 [ext_resource type="Texture2D" uid="uid://ccnw85fe1gtpf" path="res://Gus additions/BadEnding/BadEnding_Last.jpeg" id="4_ochfi"]
 [ext_resource type="AudioStream" uid="uid://bwhkuvg1chcg6" path="res://Gus additions/SoundAssets/RapidBreathDone.wav" id="6_ochfi"]
+[ext_resource type="AudioStream" uid="uid://na5tewowhgc6" path="res://Gus additions/SoundAssets/Moving around in suit.wav" id="7_ochfi"]
+[ext_resource type="Texture2D" uid="uid://dfl2frpp6rnjv" path="res://Gus additions/BadEnding/handLeft05 (20260509073859).png" id="8_1g3u6"]
+[ext_resource type="AudioStream" uid="uid://0mvxfm5g4xjp" path="res://Gus additions/SoundAssets/master_of_dreams_male_screams_1_473.mp3" id="8_gkj27"]
+[ext_resource type="Texture2D" uid="uid://ppq6rcp430gu" path="res://Gus additions/BadEnding/handRi05 (20260509074058).png" id="11_vo478"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_gkj27"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_rh6a4")
+[sub_resource type="Animation" id="Animation_gkj27"]
+resource_name = "BadEnding"
+length = 21.0
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/AudioStreamPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("6_ochfi")
 }, {
-"duration": 1.0,
-"texture": ExtResource("2_jwdyd")
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("6_ochfi")
 }, {
-"duration": 1.0,
-"texture": ExtResource("3_bvueo")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_ochfi")
+"end_offset": 0.98,
+"start_offset": 0.0,
+"stream": ExtResource("6_ochfi")
 }],
-"loop": true,
-"name": &"default",
-"speed": 0.6
-}]
+"times": PackedFloat32Array(0, 8.5, 13.6)
+}
+tracks/0/use_blend = true
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer/Panel1:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.6333333, 1.5333333, 2.3666666, 2.8766663, 3.4333334, 4.233333, 5.1666665, 6.056667, 7.275, 7.7, 8.141666, 8.933333, 10.143333, 11.033334, 11.675001, 12.1, 12.541667, 13.866667, 15.166667, 16.433332, 17.366667, 17.742, 18.166666, 18.866667, 19.966667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0), Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 0), Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 0), Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 0), Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 0), Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 0), Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 0), Color(0, 0, 0, 0), Color(0.9, 0.9, 0.9, 0.77254903), Color(0, 0, 0, 0), Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationPlayer/Cutscenes:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 5.133333, 10.133333, 15.173333, 17.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("4_hu78o"), ExtResource("1_rh6a4"), ExtResource("2_jwdyd"), ExtResource("3_bvueo"), ExtResource("4_ochfi")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimationPlayer/HandsOnTop:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 17.633333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [null, ExtResource("8_1g3u6")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimationPlayer/HandsOnTopRight:texture")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 17.633333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [null, ExtResource("11_vo478")]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AnimationPlayer/AudioStreamPlayer:volume_db")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.7),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-8.149000000000001]
+}
+tracks/6/type = "audio"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AnimationPlayer/Scream")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("8_gkj27")
+}],
+"times": PackedFloat32Array(17.6)
+}
+tracks/6/use_blend = true
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("AnimationPlayer/Scream:volume_db")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(15.181334),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-13.714]
+}
+tracks/8/type = "audio"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("AnimationPlayer/Footstep")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("7_ochfi")
+}],
+"times": PackedFloat32Array(2.7333333)
+}
+tracks/8/use_blend = true
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("AnimationPlayer/Footstep:volume_db")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(2.96),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [11.918999999999997]
+}
+
+[sub_resource type="Animation" id="Animation_vo478"]
+resource_name = "Fade out"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/Panel1:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ochfi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/Panel1:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer/HandsOnTop:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("8_1g3u6")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationPlayer/HandsOnTopRight:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("11_vo478")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimationPlayer/AudioStreamPlayer:volume_db")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-14.781]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimationPlayer/Footstep:volume_db")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-11.429]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AnimationPlayer/Scream:volume_db")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-13.714]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hu78o"]
+_data = {
+&"BadEnding": SubResource("Animation_gkj27"),
+&"Fade out": SubResource("Animation_vo478"),
+&"RESET": SubResource("Animation_ochfi")
+}
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vo478"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t15vw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_53w12"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o74jn"]
 
 [node name="Node2D" type="Node2D" unique_id=196682845]
 script = ExtResource("1_bvueo")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1109059633]
-position = Vector2(577, 329)
-sprite_frames = SubResource("SpriteFrames_gkj27")
 
 [node name="Shivering" type="AudioStreamPlayer" parent="." unique_id=1503209903]
 
 [node name="RapidBreathing" type="AudioStreamPlayer" parent="." unique_id=1363327999]
 stream = ExtResource("6_ochfi")
 
-[node name="Inside suit" type="AudioStreamPlayer" parent="." unique_id=697574680]
-
 [node name="Heartbeat" type="AudioStreamPlayer" parent="." unique_id=1000512196]
 
 [node name="Insect Moving" type="AudioStreamPlayer" parent="." unique_id=1068007703]
+stream = ExtResource("7_ochfi")
 
 [node name="Ghost sounds" type="AudioStreamPlayer" parent="." unique_id=1522898043]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1367870737]
+libraries/ = SubResource("AnimationLibrary_hu78o")
+autoplay = &"BadEnding"
+
+[node name="Cutscenes" type="Sprite2D" parent="AnimationPlayer" unique_id=1421092739]
+position = Vector2(577, 327)
+texture = ExtResource("4_hu78o")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AnimationPlayer" unique_id=1111179426]
+volume_db = -14.781
+
+[node name="HandsOnTop" type="Sprite2D" parent="AnimationPlayer" unique_id=1142245241]
+position = Vector2(318, 430)
+texture = ExtResource("8_1g3u6")
+
+[node name="HandsOnTopRight" type="Sprite2D" parent="AnimationPlayer" unique_id=262746440]
+position = Vector2(406, 417)
+texture = ExtResource("11_vo478")
+
+[node name="Panel1" type="Panel" parent="AnimationPlayer" unique_id=2141226319]
+modulate = Color(1, 1, 1, 0)
+z_index = 2
+offset_right = 1161.0
+offset_bottom = 653.0
+
+[node name="Scream" type="AudioStreamPlayer" parent="AnimationPlayer" unique_id=62828366]
+volume_db = -13.714
+
+[node name="Footstep" type="AudioStreamPlayer" parent="AnimationPlayer" unique_id=992052452]
+volume_db = -11.429
+
+[node name="Button" type="Button" parent="." unique_id=899840507]
+z_index = 5
+offset_left = 945.0
+offset_top = 554.0
+offset_right = 1143.0
+offset_bottom = 630.0
+theme_override_colors/font_color = Color(0.69, 0.69, 0.69, 1)
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vo478")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_t15vw")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_53w12")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_o74jn")
+text = "Skip>>>"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
