@@ -11,13 +11,30 @@ config_version=5
 [application]
 
 config/name="frigid-digits"
-run/main_scene="uid://co756xlaahvf3"
+run/main_scene="uid://bprwpgdqtkrw6"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+
+[audio]
+
+buses/default_bus_layout="uid://cwgmsi2grxud4"
+
+[autoload]
+
+Leaderboard="*uid://bt6jq6s0ac5os"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [dotnet]
 
 project/assembly_name="frigid-digits"
+
+[editor_plugins]
+
+enabled=PackedStringArray()
 
 [input]
 
