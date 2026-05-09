@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bua3ijt4hyc0h"]
+
+[node name="HBoxContainer" type="HBoxContainer" unique_id=312420985]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+tooltip_text = "
+"
+
+[node name="Name" type="RichTextLabel" parent="." unique_id=1504854953]
+layout_mode = 2
+text = "number 1"
+
+[node name="Time Left" type="RichTextLabel" parent="." unique_id=1483220733]
+layout_mode = 2
+text = "00:00"
+
+[node name="Fingers Left" type="RichTextLabel" parent="." unique_id=1904265834]
+layout_mode = 2
+text = "0
+"

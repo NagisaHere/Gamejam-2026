@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://b4f5vatqkt8xw"]
+
+[ext_resource type="Script" uid="uid://v3mpu0bcyutl" path="res://Scoreboard.gd" id="1_1oo4x"]
+
+[sub_resource type="Theme" id="Theme_1oo4x"]
+
+[sub_resource type="Gradient" id="Gradient_1oo4x"]
+colors = PackedColorArray(0.13489999, 0.6237351, 0.71, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0ya6e"]
+gradient = SubResource("Gradient_1oo4x")
+
+[node name="placeholder game scene" type="Node2D" unique_id=2046757466]
+
+[node name="Scoreboard" type="RichTextLabel" parent="." unique_id=517807163]
+offset_left = 21.0
+offset_right = 278.0
+offset_bottom = 84.0
+bbcode_enabled = true
+text = "Hello world"
+script = ExtResource("1_1oo4x")
+
+[node name="Panel" type="Panel" parent="." unique_id=1586504077]
+offset_right = 1154.0
+offset_bottom = 647.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=930138343]
+offset_left = 236.0
+offset_top = 80.0
+offset_right = 868.0
+offset_bottom = 510.0
+theme = SubResource("Theme_1oo4x")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=1211571040]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer" unique_id=639127726]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_0ya6e")
+
+[node name="TextureRect2" type="TextureRect" parent="ScrollContainer/VBoxContainer" unique_id=1036134438]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_0ya6e")
+
+[node name="TextureRect3" type="TextureRect" parent="ScrollContainer/VBoxContainer" unique_id=43924624]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_0ya6e")
+
+[node name="TextureRect4" type="TextureRect" parent="ScrollContainer/VBoxContainer" unique_id=1427246661]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_0ya6e")
+
+[node name="TextureRect5" type="TextureRect" parent="ScrollContainer/VBoxContainer" unique_id=826519550]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_0ya6e")
+
+[node name="TextureRect6" type="TextureRect" parent="ScrollContainer/VBoxContainer" unique_id=1637264706]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_0ya6e")
+
+[node name="TextureRect7" type="TextureRect" parent="ScrollContainer/VBoxContainer" unique_id=870873676]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_0ya6e")
