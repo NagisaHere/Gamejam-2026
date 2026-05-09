@@ -3,8 +3,8 @@ extends Node2D
 @export var left_hand_states: Array[Texture2D]
 @export var right_hand_states: Array[Texture2D]
 
-@onready var left_hand := $LeftHandSprite
-@onready var right_hand := $RightHandSprite
+@onready var left_hand := $LeftHand
+@onready var right_hand := $RightHand
 @onready var animation_player := $AnimationPlayer
 
 

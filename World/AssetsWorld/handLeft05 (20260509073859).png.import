@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyhi8yqnp6bve"
-path="res://.godot/imported/hand2 (20260509050125).png-f09bd7a256bfb7ac6b3a5febfdcf7471.ctex"
+uid="uid://ci7ruu61tb3ad"
+path="res://.godot/imported/handLeft05 (20260509073859).png-3a7b08f4318a39efe6be6e1d48d4f62c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://World/AssetsWorld/hand2 (20260509050125).png"
-dest_files=["res://.godot/imported/hand2 (20260509050125).png-f09bd7a256bfb7ac6b3a5febfdcf7471.ctex"]
+source_file="res://World/AssetsWorld/handLeft05 (20260509073859).png"
+dest_files=["res://.godot/imported/handLeft05 (20260509073859).png-3a7b08f4318a39efe6be6e1d48d4f62c.ctex"]
 
 [params]
 
