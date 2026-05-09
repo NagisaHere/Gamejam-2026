@@ -149,6 +149,14 @@ void printDetail(uint8_t type, int value) {
       break;
   }
 }
+void initial_servo_state() {
+    writeServo(servoPins[0], SERVO_MAX); // idk yet
+    writeServo(servoPins[1], SERVO_MAX);
+    writeServo(servoPins[2], SERVO_MAX);
+    writeServo(servoPins[3], SERVO_MIN);
+    writeServo(servoPins[4], SERVO_MAX); // idk yet
+}
+
 
 // NOTE; for
 // anticlockwise turn -> max is restricted, min is loosened
@@ -176,7 +184,7 @@ class MyCallbacks: public BLECharacteristicCallbacks {
           
           switch (cmd) {
             case CMD_THUMB:
-              writeServo(servoPins[0], SERVO_MAX);
+              writeServo(servoPins[0], SERVO_MIN);
               break;
               
             case CMD_INDEX:
@@ -203,6 +211,7 @@ class MyCallbacks: public BLECharacteristicCallbacks {
               break;
             case CMD_START:
               startupSweep();
+              initial_servo_state();
               break;
               
             default:
@@ -214,14 +223,6 @@ class MyCallbacks: public BLECharacteristicCallbacks {
       }
     }
 };
-
-void initial_servo_state() {
-    writeServo(servoPins[0], SERVO_MAX); // idk yet
-    writeServo(servoPins[1], SERVO_MAX);
-    writeServo(servoPins[2], SERVO_MAX);
-    writeServo(servoPins[3], SERVO_MIN);
-    writeServo(servoPins[4], SERVO_MAX); // idk yet
-}
 
 
 void setup() {
