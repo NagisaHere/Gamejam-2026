@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dl1ytgucifm37"]
+
+[ext_resource type="Script" uid="uid://d2773ppsoc4no" path="res://node_2d.gd" id="1_fq4ak"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ptn0"]
+size = Vector2(186, 233)
+
+[node name="Node2D" type="Node2D" unique_id=1093705658]
+script = ExtResource("1_fq4ak")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=620513460]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1935327264]
+position = Vector2(93, 115.5)
+shape = SubResource("RectangleShape2D_1ptn0")
+
+[node name="Label" type="Label" parent="Area2D" unique_id=1485479741]
+visible = false
+offset_left = 122.0
+offset_top = 5.0
+offset_right = 319.0
+offset_bottom = 28.0
+text = "Press E to toggle terminal"

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cb6htri0766h"]
+
+[ext_resource type="Script" uid="uid://kbrxbncctwg8" path="res://World/Scripts/toggle_terminal.gd" id="1_beb6e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pgheh"]
+size = Vector2(180.5, 230.5)
+
+[node name="ToggleTerminal" type="Node2D" unique_id=1176884240]
+script = ExtResource("1_beb6e")
+
+[node name="Label" type="Label" parent="." unique_id=184844701]
+visible = false
+offset_left = 206.0
+offset_top = 13.0
+offset_right = 403.0
+offset_bottom = 36.0
+text = "Press E to toggle terminal"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=297529034]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=138367492]
+position = Vector2(89.75, 116.75)
+shape = SubResource("RectangleShape2D_pgheh")
