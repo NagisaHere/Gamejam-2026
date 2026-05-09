@@ -132,7 +132,7 @@ size = Vector2(204, 263)
 
 [node name="IntroWorld" type="Node2D" unique_id=27276651]
 script = ExtResource("1_y18wd")
-metadata/_edit_horizontal_guides_ = [233.0]
+metadata/_edit_horizontal_guides_ = [233.0, -398.0, 352.0]
 metadata/_edit_vertical_guides_ = [-1917.0]
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1732421221]
@@ -154,9 +154,9 @@ scale = Vector2(0.8, 0.8)
 scale = Vector2(1.5, 1.5)
 zoom = Vector2(0.9, 0.9)
 limit_left = -1916
-limit_top = -10000001
+limit_top = -398
 limit_right = 662
-limit_bottom = 9999999
+limit_bottom = 350
 script = ExtResource("4_5rygh")
 target = NodePath("../Player")
 
