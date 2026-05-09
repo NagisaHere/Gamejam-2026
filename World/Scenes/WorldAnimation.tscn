@@ -5,10 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://kwvpta1siu4t" path="res://World/AssetsWorld/bg.png" id="2_w3uqr"]
 [ext_resource type="PackedScene" uid="uid://4d2uksj4uxh7" path="res://World/Scenes/CharTest.tscn" id="3_hjaft"]
 [ext_resource type="Script" uid="uid://cyp33mx6hxdx3" path="res://World/Scripts/camera_2d.gd" id="4_5rygh"]
+[ext_resource type="PackedScene" uid="uid://cb6htri0766h" path="res://World/Scenes/toggle_terminal.tscn" id="4_w3uqr"]
 [ext_resource type="Script" uid="uid://l7bb0d65ceqy" path="res://World/Scripts/animation_player.gd" id="5_w3uqr"]
 [ext_resource type="Texture2D" uid="uid://df56ecjb6qm3h" path="res://World/AssetsWorld/icicles.png" id="7_hjaft"]
-[ext_resource type="Script" uid="uid://1dywgkgfnqgd" path="res://World/Scenes/collision_shape_2d.gd" id="8_5rygh"]
-[ext_resource type="Script" uid="uid://dd1wklsst8agy" path="res://World/Scenes/interact_terminal.gd" id="8_w3uqr"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xychh"]
 distance = 684.0
@@ -20,13 +19,13 @@ tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Player:position")
-tracks/0/interp = 2
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 2.3666666),
-"transitions": PackedFloat32Array(0.6155722, 1),
+"transitions": PackedFloat32Array(0.39229247, 0.48296815),
 "update": 0,
-"values": [Vector2(161, -301), Vector2(161, 150)]
+"values": [Vector2(161, -500), Vector2(161, 150)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -127,9 +126,6 @@ _data = {
 &"RESET": SubResource("Animation_44u0j")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5rygh"]
-size = Vector2(204, 263)
-
 [node name="IntroWorld" type="Node2D" unique_id=27276651]
 script = ExtResource("1_y18wd")
 metadata/_edit_horizontal_guides_ = [233.0, -398.0, 352.0]
@@ -145,6 +141,9 @@ visible = false
 position = Vector2(-5.333313, 4)
 scale = Vector2(2.3148148, 2.3148148)
 texture = ExtResource("2_hjaft")
+
+[node name="ToggleTerminal" parent="." unique_id=1176884240 instance=ExtResource("4_w3uqr")]
+position = Vector2(-1832, -56)
 
 [node name="Player" parent="." unique_id=98430758 instance=ExtResource("3_hjaft")]
 position = Vector2(161, -301)
@@ -188,7 +187,6 @@ scale = Vector2(0.6423032, 0.68819445)
 texture = ExtResource("7_hjaft")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=898206922]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -199,13 +197,5 @@ offset_bottom = 373.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
-
-[node name="Area2D" type="Area2D" parent="." unique_id=1978342843]
-script = ExtResource("8_w3uqr")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1917922537]
-position = Vector2(-1745, 47.5)
-shape = SubResource("RectangleShape2D_5rygh")
-script = ExtResource("8_5rygh")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
