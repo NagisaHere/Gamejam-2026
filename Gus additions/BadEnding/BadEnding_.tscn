@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://cpb32p1kvx22k"]
+
+[ext_resource type="Script" uid="uid://daph4e55k33k7" path="res://Gus additions/BadEnding/bad_ending_.gd" id="1_bvueo"]
+[ext_resource type="Texture2D" uid="uid://iaeahcsacts3" path="res://Gus additions/BadEnding/BadEnding_1.jpeg" id="1_rh6a4"]
+[ext_resource type="Texture2D" uid="uid://beu3klspq2f3q" path="res://Gus additions/BadEnding/Bad Ending_2.jpeg" id="2_jwdyd"]
+[ext_resource type="Texture2D" uid="uid://b2xkjriadsgb3" path="res://Gus additions/BadEnding/BadEnding3.jpeg" id="3_bvueo"]
+[ext_resource type="Texture2D" uid="uid://ccnw85fe1gtpf" path="res://Gus additions/BadEnding/BadEnding_Last.jpeg" id="4_ochfi"]
+[ext_resource type="AudioStream" uid="uid://bwhkuvg1chcg6" path="res://Gus additions/SoundAssets/RapidBreathDone.wav" id="6_ochfi"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gkj27"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_rh6a4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_jwdyd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_bvueo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ochfi")
+}],
+"loop": true,
+"name": &"default",
+"speed": 0.6
+}]
+
+[node name="Node2D" type="Node2D" unique_id=196682845]
+script = ExtResource("1_bvueo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1109059633]
+position = Vector2(577, 329)
+sprite_frames = SubResource("SpriteFrames_gkj27")
+
+[node name="Shivering" type="AudioStreamPlayer" parent="." unique_id=1503209903]
+
+[node name="RapidBreathing" type="AudioStreamPlayer" parent="." unique_id=1363327999]
+stream = ExtResource("6_ochfi")
+
+[node name="Inside suit" type="AudioStreamPlayer" parent="." unique_id=697574680]
+
+[node name="Heartbeat" type="AudioStreamPlayer" parent="." unique_id=1000512196]
+
+[node name="Insect Moving" type="AudioStreamPlayer" parent="." unique_id=1068007703]
+
+[node name="Ghost sounds" type="AudioStreamPlayer" parent="." unique_id=1522898043]

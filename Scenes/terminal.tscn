@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://d2tyokmnki3km"]
+
+[ext_resource type="Texture2D" uid="uid://ddblu0nn8vmbo" path="res://Assets/terminal (20260510122311).png" id="1_rwk22"]
+[ext_resource type="PackedScene" uid="uid://ch2db7q0k0rwi" path="res://World/Scenes/typing_hand.tscn" id="2_1llhr"]
+[ext_resource type="PackedScene" uid="uid://43tltcd7ygvn" path="res://Scenes/type.tscn" id="3_1llhr"]
+[ext_resource type="Texture2D" uid="uid://ds4rtsks7onnk" path="res://Assets/terminal (20260510042647).png" id="3_mc8ca"]
+
+[node name="Terminal" type="Node2D" unique_id=860658589]
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1684424216]
+position = Vector2(577.44446, 323)
+scale = Vector2(0.5962963, 0.5962963)
+texture = ExtResource("1_rwk22")
+
+[node name="Camera2D" type="Camera2D" parent="Sprite2D2" unique_id=986675762]
+position = Vector2(96.52167, -147.57764)
+rotation = 0.2617994
+scale = Vector2(1.6501863, 1.6501863)
+
+[node name="TypingHand" parent="." unique_id=832879252 instance=ExtResource("2_1llhr")]
+position = Vector2(932.00006, 486.00003)
+scale = Vector2(0.725, 0.725)
+
+[node name="typing" parent="." unique_id=1467136492 instance=ExtResource("3_1llhr")]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1004182496]
+visible = false
+position = Vector2(578, 323)
+scale = Vector2(0.59444445, 0.59444445)
+texture = ExtResource("3_mc8ca")

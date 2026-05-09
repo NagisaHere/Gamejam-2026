@@ -1,5 +1,6 @@
 extends Node2D
 
+var menu_fade: Tween
 var button_type = null
 
 func _ready() -> void:
@@ -32,9 +33,12 @@ func _on_quit_pressed() -> void:
 
 func _on_fade_timer_timeout() -> void:
 	if button_type == "start":
+		menu_fade = create_tween()
+		menu_fade.tween_property($AudioStreamPlayer, "volume_db", -80.0, 1.5)
+		menu_fade.finished.connect($AudioStreamPlayer.stop)
+		await menu_fade.finished
 		get_tree().change_scene_to_file("res://World/Scenes/WorldAnimation.tscn")
+		
 	elif button_type == "quit":
-		get_tree().quit()
-	elif button_type == "options":
 		get_tree().change_scene_to_file("res://placeholder_game_scene.tscn")
 	

@@ -1,13 +1,16 @@
 [gd_scene format=3 uid="uid://co756xlaahvf3"]
 
 [ext_resource type="Script" uid="uid://ckgjcjsv83gqs" path="res://World/Scripts/world_animation.gd" id="1_y18wd"]
+[ext_resource type="Texture2D" uid="uid://b8hk0qq7gh21q" path="res://Assets/bg-final (20260510012029).png" id="2_5rygh"]
 [ext_resource type="Texture2D" uid="uid://3qjhya0ditie" path="res://World/AssetsWorld/PNG/background 1/Plan 3.png" id="2_hjaft"]
-[ext_resource type="Texture2D" uid="uid://kwvpta1siu4t" path="res://World/AssetsWorld/bg.png" id="2_w3uqr"]
 [ext_resource type="PackedScene" uid="uid://4d2uksj4uxh7" path="res://World/Scenes/CharTest.tscn" id="3_hjaft"]
 [ext_resource type="Script" uid="uid://cyp33mx6hxdx3" path="res://World/Scripts/camera_2d.gd" id="4_5rygh"]
 [ext_resource type="PackedScene" uid="uid://cb6htri0766h" path="res://World/Scenes/toggle_terminal.tscn" id="4_w3uqr"]
 [ext_resource type="Script" uid="uid://l7bb0d65ceqy" path="res://World/Scripts/animation_player.gd" id="5_w3uqr"]
 [ext_resource type="Texture2D" uid="uid://df56ecjb6qm3h" path="res://World/AssetsWorld/icicles.png" id="7_hjaft"]
+[ext_resource type="AudioStream" uid="uid://lwh6b1r6cvs4" path="res://Gus additions/SoundAssets/ropefinished2.wav" id="9_w3uqr"]
+[ext_resource type="AudioStream" uid="uid://q87attx503bw" path="res://Gus additions/SoundAssets/Quiet Snow Walk Finished.wav" id="10_h5lna"]
+[ext_resource type="AudioStream" uid="uid://egqur4hgwim1" path="res://Gus additions/SoundAssets/black_hole_soundridemusic.mp3" id="11_nxq72"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xychh"]
 distance = 684.0
@@ -134,7 +137,7 @@ metadata/_edit_vertical_guides_ = [-1917.0]
 [node name="Background" type="Sprite2D" parent="." unique_id=1732421221]
 position = Vector2(-627, -22)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_w3uqr")
+texture = ExtResource("2_5rygh")
 
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1336253906]
 visible = false
@@ -197,5 +200,18 @@ offset_bottom = 373.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
+
+[node name="Rope" type="AudioStreamPlayer" parent="." unique_id=1286349645]
+stream = ExtResource("9_w3uqr")
+volume_db = -9.861
+
+[node name="Walk" type="AudioStreamPlayer" parent="." unique_id=1519677303]
+stream = ExtResource("10_h5lna")
+volume_db = -9.862
+
+[node name="Thretening ambience" type="AudioStreamPlayer" parent="." unique_id=802608431]
+stream = ExtResource("11_nxq72")
+volume_db = -16.355
+parameters/looping = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+var walk_fade: Tween
+
 @export var speed := 400.0
 @export var vertical_factor := 0.5
 @onready var anim = $AnimatedSprite2D
@@ -27,11 +29,24 @@ func _physics_process(delta):
 	global_position.x = clamp(global_position.x, min_pos.x, max_pos.x)
 	global_position.y = clamp(global_position.y, min_pos.y, max_pos.y)
 	
-	# Animation
+	#Animation
 	if input_vector.length() > 0:
 		anim.play("walk")
+		
+		if not $"../Walk".playing:
+			$"../Walk".play()
+		
+		if walk_fade:
+			walk_fade.kill() 
+		$"../Walk".volume_db = 0.0
 	else:
 		anim.play("idle")
+		
+
+		if $"../Walk".playing and (walk_fade == null or not walk_fade.is_running()):
+			walk_fade = create_tween()
+			walk_fade.tween_property($"../Walk", "volume_db", -80.0, 1.0)
+			walk_fade.finished.connect($"../Walk".stop)
 
 	# Flip
 	if input_vector.x < 0:

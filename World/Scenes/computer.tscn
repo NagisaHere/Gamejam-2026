@@ -1,26 +1,73 @@
 [gd_scene format=3 uid="uid://b51r478fs7171"]
 
-[ext_resource type="Texture2D" uid="uid://ooulaaokmy14" path="res://World/AssetsWorld/terminal.png" id="1_5hfgx"]
 [ext_resource type="Script" uid="uid://dbp7a4p834irf" path="res://World/Scripts/computer.gd" id="1_pepux"]
+[ext_resource type="Texture2D" uid="uid://d0f7fyndmi306" path="res://Assets/interface (20260510063538).png" id="2_ysobb"]
 [ext_resource type="PackedScene" uid="uid://43tltcd7ygvn" path="res://Scenes/type.tscn" id="3_p2dj2"]
 [ext_resource type="PackedScene" uid="uid://ch2db7q0k0rwi" path="res://World/Scenes/typing_hand.tscn" id="3_vdqhu"]
+[ext_resource type="Script" uid="uid://buvbchte83rch" path="res://World/Scenes/canvas_layer.gd" id="5_27goh"]
+[ext_resource type="Texture2D" uid="uid://dsw7gnjfaql5m" path="res://Assets/interface (20260510071510).png" id="5_ds0at"]
+[ext_resource type="Shader" uid="uid://dmm08vcn5k064" path="res://World/Scenes/computer.gdshader" id="5_kic7h"]
+[ext_resource type="Script" uid="uid://bi6bwgu5ike4v" path="res://World/Scripts/color_rect.gd" id="6_27goh"]
+[ext_resource type="Script" uid="uid://d4ftahshflju3" path="res://World/Scenes/timer.gd" id="9_ds0at"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ysobb"]
+shader = ExtResource("5_kic7h")
+shader_parameter/border_size = 0.12
 
 [node name="Computer" type="Node2D" unique_id=1815070021]
 script = ExtResource("1_pepux")
+metadata/_edit_vertical_guides_ = [1136.0]
 
 [node name="Sprite2D4" type="Sprite2D" parent="." unique_id=1557660312]
-position = Vector2(572.4967, 335.00003)
-scale = Vector2(0.44058746, 0.4405875)
-texture = ExtResource("1_5hfgx")
+position = Vector2(575.29663, 325.9041)
+scale = Vector2(0.44628382, 0.43537498)
+texture = ExtResource("2_ysobb")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1329336244]
 position = Vector2(572.4967, 335.00003)
 scale = Vector2(0.44058746, 0.4405875)
 
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1667786336]
+visible = false
+offset_left = 36.0
+offset_top = 77.0
+offset_right = 857.0
+offset_bottom = 585.0
+color = Color(0.7058824, 0.95686275, 0.91764706, 1)
+
 [node name="typing" parent="." unique_id=1467136492 instance=ExtResource("3_p2dj2")]
-position = Vector2(86, 136.00002)
+position = Vector2(107, 99)
 scale = Vector2(0.875, 0.875)
 
 [node name="TypingHand" parent="." unique_id=832879252 instance=ExtResource("3_vdqhu")]
-position = Vector2(989.99994, 531)
-scale = Vector2(0.565, 0.565)
+position = Vector2(1008, 522)
+scale = Vector2(0.475, 0.475)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1405274404]
+position = Vector2(575, 330.00003)
+scale = Vector2(0.44628382, 0.43537498)
+texture = ExtResource("5_ds0at")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1126113451]
+visible = false
+script = ExtResource("5_27goh")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1366228951]
+visible = false
+material = SubResource("ShaderMaterial_ysobb")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.8900982, 0, 0.07699553, 1)
+script = ExtResource("6_27goh")
+
+[node name="Timer" type="Timer" parent="." unique_id=1206964675]
+wait_time = 90.0
+one_shot = true
+script = ExtResource("9_ds0at")
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=1849451051]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
