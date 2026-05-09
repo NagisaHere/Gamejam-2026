@@ -28,6 +28,7 @@
 #define VIBRATE_PIN_5 3
 
 #define BAUD_RATE 9600
+#define DELAY_TIME 300
 
 // 180 Servo limits (Degrees)
 #define SERVO_MIN 0
@@ -69,15 +70,15 @@ void startupSweep() {
 
       // Set to 0 degrees
       writeServo(servoPins[s], SERVO_MAX);
-      delay(1000); 
+      delay(DELAY_TIME); 
       
       // Set to 180 degrees
       writeServo(servoPins[s], SERVO_MIN);
-      delay(1000);
+      delay(DELAY_TIME);
       
       // Set back to 0 degrees
       writeServo(servoPins[s], SERVO_MAX);
-      delay(1000);
+      delay(DELAY_TIME);
   }
   
   Serial.println("Sequential sweep complete.");

@@ -8,6 +8,7 @@ var prev_keycode: int = -1 # undefined for now
 @onready var enemy_container = $EnemyContainer
 @onready var fingers_label = $"CanvasLayer/VBoxContainer/BottomRow/fingers-value"
 var current_mistakes: String = ""
+var killed_fingers: Array[int] = []
 
 #func _ready() -> void:
 	#start_game()
@@ -34,6 +35,25 @@ func _check_win(prompt: String) -> void:
 func _game_over() -> void:
 	return
 
+# determine what fingers have not been killed
+func _determine_esp32_message():
+# 1. If all fingers are dead, return immediately
+	if killed_fingers.size() >= 5:
+		print("All fingers are dead. Cannot select a new one.")
+		return
+
+	# 2. Create a temporary list of ONLY the alive fingers
+	var available_fingers: Array[int] = []
+
+	for i in range(5):
+		if not killed_fingers.has(i):
+			available_fingers.append(i)
+
+	# 3. Tell Godot to pick a random finger from the available ones
+	# .pick_random() is a built-in Godot 4 array function
+	var selected_finger = available_fingers.pick_random()
+	_kill_finger(selected_finger)
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.is_pressed() and not event.is_echo():
 		var typed_event = event as InputEventKey
@@ -46,6 +66,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				## didnt hold down backspace, first press, so decrement the fingers
 				fingers_remaining -= 1
 				fingers_changed.emit(fingers_remaining)
+				_determine_esp32_message()
 				if fingers_remaining == 0:
 					# game over
 					_game_over()
@@ -82,7 +103,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	##difficulty_timer.start()
 	#spawn_enemy()
 
-
+# BLUETOOTH RELATED THINGIES
 # UUIDs from your ESP32 code (Note: BLE plugins often require lowercase UUIDs)
 const TARGET_DEVICE_NAME = "ESP32S3_BLE_UART"
 const SERVICE_UUID = "6e400001-b5a3-f393-e0a9-e50e24dcca9e"
@@ -161,6 +182,35 @@ func _on_services_discovered(services: Array):
 	# write_characteristic(service_uuid, char_uuid, data, with_response)
 	# with_response = false is standard for simple UART streams
 	connected_device.write_characteristic(SERVICE_UUID, CHAR_UUID_RX, data_to_send, false)
+
+# 0 for thumb, 1 for index, 2 for middle, 3 for ring, 4 for pinky
+func _kill_finger(finger: int):
+	killed_fingers.append(finger)
+	var command: String = ""
+
+	# GDScript uses 'match' instead of 'switch'
+	match finger:
+		0: # Thumb
+			command = "0"
+		1: # Index
+			command = "1"
+		2: # Middle
+			command = "2"
+		3: # Ring
+			command = "3"
+		4: # Pinky
+			command = "4"
+		_: # Default catch-all
+			print("Invalid finger index")
+			return
+	# Convert the matched string command to a byte array
+	var data_to_send = command.to_utf8_buffer()
+	# Assuming connected_device, SERVICE_UUID, and CHAR_UUID_RX are in class scope
+	if connected_device != null:
+		connected_device.write_characteristic(SERVICE_UUID, CHAR_UUID_RX, data_to_send, false)
+		print("BLE: Sent kill command '", command, "' for finger index: ", finger)
+	else:
+		print("BLE Error: No connected device to send command to.")
 
 func _on_characteristic_written(char_uuid: String):
 	print("Data successfully written to characteristic: ", char_uuid)
