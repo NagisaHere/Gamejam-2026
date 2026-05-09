@@ -1,13 +1,19 @@
 [gd_scene format=3 uid="uid://dbjq1rk3p5yc1"]
 
 [ext_resource type="Texture2D" uid="uid://ooulaaokmy14" path="res://World/AssetsWorld/terminal.png" id="1_5hfgx"]
+[ext_resource type="Script" uid="uid://dbp7a4p834irf" path="res://World/Scripts/computer.gd" id="1_pepux"]
+[ext_resource type="PackedScene" uid="uid://b1byigmxsmhfo" path="res://World/Scenes/typing_hand.tscn" id="3_vdqhu"]
 
-[node name="Node2D" type="Node2D" unique_id=1815070021]
+[node name="Computer" type="Node2D" unique_id=1815070021]
+script = ExtResource("1_pepux")
 
 [node name="Sprite2D4" type="Sprite2D" parent="." unique_id=1557660312]
 position = Vector2(572.4967, 335.00003)
 scale = Vector2(0.44058746, 0.4405875)
 texture = ExtResource("1_5hfgx")
+
+[node name="TypingHand" parent="." unique_id=832879252 instance=ExtResource("3_vdqhu")]
+position = Vector2(796, 420)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1329336244]
 position = Vector2(572.4967, 335.00003)

@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://b1byigmxsmhfo"]
+
+[ext_resource type="Script" uid="uid://clnoqo2lbm3dr" path="res://World/Scripts/typing_hand.gd" id="1_llfro"]
+[ext_resource type="Texture2D" uid="uid://ck3bn5w7xo2mw" path="res://World/AssetsWorld/hand0 (20260509050018).png" id="2_a244s"]
+
+[node name="TypingHand" type="Node2D" unique_id=832879252]
+script = ExtResource("1_llfro")
+
+[node name="LeftHand" type="Sprite2D" parent="." unique_id=1586000916]
+position = Vector2(0.9999924, -0.9999924)
+scale = Vector2(0.59691626, 0.5969163)
+texture = ExtResource("2_a244s")
+
+[node name="RightHand" type="Sprite2D" parent="." unique_id=568026175]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=240439904]
+root_node = NodePath("../LeftHand")

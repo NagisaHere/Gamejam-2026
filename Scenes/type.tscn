@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://43tltcd7ygvn"]
+
+[ext_resource type="Texture2D" uid="uid://bso4cnvnftli2" path="res://Assets/Background/blue.jpg" id="1_eicnf"]
+[ext_resource type="Script" uid="uid://cf60oesk4wx5d" path="res://Assets/Scripts/type.gd" id="1_u0853"]
+[ext_resource type="Script" uid="uid://btbgsjpo56b4k" path="res://Assets/Scripts/Enemy.gd" id="3_eus3o"]
+
+[node name="typing" type="Node2D" unique_id=1467136492]
+position = Vector2(92, 46)
+script = ExtResource("1_u0853")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=203842060]
+offset_left = -240.0
+offset_top = -90.0
+offset_right = 1296.0
+offset_bottom = 836.0
+texture = ExtResource("1_eicnf")
+expand_mode = 2
+
+[node name="EnemyContainer" type="Node2D" parent="." unique_id=1407962259]
+
+[node name="Enemy" type="Sprite2D" parent="EnemyContainer" unique_id=1768222937]
+script = ExtResource("3_eus3o")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="EnemyContainer/Enemy" unique_id=179149298]
+anchors_preset = -1
+anchor_left = -7.0000005
+anchor_right = -7.0000005
+offset_left = -6.9999995
+offset_top = 29.0
+offset_right = 952.0
+offset_bottom = 169.0
+bbcode_enabled = true
+text = "According to all known laws of aviation, there is no way a bee should be able to fly. Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyway because bees don't care what humans think is impossible."
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=176311075]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=39757345]
+offset_left = 52.0
+offset_top = 27.0
+offset_right = 1082.0
+offset_bottom = 594.0
+alignment = 2
+
+[node name="TopRow" type="HBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=1314500255]
+layout_mode = 2
+
+[node name="MiddleRow" type="HBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=1480587279]
+layout_mode = 2
+
+[node name="BottomRow" type="HBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=109938397]
+layout_mode = 2
+
+[node name="fingers-remaining" type="Label" parent="CanvasLayer/VBoxContainer/BottomRow" unique_id=1195731871]
+layout_mode = 2
+text = "Fingers Remaining:"
+
+[node name="fingers-value" type="Label" parent="CanvasLayer/VBoxContainer/BottomRow" unique_id=797904249]
+layout_mode = 2
+text = "10/10"
