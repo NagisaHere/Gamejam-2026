@@ -27,7 +27,6 @@ Leaderboard="*uid://bt6jq6s0ac5os"
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
-window/stretch/scale=2.5
 
 [dotnet]
 
@@ -43,4 +42,5 @@ enabled=PackedStringArray()
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"

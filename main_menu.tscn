@@ -75,7 +75,8 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.0077162534
-anchor_right = -0.0077162883
+anchor_right = 5.186582
+anchor_bottom = 2.992248
 offset_right = 482.0
 offset_bottom = 257.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_fu7sn")
@@ -83,7 +84,12 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Panel2" type="Panel" parent="Button Manager" unique_id=1038737952]
 modulate = Color(1, 1, 1, 0.5686275)
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.9588816
+anchor_top = 0.031007752
+anchor_right = 2.0884016
+anchor_bottom = 2.9767442
 offset_left = 25.0
 offset_top = -5.0
 offset_right = 154.0
@@ -91,15 +97,20 @@ offset_bottom = 257.0
 metadata/_edit_use_anchors_ = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Button Manager" unique_id=535914173]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.9906559
+anchor_top = 0.23255815
+anchor_right = 1.9945674
+anchor_bottom = 1.0892326
 offset_left = 36.0
 offset_top = 10.0
-offset_right = 139.0
-offset_bottom = 71.0
+offset_right = 138.99988
+offset_bottom = 60.489
 theme_override_colors/default_color = Color(0.95, 1, 0.9975, 1)
-theme_override_constants/line_separation = 4
+theme_override_constants/line_separation = 9
 theme_override_fonts/normal_font = ExtResource("2_7vrkn")
-theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/normal_font_size = 72
 bbcode_enabled = true
 text = "Frigid Digits"
 metadata/_edit_use_anchors_ = true
@@ -107,42 +118,58 @@ metadata/_edit_use_anchors_ = true
 [node name="Start" type="Button" parent="Button Manager" unique_id=1007014719]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.36641222
-anchor_top = 0.70542634
-anchor_right = 0.9847328
-anchor_bottom = 0.70542634
+anchor_left = 1.3252937
+anchor_top = 1.9457364
+anchor_right = 3.0575361
+anchor_bottom = 2.356589
 offset_left = -23.0
-offset_right = 23.0
-offset_bottom = 31.0
+offset_right = 25.076233
+offset_bottom = 27.0
 grow_horizontal = 2
 theme = ExtResource("3_fu7sn")
+theme_override_font_sizes/font_size = 40
 text = "Start"
 metadata/_edit_use_anchors_ = true
 
 [node name="Options" type="Button" parent="Button Manager" unique_id=500469757]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.9588816
+anchor_top = 1.6201551
+anchor_right = 2.0805197
+anchor_bottom = 1.6201551
 offset_left = 25.0
 offset_top = 124.0
-offset_right = 152.0
-offset_bottom = 155.0
+offset_right = 153.06543
+offset_bottom = 204.0
 theme = ExtResource("3_fu7sn")
+theme_override_font_sizes/font_size = 40
 text = "Leaderboard"
 metadata/_edit_use_anchors_ = true
 
 [node name="Quit" type="Button" parent="Button Manager" unique_id=1089332677]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.9588821
+anchor_top = 2.0
+anchor_right = 0.9588816
+anchor_bottom = 2.0
 offset_left = 25.0
 offset_top = 157.0
-offset_right = 152.0
-offset_bottom = 188.0
+offset_right = 300.00006
+offset_bottom = 237.0
 theme = ExtResource("3_fu7sn")
+theme_override_font_sizes/font_size = 40
 text = "Quit"
 metadata/_edit_use_anchors_ = true
 
 [node name="Fade Transition" type="ColorRect" parent="." unique_id=304282898]
 visible = false
-offset_right = 482.0
-offset_bottom = 256.0
+offset_left = -2.0216575
+offset_top = -1.9999999
+offset_right = 479.97833
+offset_bottom = 254.0
+scale = Vector2(2.4471273, 2.6212912)
 color = Color(0, 0, 0, 1)
 metadata/_edit_use_anchors_ = true
 
