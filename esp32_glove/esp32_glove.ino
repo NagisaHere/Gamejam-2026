@@ -3,6 +3,10 @@
 #include <BLEUtils.h>
 #include <BLE2902.h>
 
+#include "Arduino.h"
+#include "HardwareSerial.h"
+#include "DFRobotDFPlayerMini.h"
+
 // The standard Nordic UART Service (NUS) UUIDs
 #define SERVICE_UUID           "6E400001-B5A3-F393-E0A9-E50E24DCCA9E" // UART Service
 #define CHARACTERISTIC_UUID_RX "6E400002-B5A3-F393-E0A9-E50E24DCCA9E" // RX Characteristic (ESP32 Receives)
@@ -22,10 +26,13 @@
 #define SERVO_PIN_5 14
 
 #define VIBRATE_PIN_1 16
-#define VIBRATE_PIN_2 17
-#define VIBRATE_PIN_3 18
-#define VIBRATE_PIN_4 8
-#define VIBRATE_PIN_5 3
+#define VIBRATE_PIN_2 8
+#define VIBRATE_PIN_3 3
+#define VIBRATE_PIN_4  46
+#define VIBRATE_PIN_5 9
+
+#define TX1_PIN 17
+#define RX1_PIN 18
 
 #define BAUD_RATE 9600
 #define DELAY_TIME 300
@@ -39,6 +46,15 @@
 
 int servoPins[NUM_SERVOS] = {SERVO_PIN_1, SERVO_PIN_2, SERVO_PIN_3, SERVO_PIN_4, SERVO_PIN_5};
 int vibratePins[NUM_VIBS] = {VIBRATE_PIN_1, VIBRATE_PIN_2, VIBRATE_PIN_3, VIBRATE_PIN_4, VIBRATE_PIN_5}; // Fixed missing array
+
+// for sound shennanigans
+// Instantiate Hardware UART 1
+HardwareSerial mySerial(1); 
+
+// Instantiate the DFPlayer object
+DFRobotDFPlayerMini myDFPlayer;
+
+void setup_sound();
 
 // --- Native ESP32 v3 writeServo Helper ---
 void writeServo(int pin, int angle) {
@@ -59,6 +75,29 @@ class MyServerCallbacks: public BLEServerCallbacks {
     }
 };
 
+void setup_sound() {
+  // Initialize UART 1 for the DFPlayer
+  // Signature: begin(baud_rate, config, rx_pin, tx_pin)
+  mySerial.begin(9600, SERIAL_8N1, RX1_PIN, TX1_PIN);
+
+  Serial.println(F("\nInitializing DFPlayer Mini..."));
+
+  // Attempt to communicate with the module
+  if (!myDFPlayer.begin(mySerial)) {
+    Serial.println(F("Unable to begin:"));
+    Serial.println(F("1. Please recheck the connection!"));
+    Serial.println(F("2. Please insert the SD card!"));
+  }
+  
+  Serial.println(F("DFPlayer Mini online."));
+
+  // Set the volume (0 to 30)
+  myDFPlayer.volume(15);  
+  
+  // Play the first MP3 file on the SD card
+  myDFPlayer.play(1);
+
+}
 
 void startupSweep() {
   Serial.println("Performing startup servo sweep sequentially...");
@@ -69,20 +108,60 @@ void startupSweep() {
       Serial.println(servoPins[s]);
 
       // Set to 0 degrees
-      writeServo(servoPins[s], SERVO_MAX);
+      writeServo(servoPins[s], SERVO_MIN);
       delay(DELAY_TIME); 
       
       // Set to 180 degrees
-      writeServo(servoPins[s], SERVO_MIN);
+      writeServo(servoPins[s], SERVO_MAX);
       delay(DELAY_TIME);
       
       // Set back to 0 degrees
-      writeServo(servoPins[s], SERVO_MAX);
+      writeServo(servoPins[s], SERVO_MIN);
       delay(DELAY_TIME);
   }
   
   Serial.println("Sequential sweep complete.");
 }
+
+// Helper function to decode DFPlayer messages (useful for debugging)
+void printDetail(uint8_t type, int value) {
+  switch (type) {
+    case TimeOut:
+      Serial.println(F("Time Out!"));
+      break;
+    case WrongStack:
+      Serial.println(F("Stack Wrong!"));
+      break;
+    case DFPlayerCardInserted:
+      Serial.println(F("Card Inserted!"));
+      break;
+    case DFPlayerCardRemoved:
+      Serial.println(F("Card Removed!"));
+      break;
+    case DFPlayerCardOnline:
+      Serial.println(F("Card Online!"));
+      break;
+    case DFPlayerError:
+      Serial.print(F("DFPlayerError:"));
+      Serial.println(value);
+      break;
+    default:
+      break;
+  }
+}
+
+// NOTE; for
+// anticlockwise turn -> max is restricted, min is loosened
+// clockwise turn -> min is restricted, max is loosened
+// facing top is min, facing down is max
+
+/*
+thumb - ???
+index - clockwise
+middle - clockwise
+ring - anticlockwise
+pinkie - ???
+*/
 
 class MyCallbacks: public BLECharacteristicCallbacks {
     void onWrite(BLECharacteristic *pCharacteristic) {
@@ -97,7 +176,7 @@ class MyCallbacks: public BLECharacteristicCallbacks {
           
           switch (cmd) {
             case CMD_THUMB:
-              writeServo(servoPins[0], SERVO_MIN);
+              writeServo(servoPins[0], SERVO_MAX);
               break;
               
             case CMD_INDEX:
@@ -109,11 +188,11 @@ class MyCallbacks: public BLECharacteristicCallbacks {
               break;
               
             case CMD_RING:
-              writeServo(servoPins[3], SERVO_MIN);
+              writeServo(servoPins[3], SERVO_MAX);
               break;
               
             case CMD_PINKY:
-              writeServo(servoPins[4], SERVO_MIN);
+              writeServo(servoPins[4], SERVO_MAX);
               break;
               
             case CMD_STOP_ALL:
@@ -136,6 +215,14 @@ class MyCallbacks: public BLECharacteristicCallbacks {
     }
 };
 
+void initial_servo_state() {
+    writeServo(servoPins[0], SERVO_MAX); // idk yet
+    writeServo(servoPins[1], SERVO_MAX);
+    writeServo(servoPins[2], SERVO_MAX);
+    writeServo(servoPins[3], SERVO_MIN);
+    writeServo(servoPins[4], SERVO_MAX); // idk yet
+}
+
 
 void setup() {
   Serial.begin(BAUD_RATE);
@@ -153,7 +240,8 @@ void setup() {
   }
 
   startupSweep();
-
+  setup_sound();
+  initial_servo_state();
   // Name the device
   BLEDevice::init("ESP32S3_BLE_UART");
 
@@ -183,5 +271,8 @@ void setup() {
 }
 
 void loop() {
+  if (myDFPlayer.available()) {
+    printDetail(myDFPlayer.readType(), myDFPlayer.read());
+  }
   delay(2000); 
 }
