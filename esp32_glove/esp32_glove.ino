@@ -68,15 +68,15 @@ void startupSweep() {
       Serial.println(servoPins[s]);
 
       // Set to 0 degrees
-      writeServo(servoPins[s], SERVO_MIN);
+      writeServo(servoPins[s], SERVO_MAX);
       delay(1000); 
       
       // Set to 180 degrees
-      writeServo(servoPins[s], SERVO_MAX);
+      writeServo(servoPins[s], SERVO_MIN);
       delay(1000);
       
       // Set back to 0 degrees
-      writeServo(servoPins[s], SERVO_MIN);
+      writeServo(servoPins[s], SERVO_MAX);
       delay(1000);
   }
   
@@ -96,29 +96,29 @@ class MyCallbacks: public BLECharacteristicCallbacks {
           
           switch (cmd) {
             case CMD_THUMB:
-              writeServo(servoPins[0], SERVO_MAX);
+              writeServo(servoPins[0], SERVO_MIN);
               break;
               
             case CMD_INDEX:
-              writeServo(servoPins[1], SERVO_MAX);
+              writeServo(servoPins[1], SERVO_MIN);
               break;
               
             case CMD_MIDDLE:
-              writeServo(servoPins[2], SERVO_MAX);
+              writeServo(servoPins[2], SERVO_MIN);
               break;
               
             case CMD_RING:
-              writeServo(servoPins[3], SERVO_MAX);
+              writeServo(servoPins[3], SERVO_MIN);
               break;
               
             case CMD_PINKY:
-              writeServo(servoPins[4], SERVO_MAX);
+              writeServo(servoPins[4], SERVO_MIN);
               break;
               
             case CMD_STOP_ALL:
               // Reset all servos to minimum (0 deg)
               for(int s = 0; s < NUM_SERVOS; s++) {
-                  writeServo(servoPins[s], SERVO_MIN);
+                  writeServo(servoPins[s], SERVO_MAX);
               }
               break;
             case CMD_START:
