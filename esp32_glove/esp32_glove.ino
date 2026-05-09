@@ -7,8 +7,13 @@
 #define SERVICE_UUID           "6E400001-B5A3-F393-E0A9-E50E24DCCA9E" // UART Service
 #define CHARACTERISTIC_UUID_RX "6E400002-B5A3-F393-E0A9-E50E24DCCA9E" // RX Characteristic (ESP32 Receives)
 
-#define SERVO_CMD_FORWARD '1'
-#define SERVO_CMD_STOP '3'
+#define CMD_THUMB    '0'
+#define CMD_INDEX    '1'
+#define CMD_MIDDLE   '2'
+#define CMD_RING     '3'
+#define CMD_PINKY    '4'
+#define CMD_STOP_ALL '5' // Added to replace the old SERVO_CMD_STOP
+#define CMD_START    'S'
 
 #define SERVO_PIN_1 4
 #define SERVO_PIN_2 5
@@ -53,31 +58,6 @@ class MyServerCallbacks: public BLEServerCallbacks {
     }
 };
 
-class MyCallbacks: public BLECharacteristicCallbacks {
-    void onWrite(BLECharacteristic *pCharacteristic) {
-      String rxValue = pCharacteristic->getValue();
-
-      if (rxValue.length() > 0) {
-        Serial.print("Received from Python: ");
-        for (int i = 0; i < rxValue.length(); i++) {
-          Serial.print(rxValue[i]);
-          
-          if (rxValue[i] == SERVO_CMD_FORWARD) {
-                // Loop through all 5 servos and set to MAX (180 deg)
-                for(int s = 0; s < NUM_SERVOS; s++) {
-                    writeServo(servoPins[s], SERVO_MAX);
-                }
-          } else if (rxValue[i] == SERVO_CMD_STOP) {
-                // Loop through all 5 servos and set to MIN (0 deg)
-                for(int s = 0; s < NUM_SERVOS; s++) {
-                    writeServo(servoPins[s], SERVO_MIN);
-                }
-          }
-        }
-        Serial.println(); // Add a newline in the serial monitor
-      }
-    }
-};
 
 void startupSweep() {
   Serial.println("Performing startup servo sweep sequentially...");
@@ -102,6 +82,59 @@ void startupSweep() {
   
   Serial.println("Sequential sweep complete.");
 }
+
+class MyCallbacks: public BLECharacteristicCallbacks {
+    void onWrite(BLECharacteristic *pCharacteristic) {
+      String rxValue = pCharacteristic->getValue();
+
+      if (rxValue.length() > 0) {
+        Serial.print("Received from Python: ");
+        
+        for (int i = 0; i < rxValue.length(); i++) {
+          char cmd = rxValue[i];
+          Serial.print(cmd);
+          
+          switch (cmd) {
+            case CMD_THUMB:
+              writeServo(servoPins[0], SERVO_MAX);
+              break;
+              
+            case CMD_INDEX:
+              writeServo(servoPins[1], SERVO_MAX);
+              break;
+              
+            case CMD_MIDDLE:
+              writeServo(servoPins[2], SERVO_MAX);
+              break;
+              
+            case CMD_RING:
+              writeServo(servoPins[3], SERVO_MAX);
+              break;
+              
+            case CMD_PINKY:
+              writeServo(servoPins[4], SERVO_MAX);
+              break;
+              
+            case CMD_STOP_ALL:
+              // Reset all servos to minimum (0 deg)
+              for(int s = 0; s < NUM_SERVOS; s++) {
+                  writeServo(servoPins[s], SERVO_MIN);
+              }
+              break;
+            case CMD_START:
+              startupSweep();
+              break;
+              
+            default:
+              // Ignore any unexpected characters (like newline characters)
+              break;
+          }
+        }
+        Serial.println(); // Add a newline in the serial monitor
+      }
+    }
+};
+
 
 void setup() {
   Serial.begin(BAUD_RATE);
