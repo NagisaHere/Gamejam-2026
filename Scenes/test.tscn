@@ -1,3 +1,23 @@
 [gd_scene format=3 uid="uid://c583tu4c3wkwv"]
 
+[ext_resource type="Script" uid="uid://bq1coy4fdtwxp" path="res://Scenes/timer.gd" id="1_8od7v"]
+[ext_resource type="Script" uid="uid://c5bwbfn7488r" path="res://Scenes/timer_scoreboard.gd" id="1_lc1oi"]
+
 [node name="Node2D" type="Node2D" unique_id=1059599179]
+
+[node name="Timer" type="Timer" parent="." unique_id=1212388006]
+script = ExtResource("1_8od7v")
+
+[node name="Timer Scoreboard" type="RichTextLabel" parent="." unique_id=1744352849]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -134.0
+offset_bottom = 28.0
+grow_horizontal = 0
+bbcode_enabled = true
+text = "Time Left: 00:00"
+script = ExtResource("1_lc1oi")
+metadata/_edit_use_anchors_ = true
+
+[connection signal="timeout" from="Timer" to="Timer Scoreboard" method="_on_timer_timeout"]

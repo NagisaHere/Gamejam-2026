@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://bu3pgitvh6nbt"]
+
+[ext_resource type="Script" uid="uid://c5yi6ajyf5dqk" path="res://main_menu.gd" id="1_06t4h"]
+
+[sub_resource type="Theme" id="Theme_06t4h"]
+
+[sub_resource type="Animation" id="Animation_06t4h"]
+resource_name = "Fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7vrkn"]
+resource_name = "Fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.03333336, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_fu7sn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jix8l"]
+_data = {
+&"Fade_in": SubResource("Animation_06t4h"),
+&"Fade_out": SubResource("Animation_7vrkn"),
+&"RESET": SubResource("Animation_fu7sn")
+}
+
+[node name="Main Menu" type="Node2D" unique_id=492278323]
+script = ExtResource("1_06t4h")
+
+[node name="Button Manager" type="Control" parent="." unique_id=664823412]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 131.0
+offset_bottom = 129.0
+
+[node name="Panel" type="Panel" parent="Button Manager" unique_id=1177739028]
+layout_mode = 0
+offset_right = 192.0
+offset_bottom = 139.0
+
+[node name="Start" type="Button" parent="Button Manager" unique_id=1007014719]
+layout_mode = 0
+offset_left = 35.0
+offset_right = 81.0
+offset_bottom = 31.0
+theme = SubResource("Theme_06t4h")
+text = "Start"
+
+[node name="Options" type="Button" parent="Button Manager" unique_id=500469757]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 39.0
+offset_right = 95.0
+offset_bottom = 70.0
+text = "Options"
+
+[node name="Quit" type="Button" parent="Button Manager" unique_id=1089332677]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 81.0
+offset_right = 79.0
+offset_bottom = 112.0
+text = "Quit"
+
+[node name="Fade Transition" type="ColorRect" parent="." unique_id=304282898]
+visible = false
+offset_right = 178.0
+offset_bottom = 142.0
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Fade Transition" unique_id=1448590311]
+libraries/ = SubResource("AnimationLibrary_jix8l")
+
+[node name="Fade_Timer" type="Timer" parent="Fade Transition" unique_id=2133124560]
+
+[connection signal="pressed" from="Button Manager/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Button Manager/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Button Manager/Quit" to="." method="_on_quit_pressed"]
+[connection signal="timeout" from="Fade Transition/Fade_Timer" to="." method="_on_fade_timer_timeout"]
