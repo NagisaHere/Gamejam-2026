@@ -172,3 +172,5 @@ texture = ExtResource("8_cd45x")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=240439904]
 root_node = NodePath("../LeftHand")
 libraries/ = SubResource("AnimationLibrary_ajxp7")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1962851746]

@@ -1,5 +1,6 @@
 extends Node2D
 
+signal fingers_changed(value)
 var active_enemy = null
 var current_letter_index: int = -1 # undefined
 var fingers_remaining: int = 10 
@@ -44,6 +45,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			if prev_keycode != event.keycode:
 				## didnt hold down backspace, first press, so decrement the fingers
 				fingers_remaining -= 1
+				fingers_changed.emit(fingers_remaining)
 				if fingers_remaining == 0:
 					# game over
 					_game_over()
