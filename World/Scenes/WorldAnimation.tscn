@@ -1,0 +1,143 @@
+[gd_scene format=3 uid="uid://co756xlaahvf3"]
+
+[ext_resource type="Script" uid="uid://ckgjcjsv83gqs" path="res://World/Scripts/world_animation.gd" id="1_y18wd"]
+[ext_resource type="Texture2D" uid="uid://dn3ihrcvkgdwa" path="res://World/AssetsWorld/opening.png" id="2_kt2uj"]
+[ext_resource type="PackedScene" uid="uid://4d2uksj4uxh7" path="res://World/Scenes/CharTest.tscn" id="3_hjaft"]
+[ext_resource type="Script" uid="uid://cyp33mx6hxdx3" path="res://World/Scripts/camera_2d.gd" id="4_5rygh"]
+[ext_resource type="Script" uid="uid://l7bb0d65ceqy" path="res://World/Scripts/animation_player.gd" id="5_w3uqr"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xychh"]
+
+[sub_resource type="Animation" id="Animation_p36mi"]
+resource_name = "Introa"
+length = 1.9666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.7),
+"transitions": PackedFloat32Array(0.6155722, 1),
+"update": 0,
+"values": [Vector2(161, -301), Vector2(161, 150)]
+}
+
+[sub_resource type="Animation" id="Animation_fcajx"]
+resource_name = "Intro"
+length = 1.2666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.099999905, 1.1666666),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.9, 0.9), Vector2(3, 3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.099999905, 1.1666666),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(161, 150)]
+}
+
+[sub_resource type="Animation" id="Animation_44u0j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.9, 0.9)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Player:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(161, -301)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p36mi"]
+_data = {
+&"Intro": SubResource("Animation_p36mi"),
+&"IntroCam": SubResource("Animation_fcajx"),
+&"RESET": SubResource("Animation_44u0j")
+}
+
+[node name="IntroWorld" type="Node2D" unique_id=27276651]
+script = ExtResource("1_y18wd")
+metadata/_edit_vertical_guides_ = [-644.0, -639.0]
+metadata/_edit_horizontal_guides_ = [129.0, 257.0, 257.0]
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1732421221]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_kt2uj")
+
+[node name="Player" parent="." unique_id=98430758 instance=ExtResource("3_hjaft")]
+position = Vector2(161, -301)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1072134139 node_paths=PackedStringArray("target")]
+scale = Vector2(1.5, 1.5)
+zoom = Vector2(0.9, 0.9)
+limit_left = -642
+limit_top = -10000001
+limit_right = 638
+limit_bottom = 9999999
+script = ExtResource("4_5rygh")
+target = NodePath("../Player")
+
+[node name="RightWall" type="StaticBody2D" parent="." unique_id=1725339628]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=1441825532]
+position = Vector2(640, 299)
+rotation = -1.5707964
+scale = Vector2(0.25, 0.25)
+shape = SubResource("WorldBoundaryShape2D_xychh")
+
+[node name="LeftWall" type="StaticBody2D" parent="." unique_id=1145458307]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=1603038863]
+position = Vector2(-639, 299)
+rotation = 1.5707964
+scale = Vector2(0.25, 0.25)
+shape = SubResource("WorldBoundaryShape2D_xychh")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=798141934]
+libraries/ = SubResource("AnimationLibrary_p36mi")
+script = ExtResource("5_w3uqr")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
