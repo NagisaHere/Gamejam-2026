@@ -3,9 +3,10 @@ extends Node2D
 @export var left_hand_states: Array[Texture2D]
 @export var right_hand_states: Array[Texture2D]
 
-@onready var left_hand := $LeftHandSprite
-@onready var right_hand := $RightHandSprite
+@onready var left_hand := $LeftHand
+@onready var right_hand := $RightHand
 @onready var animation_player := $AnimationPlayer
+@onready var typing_game = $"../typing"
 
 
 var typing_states := [
@@ -24,8 +25,12 @@ var typing_states := [
 
 
 func _ready():
-	show_typing_state(0)
+	typing_game.fingers_changed.connect(_on_fingers_changed)
 	animation_player.play("typing_loop")
+
+func _on_fingers_changed(value):
+	print("remaining fingers:", value)
+	show_typing_state(10 - value)
 
 
 func show_state(left_index: int, right_index: int):

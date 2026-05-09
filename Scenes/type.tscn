@@ -3,12 +3,14 @@
 [ext_resource type="Texture2D" uid="uid://bso4cnvnftli2" path="res://Assets/Background/blue.jpg" id="1_eicnf"]
 [ext_resource type="Script" uid="uid://cf60oesk4wx5d" path="res://Assets/Scripts/type.gd" id="1_u0853"]
 [ext_resource type="Script" uid="uid://btbgsjpo56b4k" path="res://Assets/Scripts/Enemy.gd" id="3_eus3o"]
+[ext_resource type="FontFile" uid="uid://dc1f2eykeohyp" path="res://Assets/fonts/abduction2002.ttf" id="4_eus3o"]
 
 [node name="typing" type="Node2D" unique_id=1467136492]
 position = Vector2(92, 46)
 script = ExtResource("1_u0853")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=203842060]
+visible = false
 offset_left = -240.0
 offset_top = -90.0
 offset_right = 1296.0
@@ -27,18 +29,23 @@ anchor_left = -7.0000005
 anchor_right = -7.0000005
 offset_left = -6.9999995
 offset_top = 29.0
-offset_right = 952.0
-offset_bottom = 169.0
+offset_right = 860.0
+offset_bottom = 521.0
+theme_override_colors/default_color = Color(0, 0, 0.19607843, 1)
+theme_override_fonts/normal_font = ExtResource("4_eus3o")
+theme_override_font_sizes/normal_font_size = 46
 bbcode_enabled = true
 text = "According to all known laws of aviation, there is no way a bee should be able to fly. Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyway because bees don't care what humans think is impossible."
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=176311075]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=39757345]
-offset_left = 52.0
-offset_top = 27.0
-offset_right = 1082.0
-offset_bottom = 594.0
+offset_left = 33.0
+offset_top = 51.0
+offset_right = 1114.0
+offset_bottom = 623.0
 alignment = 2
 
 [node name="TopRow" type="HBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=1314500255]
