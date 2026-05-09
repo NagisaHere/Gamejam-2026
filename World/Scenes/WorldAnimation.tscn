@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://co756xlaahvf3"]
 
 [ext_resource type="Script" uid="uid://ckgjcjsv83gqs" path="res://World/Scripts/world_animation.gd" id="1_y18wd"]
+[ext_resource type="Texture2D" uid="uid://b8hk0qq7gh21q" path="res://Assets/bg-final (20260510012029).png" id="2_5rygh"]
 [ext_resource type="Texture2D" uid="uid://3qjhya0ditie" path="res://World/AssetsWorld/PNG/background 1/Plan 3.png" id="2_hjaft"]
-[ext_resource type="Texture2D" uid="uid://kwvpta1siu4t" path="res://World/AssetsWorld/bg.png" id="2_w3uqr"]
 [ext_resource type="PackedScene" uid="uid://4d2uksj4uxh7" path="res://World/Scenes/CharTest.tscn" id="3_hjaft"]
 [ext_resource type="Script" uid="uid://cyp33mx6hxdx3" path="res://World/Scripts/camera_2d.gd" id="4_5rygh"]
 [ext_resource type="PackedScene" uid="uid://cb6htri0766h" path="res://World/Scenes/toggle_terminal.tscn" id="4_w3uqr"]
@@ -137,7 +137,7 @@ metadata/_edit_vertical_guides_ = [-1917.0]
 [node name="Background" type="Sprite2D" parent="." unique_id=1732421221]
 position = Vector2(-627, -22)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_w3uqr")
+texture = ExtResource("2_5rygh")
 
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1336253906]
 visible = false

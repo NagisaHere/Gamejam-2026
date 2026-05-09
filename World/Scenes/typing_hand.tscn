@@ -160,13 +160,13 @@ right_hand_states = Array[Texture2D]([ExtResource("8_cd45x"), ExtResource("9_ucc
 
 [node name="LeftHand" type="Sprite2D" parent="." unique_id=1586000916]
 position = Vector2(-20, -19.000002)
-scale = Vector2(0.5941629, 0.59416294)
+scale = Vector2(0.78131866, 0.7813188)
 texture = ExtResource("2_54b4o")
 
 [node name="RightHand" type="Sprite2D" parent="." unique_id=568026175]
 position = Vector2(41, -14)
 rotation = -0.10471976
-scale = Vector2(0.5484581, 0.5484581)
+scale = Vector2(0.7239424, 0.7239425)
 texture = ExtResource("8_cd45x")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=240439904]
@@ -174,3 +174,4 @@ root_node = NodePath("../LeftHand")
 libraries/ = SubResource("AnimationLibrary_ajxp7")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1962851746]
+zoom = Vector2(1.32, 1.32)
