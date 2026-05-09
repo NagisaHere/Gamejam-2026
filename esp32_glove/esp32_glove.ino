@@ -11,6 +11,21 @@
 #define SERVO_CMD_FORWARD '1'
 #define SERVO_CMD_STOP '3'
 
+#define CMD_SPOOK '6'
+#define CMD_PINKY_LOST '5'
+#define CMD_POINTER_LOST '4'
+#define CMD_MIDDLE_LOST '3'
+#define CMD_RING_LOST '2'
+#define CMD_THUMB_LOST '1'
+#define CMD_RESET '0'
+#define CMD_INITIALISE 'S'
+
+#define PINKY_INDEX 4
+#define RING_INDEX 3
+#define MIDDLE_INDEX 2
+#define RING_INDEX 1
+#define THUMB_INDEX 0
+
 #define SERVO_PIN_1 4
 #define SERVO_PIN_2 5
 #define SERVO_PIN_3 6
@@ -23,6 +38,9 @@
 #define VIBRATE_PIN_4 8
 #define VIBRATE_PIN_5 3
 
+#define VIBRATE_ON 1
+#define VIBRATE_OFF 0
+
 #define BAUD_RATE 9600
 
 // 180 Servo limits (Degrees)
@@ -34,10 +52,12 @@
 #define MAX_MICROS 2400
 
 #define NUM_SERVOS 5
+#define NUM_VIBRATE 5
 
 // --- NEW: Arrays for cleaner multi-servo management ---
 Servo myServos[NUM_SERVOS]; // Array of 5 servo objects
 int servoPins[NUM_SERVOS] = {SERVO_PIN_1, SERVO_PIN_2, SERVO_PIN_3, SERVO_PIN_4, SERVO_PIN_5};
+int vibPins[NUM_VIBRATE] = {VIBRATE_PIN_1, VIBRATE_PIN_2, VIBRATE_PIN_3, VIBRATE_PIN_4, VIBRATE_PIN_5};
 
 // Server Callbacks to handle reconnecting
 class MyServerCallbacks: public BLEServerCallbacks {
@@ -59,23 +79,75 @@ class MyCallbacks: public BLECharacteristicCallbacks {
         Serial.print("Received from Python: ");
         for (int i = 0; i < rxValue.length(); i++) {
           Serial.print(rxValue[i]);
-          
-          if (rxValue[i] == SERVO_CMD_FORWARD) {
-                // Loop through all 5 servos and set to MAX (180 deg)
-                for(int s = 0; s < NUM_SERVOS; s++) {
-                    myServos[s].write(SERVO_MAX);
-                }
-          } else if (rxValue[i] == SERVO_CMD_STOP) {
-                // Loop through all 5 servos and set to MIN (0 deg)
-                for(int s = 0; s < NUM_SERVOS; s++) {
-                    myServos[s].write(SERVO_MIN);
-                }
+          switch(rxValue[i]) {  
+            case CMD_THUMB_LOST:
+              myServos[THUMB_INDEX].write(SERVO_MAX);
+              digitalWrite(vibPins[THUMB_INDEX], VIBRATE_ON);
+              break;
+              
+            case CMD_POINTER_LOST:
+              myServos[POINTER_INDEX].write(SERVO_MAX);
+              digitalWrite(vibPins[POINTER_INDEX], VIBRATE_ON);
+              break;
+              
+            case CMD_MIDDLE_LOST:
+              myServos[MIDDLE_INDEX].write(SERVO_MAX);
+              digitalWrite(vibPins[MIDDLE_INDEX], VIBRATE_ON);
+              break;
+              
+            case CMD_RING_LOST:
+              myServos[RING_INDEX].write(SERVO_MAX);
+              digitalWrite(vibPins[RING_INDEX], VIBRATE_ON);
+              break;
+              
+            case CMD_PINKY_LOST:
+              myServos[PINKY_INDEX].write(SERVO_MAX);
+              digitalWrite(vibPins[PINKY_INDEX], VIBRATE_ON);
+              break;
+
+            case CMD_SPOOK:
+              // Optional: What happens on spook? Let's turn everything on
+              for(int s = 0; s < NUM_SERVOS; s++) {
+                 myServos[s].write(SERVO_MAX);
+                 digitalWrite(vibPins[s], VIBRATE_ON);
+              }
+              break;
+
+            case CMD_RESET: // Let's add a reset command to turn everything off
+              for(int s = 0; s < NUM_SERVOS; s++) {
+                 myServos[s].write(SERVO_MIN);
+                 digitalWrite(vibPins[s], VIBRATE_OFF);
+              }
+              break;
           }
+          // if (rxValue[i] == SERVO_CMD_FORWARD) {
+          //       // Loop through all 5 servos and set to MAX (180 deg)
+          //       for(int s = 0; s < NUM_SERVOS; s++) {
+          //           myServos[s].write(SERVO_MAX);
+          //       }
+          // } else if (rxValue[i] == SERVO_CMD_STOP) {
+          //       // Loop through all 5 servos and set to MIN (0 deg)
+          //       for(int s = 0; s < NUM_SERVOS; s++) {
+          //           myServos[s].write(SERVO_MIN);
+          //       }
+          // }
         }
         Serial.println(); // Add a newline in the serial monitor
       }
     }
 };
+
+void setAllServo(int degree) {
+  for(int s = 0; s < NUM_SERVOS; s++) {
+      myServos[s].write(degree);
+  }
+}
+
+void setAllVibrate(uint8_t vibrate) {
+  for(int i = 0; i <  NUM_VIBRATE; i++) {
+    digitalWrite(vibPins[i], vibrate);
+  }
+}
 
 void startupSweep() {
   Serial.println("Performing startup servo sweep on ALL servos...");
@@ -84,18 +156,21 @@ void startupSweep() {
   for(int s = 0; s < NUM_SERVOS; s++) {
       myServos[s].write(SERVO_MIN);
   }
+  setAllVibrate(VIBRATE_OFF);
   delay(500); // Wait for servos to reach position
   
   // Set all to MAX
   for(int s = 0; s < NUM_SERVOS; s++) {
       myServos[s].write(SERVO_MAX);
   }
+  setAllVibrate(VIBRATE_ON);
   delay(500);
   
   // Set all back to MIN
   for(int s = 0; s < NUM_SERVOS; s++) {
       myServos[s].write(SERVO_MIN);
   }
+  setAllVibrate(VIBRATE_OFF);
   delay(500);
   
   Serial.println("Sweep complete.");
@@ -114,6 +189,9 @@ void setup() {
     myServos[i].setPeriodHertz(50); // Standard 50Hz
     // Attach using the pin from our array, and standard microsecond bounds
     myServos[i].attach(servoPins[i], MIN_MICROS, MAX_MICROS); 
+  }
+  for (int i = 0; i < NUM_VIBRATE; i++) {
+    pinMode(vibPins[i], OUTPUT);
   }
 
   startupSweep();
