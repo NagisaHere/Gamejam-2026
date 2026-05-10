@@ -16,6 +16,17 @@ var current_mistakes: String = ""
 var killed_fingers: Array[int] = []
 
 func _ready() -> void:
+	# 1. Instantiate the BluetoothManager and add it to the scene tree
+	bluetooth_manager = BluetoothManager.new()
+	add_child(bluetooth_manager)
+	
+	# 2. Connect core manager signals
+	bluetooth_manager.adapter_initialized.connect(_on_adapter_initialized)
+	bluetooth_manager.device_discovered.connect(_on_device_discovered)
+	bluetooth_manager.scan_stopped.connect(_on_scan_stopped)
+	
+	# 3. Initialize directly (Desktop needs no special permissions)
+	bluetooth_manager.initialize()
 	#start_game()
 	randomize()
 	load_phrases()
@@ -163,18 +174,7 @@ const CHAR_UUID_RX = "6e400002-b5a3-f393-e0a9-e50e24dcca9e"
 var bluetooth_manager: BluetoothManager
 var connected_device: BleDevice = null
 
-func _ready():
-	# 1. Instantiate the BluetoothManager and add it to the scene tree
-	bluetooth_manager = BluetoothManager.new()
-	add_child(bluetooth_manager)
-	
-	# 2. Connect core manager signals
-	bluetooth_manager.adapter_initialized.connect(_on_adapter_initialized)
-	bluetooth_manager.device_discovered.connect(_on_device_discovered)
-	bluetooth_manager.scan_stopped.connect(_on_scan_stopped)
-	
-	# 3. Initialize directly (Desktop needs no special permissions)
-	bluetooth_manager.initialize()
+
 
 # --- BLUETOOTH MANAGER CALLBACKS ---
 

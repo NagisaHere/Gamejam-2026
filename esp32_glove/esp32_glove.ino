@@ -189,10 +189,12 @@ class MyCallbacks: public BLECharacteristicCallbacks {
               
             case CMD_INDEX:
               writeServo(servoPins[1], SERVO_MIN);
+              digitalWrite(vibratePins[1], HIGH);
               break;
               
             case CMD_MIDDLE:
               writeServo(servoPins[2], SERVO_MIN);
+              digitalWrite(vibratePins[2], HIGH);
               break;
               
             case CMD_RING:
