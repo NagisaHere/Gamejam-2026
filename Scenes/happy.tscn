@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://c41vahcygeng7"]
+
+[ext_resource type="Texture2D" uid="uid://b0lrrqe3f2yx3" path="res://Assets/happyhappyhappy (20260510094541).png" id="1_vcdj1"]
+
+[node name="Sprite2D" type="Sprite2D" unique_id=1624722070]
+position = Vector2(583.99994, 331)
+scale = Vector2(0.6037037, 0.6037037)
+texture = ExtResource("1_vcdj1")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1550025987]

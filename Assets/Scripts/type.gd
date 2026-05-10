@@ -22,7 +22,7 @@ func _ready() -> void:
 	spawn_phrase()
 	
 func _win_game() -> void:
-	get_tree().change_scene_to_file("res://Scenes/win.tscn")
+	get_tree().change_scene_to_file("res://Scenes/veryhappy.tscn")
 	SaveManager.current_save = SaveData.new()
 	SaveManager.current_save.test_data = [{"name": "no-one","time": $"../Timer".time_left, "score": fingers_remaining }]
 	SaveManager.save_data()

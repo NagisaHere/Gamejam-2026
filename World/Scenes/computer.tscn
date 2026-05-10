@@ -9,6 +9,8 @@
 [ext_resource type="Shader" uid="uid://dmm08vcn5k064" path="res://World/Scenes/computer.gdshader" id="5_kic7h"]
 [ext_resource type="Script" uid="uid://bi6bwgu5ike4v" path="res://World/Scripts/color_rect.gd" id="6_27goh"]
 [ext_resource type="Script" uid="uid://d4ftahshflju3" path="res://World/Scenes/timer.gd" id="9_ds0at"]
+[ext_resource type="Script" uid="uid://bfqb70ago7iaw" path="res://World/Scenes/label.gd" id="10_udr8r"]
+[ext_resource type="FontFile" uid="uid://dc1f2eykeohyp" path="res://Assets/fonts/abduction2002.ttf" id="10_y05vg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ysobb"]
 shader = ExtResource("5_kic7h")
@@ -68,6 +70,17 @@ wait_time = 90.0
 one_shot = true
 script = ExtResource("9_ds0at")
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=1849451051]
+[node name="CanvasTimer" type="CanvasLayer" parent="." unique_id=1849451051]
+
+[node name="Label" type="Label" parent="CanvasTimer" unique_id=1683552807]
+offset_left = 898.0
+offset_top = 215.0
+offset_right = 1113.0
+offset_bottom = 283.0
+theme_override_fonts/font = ExtResource("10_y05vg")
+theme_override_font_sizes/font_size = 68
+text = "06:00"
+horizontal_alignment = 1
+script = ExtResource("10_udr8r")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
