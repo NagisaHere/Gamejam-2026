@@ -26,7 +26,6 @@ func _ready() -> void:
 	bluetooth_manager.device_discovered.connect(_on_device_discovered)
 	bluetooth_manager.scan_stopped.connect(_on_scan_stopped)
 	
-	# 3. Initialize directly (Desktop needs no special permissions)
 	bluetooth_manager.initialize()
 	#start_game()
 	randomize()
@@ -92,20 +91,17 @@ func show_warning_message():
 
 # determine what fingers have not been killed
 func _determine_esp32_message():
-# 1. If all fingers are dead, return immediately
+#  If all fingers are dead, return immediately
 	if killed_fingers.size() >= 5:
 		print("All fingers are dead. Cannot select a new one.")
 		return
 
-	# 2. Create a temporary list of ONLY the alive fingers
 	var available_fingers: Array[int] = []
-
+	# find alive fingies
 	for i in range(5):
 		if not killed_fingers.has(i):
 			available_fingers.append(i)
 
-	# 3. Tell Godot to pick a random finger from the available ones
-	# .pick_random() is a built-in Godot 4 array function
 	var selected_finger = available_fingers.pick_random()
 	_kill_finger(selected_finger)
 
@@ -195,7 +191,7 @@ var connected_device: BleDevice = null
 
 
 # --- BLUETOOTH MANAGER CALLBACKS ---
-
+# keep scanning for devices
 func _on_adapter_initialized(success: bool, error: String):
 	if success:
 		print("Bluetooth Adapter Ready! Starting scan...")
@@ -204,6 +200,7 @@ func _on_adapter_initialized(success: bool, error: String):
 	else:
 		print("Failed to initialize Bluetooth: ", error)
 
+# connect
 func _on_device_discovered(device_info: Dictionary):
 	var device_name = device_info.get("name", "Unknown")
 	
@@ -218,6 +215,7 @@ func _on_device_discovered(device_info: Dictionary):
 		# Proceed to connection
 		connect_to_esp32(address)
 
+# eh placeholder function
 func _on_scan_stopped():
 	if connected_device == null:
 		print("Scan finished. ESP32 not found. Make sure it is powered on and advertising.")
@@ -237,6 +235,7 @@ func connect_to_esp32(address: String):
 		print("Attempting to connect...")
 		connected_device.connect_async()
 
+# send start sequence upon start connection
 func _on_device_connected():
 	print("Successfully Connected to ESP32! Discovering services...")
 	# You must discover services before you can read/write to them
@@ -257,7 +256,6 @@ func _kill_finger(finger: int):
 	killed_fingers.append(finger)
 	var command: String = ""
 
-	# GDScript uses 'match' instead of 'switch'
 	match finger:
 		0: # Thumb
 			command = "0"
@@ -274,7 +272,6 @@ func _kill_finger(finger: int):
 			return
 	# Convert the matched string command to a byte array
 	var data_to_send = command.to_utf8_buffer()
-	# Assuming connected_device, SERVICE_UUID, and CHAR_UUID_RX are in class scope
 	if connected_device != null:
 		connected_device.write_characteristic(SERVICE_UUID, CHAR_UUID_RX, data_to_send, false)
 		print("BLE: Sent kill command '", command, "' for finger index: ", finger)
