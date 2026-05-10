@@ -83,7 +83,7 @@ func _game_over() -> void:
 	get_tree().change_scene_to_file("res://Gus additions/BadEnding/BadEnding_.tscn")
 	
 func show_warning_message():
-	warning_label.text = "Key Stroke"
+	warning_label.text = "Key Stroke Dropped"
 	warning_label.visible = true
 
 	await get_tree().create_timer(0.8).timeout
