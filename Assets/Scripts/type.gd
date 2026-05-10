@@ -12,6 +12,7 @@ var sentences_to_win := 3
 @onready var enemy = $EnemyContainer/Enemy
 @onready var enemy_container = $EnemyContainer
 @onready var fingers_label = $"CanvasLayer/VBoxContainer/BottomRow/fingers-value"
+@onready var warning_label = $Label
 var current_mistakes: String = ""
 
 func _ready() -> void:
@@ -68,10 +69,21 @@ func find_new_active_enemy(typed_character: String):
 
 func _game_over() -> void:
 	get_tree().change_scene_to_file("res://Gus additions/BadEnding/BadEnding_.tscn")
+	
+func show_warning_message():
+	warning_label.text = "Key Stroke"
+	warning_label.visible = true
+
+	await get_tree().create_timer(0.8).timeout
+
+	warning_label.visible = false
+>>>>>>> d923241 (idk honestly, added animations and changed format of the terminal)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		
+		var prompt = active_enemy.get_prompt()
+		var next_character = prompt.substr(current_letter_index, 1)
 		var typed_event = event as InputEventKey
 		var key_typed = PackedByteArray([typed_event.unicode]).get_string_from_utf8()
 
@@ -105,8 +117,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			var special_chars = "!@#$%^&*"
 			key_typed = special_chars[randi() % special_chars.length()]
 		
-		if randf() < (10 - fingers_remaining) * 0.025:
+		if next_character != " " and randf() < (10 - fingers_remaining) * 0.025:
 			active_enemy.set_next_character(current_letter_index, current_mistakes, true)
+			show_warning_message()
 			#Sound of faulty key, like fallout one
 			return
 
@@ -114,8 +127,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			find_new_active_enemy(key_typed)
 			return
 
-		var prompt = active_enemy.get_prompt()
-		var next_character = prompt.substr(current_letter_index, 1)
+		#var prompt = active_enemy.get_prompt()
+		#var next_character = prompt.substr(current_letter_index, 1)
 
 		if current_mistakes.length() > 0:
 			current_mistakes += key_typed

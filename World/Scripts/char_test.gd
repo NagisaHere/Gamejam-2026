@@ -14,6 +14,7 @@ var max_pos := Vector2(500, 250)
 func _physics_process(delta):
 	if cutscene_mode:
 		velocity = Vector2.ZERO
+		anim.play("down")
 		return
 
 	var input_vector := Vector2.ZERO

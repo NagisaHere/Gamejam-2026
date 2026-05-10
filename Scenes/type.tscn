@@ -3,7 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://bso4cnvnftli2" path="res://Assets/Background/blue.jpg" id="1_eicnf"]
 [ext_resource type="Script" uid="uid://cf60oesk4wx5d" path="res://Assets/Scripts/type.gd" id="1_u0853"]
 [ext_resource type="Script" uid="uid://btbgsjpo56b4k" path="res://Assets/Scripts/Enemy.gd" id="3_eus3o"]
-[ext_resource type="FontFile" uid="uid://dc1f2eykeohyp" path="res://Assets/fonts/abduction2002.ttf" id="4_eus3o"]
+[ext_resource type="FontFile" uid="uid://cxdn60raey2ph" path="res://Assets/fonts/Alien-Encounters-Solid-Bold.ttf" id="4_eus3o"]
+[ext_resource type="FontFile" uid="uid://dd82rwkhe8alc" path="res://Assets/fonts/Alien-Encounters-Italic.ttf" id="5_8u2e7"]
 
 [node name="typing" type="Node2D" unique_id=1467136492]
 position = Vector2(92, 46)
@@ -42,6 +43,7 @@ vertical_alignment = 1
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=176311075]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=39757345]
+visible = false
 offset_left = 33.0
 offset_top = 51.0
 offset_right = 1114.0
@@ -49,12 +51,15 @@ offset_bottom = 623.0
 alignment = 2
 
 [node name="TopRow" type="HBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=1314500255]
+visible = false
 layout_mode = 2
 
 [node name="MiddleRow" type="HBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=1480587279]
+visible = false
 layout_mode = 2
 
 [node name="BottomRow" type="HBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=109938397]
+visible = false
 layout_mode = 2
 
 [node name="fingers-remaining" type="Label" parent="CanvasLayer/VBoxContainer/BottomRow" unique_id=1195731871]
@@ -66,3 +71,12 @@ text = "Fingers Remaining:"
 visible = false
 layout_mode = 2
 text = "10/10"
+
+[node name="Label" type="Label" parent="." unique_id=1372435320]
+offset_left = 399.0
+offset_top = -9.0
+offset_right = 840.0
+offset_bottom = 78.0
+theme_override_colors/font_color = Color(0.8980392, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_8u2e7")
+theme_override_font_sizes/font_size = 63
