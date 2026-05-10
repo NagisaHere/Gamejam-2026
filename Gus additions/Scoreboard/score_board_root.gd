@@ -11,7 +11,16 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func create_scoreboard(data):
+	data.sort_custom(func(a, b): return a["score"] > b["score"])
 	for entry in data:
 		var new_row = row_scene.instantiate()
 		list_container.add_child(new_row)
-		new_row.setup(entry["name"], entry["time"], str(entry["score"]))
+		new_row.setup(entry["name"], entry["time"], entry["score"])
+
+
+func _on_competetive_music_finished() -> void:
+	$"Competetive Music".play()
+
+
+func _on_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://Gus additions/Menu/main_menu.tscn")

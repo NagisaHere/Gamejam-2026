@@ -2,16 +2,17 @@
 
 [ext_resource type="Script" uid="uid://blarljc23boon" path="res://Gus additions/Scoreboard/score_board_root.gd" id="1_yemvh"]
 [ext_resource type="PackedScene" uid="uid://duq2aie5xo0dt" path="res://Gus additions/Scoreboard/scoreboard_row.tscn" id="2_0v5ew"]
+[ext_resource type="Texture2D" uid="uid://vox5ym6df8uk" path="res://Gus additions/Scoreboard/concept_art (20260422122241).png" id="3_0v5ew"]
 [ext_resource type="Script" uid="uid://8y5qy2yt1iu3" path="res://Gus additions/Scoreboard/scoreboard_scroller.gd" id="3_rukjy"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yemvh"]
-bg_color = Color(0.3312, 0.6552, 0.72, 0.30980393)
+[ext_resource type="FontFile" uid="uid://cjinfi8c1iesd" path="res://Gus additions/Scoreboard/Zabulen-Yqwnj.otf" id="5_rukjy"]
+[ext_resource type="AudioStream" uid="uid://dm8ajxbt71obn" path="res://Gus additions/SoundAssets/Competetive music.wav" id="6_5ww5k"]
+[ext_resource type="FontFile" uid="uid://cy20ni1pqq46h" path="res://Gus additions/Scoreboard/Aquire-BW0ox.otf" id="7_v53b6"]
 
 [sub_resource type="Theme" id="Theme_1oo4x"]
 
 [sub_resource type="Gradient" id="Gradient_wpv6j"]
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.4, 0.4, 0.4, 1)
+colors = PackedColorArray(0.23, 0.23, 0.23, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_1oo4x"]
 gradient = SubResource("Gradient_wpv6j")
@@ -20,17 +21,29 @@ height = 46
 fill_from = Vector2(0, 0.35612535)
 fill_to = Vector2(0.982906, 0.4074074)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5ww5k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v53b6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sawqb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ls7ig"]
+
 [node name="placeholder game scene" type="Node2D" unique_id=2046757466]
 script = ExtResource("1_yemvh")
 row_scene = ExtResource("2_0v5ew")
 
+[node name="ConceptArt(20260422122241)" type="Sprite2D" parent="." unique_id=2083709582]
+position = Vector2(579, 324)
+scale = Vector2(0.44804686, 0.42523363)
+texture = ExtResource("3_0v5ew")
+
 [node name="Panel" type="Panel" parent="." unique_id=1586504077]
 offset_right = 1154.0
 offset_bottom = 647.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_yemvh")
 
 [node name="Panel" type="Panel" parent="Panel" unique_id=1838848462]
-modulate = Color(1.5157021, 1.5157021, 1.5157021, 0.2627451)
+modulate = Color(1.5157021, 1.5157021, 1.5157021, 0.24705882)
 layout_mode = 0
 offset_left = 233.0
 offset_top = 70.0
@@ -92,10 +105,32 @@ text = "Fingers Left"
 
 [node name="RichTextLabel4" type="RichTextLabel" parent="Panel/TextureRect" unique_id=1036136634]
 layout_mode = 0
-offset_left = 157.0
-offset_top = -60.0
-offset_right = 483.0
-offset_bottom = 3.0
-theme_override_font_sizes/normal_font_size = 50
+offset_left = 159.0
+offset_top = -64.0
+offset_right = 506.0
+offset_bottom = 8.0
+theme_override_fonts/normal_font = ExtResource("5_rukjy")
+theme_override_font_sizes/normal_font_size = 56
 bbcode_enabled = true
 text = "Leaderboard"
+
+[node name="Competetive Music" type="AudioStreamPlayer" parent="." unique_id=620619298]
+stream = ExtResource("6_5ww5k")
+volume_db = -13.5
+autoplay = true
+
+[node name="Button" type="Button" parent="." unique_id=1942617716]
+offset_left = 920.0
+offset_top = 21.0
+offset_right = 1129.0
+offset_bottom = 103.0
+theme_override_fonts/font = ExtResource("7_v53b6")
+theme_override_font_sizes/font_size = 37
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5ww5k")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_v53b6")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_sawqb")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ls7ig")
+text = "Main Menu"
+
+[connection signal="finished" from="Competetive Music" to="." method="_on_competetive_music_finished"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
