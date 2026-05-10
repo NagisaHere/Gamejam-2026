@@ -83,7 +83,7 @@ func _game_over() -> void:
 	get_tree().change_scene_to_file("res://Gus additions/BadEnding/BadEnding_.tscn")
 	
 func show_warning_message():
-	warning_label.text = "Key Stroke"
+	warning_label.text = "Key Stroke Dropped"
 	warning_label.visible = true
 
 	await get_tree().create_timer(0.8).timeout
@@ -119,11 +119,13 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		if event.keycode == KEY_BACKSPACE:
 			if event.is_pressed():
+				
 				if not backspace_is_held:
 					fingers_remaining -= 1
 					fingers_changed.emit(fingers_remaining)
 					_determine_esp32_message()
 					backspace_is_held = true
+					$"../backspace press".play()
 
 					if fingers_remaining == 0:
 						_game_over()
@@ -152,6 +154,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			active_enemy.set_next_character(current_letter_index, current_mistakes, true)
 			show_warning_message()
 			#Sound of faulty key, like fallout one
+			$"../Input not registered".play()
 			return
 
 		if active_enemy == null:
@@ -164,10 +167,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		if current_mistakes.length() > 0:
 			current_mistakes += key_typed
 		else:
-			if key_typed == next_character:
+			if key_typed.to_lower() == next_character.to_lower():
 				current_letter_index += 1
+				$"../normal press".play()
 			else:
 				current_mistakes += key_typed
+				$"../Wrong Input".play()
 
 		active_enemy.set_next_character(current_letter_index, current_mistakes)
 		_check_win(prompt)

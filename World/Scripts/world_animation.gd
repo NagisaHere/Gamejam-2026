@@ -20,3 +20,16 @@ func _on_animation_player_animation_finished(anim_name):
 		$Player.cutscene_mode = false
 		$Camera2D.global_position = $Player.global_position
 		$Camera2D.following = true
+
+
+func _on_button_pressed() -> void:
+	$tutorial.play()
+	$CanvasLayer/Button.hide()
+	$CanvasLayer/Button2.show()
+	
+
+
+func _on_button_2_pressed() -> void:
+	$tutorial.stop()
+	$CanvasLayer/Button.show()
+	$CanvasLayer/Button2.hide()

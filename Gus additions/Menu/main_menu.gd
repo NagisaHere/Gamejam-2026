@@ -33,6 +33,7 @@ func _on_quit_pressed() -> void:
 
 func _on_fade_timer_timeout() -> void:
 	if button_type == "start":
+		$Start.play()
 		menu_fade = create_tween()
 		menu_fade.tween_property($AudioStreamPlayer, "volume_db", -80.0, 1.5)
 		menu_fade.finished.connect($AudioStreamPlayer.stop)

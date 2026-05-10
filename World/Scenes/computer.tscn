@@ -4,13 +4,18 @@
 [ext_resource type="Texture2D" uid="uid://d0f7fyndmi306" path="res://Assets/interface (20260510063538).png" id="2_ysobb"]
 [ext_resource type="PackedScene" uid="uid://43tltcd7ygvn" path="res://Scenes/type.tscn" id="3_p2dj2"]
 [ext_resource type="PackedScene" uid="uid://ch2db7q0k0rwi" path="res://World/Scenes/typing_hand.tscn" id="3_vdqhu"]
-[ext_resource type="Script" uid="uid://buvbchte83rch" path="res://World/Scenes/canvas_layer.gd" id="5_27goh"]
+[ext_resource type="Script" path="res://World/Scenes/canvas_layer.gd" id="5_27goh"]
 [ext_resource type="Texture2D" uid="uid://dsw7gnjfaql5m" path="res://Assets/interface (20260510071510).png" id="5_ds0at"]
-[ext_resource type="Shader" uid="uid://dmm08vcn5k064" path="res://World/Scenes/computer.gdshader" id="5_kic7h"]
-[ext_resource type="Script" uid="uid://bi6bwgu5ike4v" path="res://World/Scripts/color_rect.gd" id="6_27goh"]
-[ext_resource type="Script" uid="uid://d4ftahshflju3" path="res://World/Scenes/timer.gd" id="9_ds0at"]
-[ext_resource type="Script" uid="uid://bfqb70ago7iaw" path="res://World/Scenes/label.gd" id="10_udr8r"]
+[ext_resource type="Shader" path="res://World/Scenes/computer.gdshader" id="5_kic7h"]
+[ext_resource type="Script" path="res://World/Scripts/color_rect.gd" id="6_27goh"]
+[ext_resource type="Script" path="res://World/Scenes/timer.gd" id="9_ds0at"]
+[ext_resource type="Script" path="res://World/Scenes/label.gd" id="10_udr8r"]
 [ext_resource type="FontFile" uid="uid://dc1f2eykeohyp" path="res://Assets/fonts/abduction2002.ttf" id="10_y05vg"]
+[ext_resource type="AudioStream" uid="uid://iikwx34gh0a3" path="res://Gus additions/SoundAssets/Quiet keyboard press.ogg" id="12_c8qam"]
+[ext_resource type="AudioStream" uid="uid://dgk3ynw3xk8te" path="res://Gus additions/SoundAssets/Backspace press.wav" id="13_p2dhd"]
+[ext_resource type="AudioStream" uid="uid://dxw8xdh2ahso2" path="res://Gus additions/SoundAssets/startup2.wav" id="14_21suy"]
+[ext_resource type="AudioStream" uid="uid://dxkneow34sox5" path="res://Gus additions/SoundAssets/722375__qubodup__error-1.wav" id="15_21suy"]
+[ext_resource type="AudioStream" uid="uid://bmiw6bnte8l3e" path="res://Gus additions/SoundAssets/327738__distillerystudio__error_01.wav" id="16_lio8n"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ysobb"]
 shader = ExtResource("5_kic7h")
@@ -82,5 +87,23 @@ theme_override_font_sizes/font_size = 68
 text = "06:00"
 horizontal_alignment = 1
 script = ExtResource("10_udr8r")
+
+[node name="normal press" type="AudioStreamPlayer" parent="." unique_id=934232229]
+stream = ExtResource("12_c8qam")
+
+[node name="backspace press" type="AudioStreamPlayer" parent="." unique_id=1430858225]
+stream = ExtResource("13_p2dhd")
+
+[node name="Startup" type="AudioStreamPlayer" parent="." unique_id=737846912]
+stream = ExtResource("14_21suy")
+autoplay = true
+
+[node name="Wrong Input" type="AudioStreamPlayer" parent="." unique_id=726268909]
+stream = ExtResource("15_21suy")
+volume_db = -20.62
+
+[node name="Input not registered" type="AudioStreamPlayer" parent="." unique_id=441186533]
+stream = ExtResource("16_lio8n")
+volume_db = -6.476
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
