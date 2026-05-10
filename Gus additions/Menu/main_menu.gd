@@ -17,7 +17,7 @@ func _on_start_pressed() -> void:
 
 
 func _on_options_pressed() -> void:
-	button_type = "options"
+	button_type = "leaderboard"
 	$"Fade Transition".show()
 	$"Fade Transition/Fade_Timer".start()
 	$"Fade Transition/AnimationPlayer".play("Fade_out")
@@ -41,4 +41,5 @@ func _on_fade_timer_timeout() -> void:
 		
 	elif button_type == "quit":
 		get_tree().change_scene_to_file("res://placeholder_game_scene.tscn")
-	
+	elif button_type == "leaderboard":
+		get_tree().change_scene_to_file("res://Gus additions/Scoreboard/Scoreboard.tscn")

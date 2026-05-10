@@ -14,5 +14,5 @@ func load_data():
 		current_save = ResourceLoader.load(SAVE_PATH)
 	else:
 		current_save = SaveData.new()
-		current_save.test_data = [{"name": "Subject_02","time": "00:00", "score": 100}]
+		current_save.test_data = [{"name": "no-one","time": 40, "score": 1000}]
 		save_data()

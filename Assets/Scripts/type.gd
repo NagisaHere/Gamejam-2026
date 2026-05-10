@@ -22,6 +22,12 @@ func _ready() -> void:
 	
 func _win_game() -> void:
 	get_tree().change_scene_to_file("res://Scenes/win.tscn")
+	SaveManager.current_save = SaveData.new()
+	SaveManager.current_save.test_data = [{"name": "no-one","time": $"../Timer".time_left, "score": fingers_remaining }]
+	SaveManager.save_data()
+	
+	
+	
 
 func spawn_phrase():
 	var index = randi_range(0, passphrases.size() - 1)
@@ -61,7 +67,7 @@ func find_new_active_enemy(typed_character: String):
 	return
 
 func _game_over() -> void:
-	get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
+	get_tree().change_scene_to_file("res://Gus additions/BadEnding/BadEnding_.tscn")
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey:
