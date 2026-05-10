@@ -153,7 +153,7 @@ void initial_servo_state() {
     writeServo(servoPins[0], SERVO_MAX); // idk yet
     writeServo(servoPins[1], SERVO_MAX);
     writeServo(servoPins[2], SERVO_MAX);
-    writeServo(servoPins[3], SERVO_MIN);
+    writeServo(servoPins[3], SERVO_MAX);
     writeServo(servoPins[4], SERVO_MAX); // idk yet
 }
 
@@ -196,11 +196,11 @@ class MyCallbacks: public BLECharacteristicCallbacks {
               break;
               
             case CMD_RING:
-              writeServo(servoPins[3], SERVO_MAX);
+              writeServo(servoPins[3], SERVO_MIN);
               break;
               
             case CMD_PINKY:
-              writeServo(servoPins[4], SERVO_MAX);
+              writeServo(servoPins[4], SERVO_MIN);
               break;
               
             case CMD_STOP_ALL:
