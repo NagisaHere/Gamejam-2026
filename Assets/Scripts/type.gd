@@ -89,7 +89,6 @@ func show_warning_message():
 	await get_tree().create_timer(0.8).timeout
 
 	warning_label.visible = false
->>>>>>> d923241 (idk honestly, added animations and changed format of the terminal)
 
 # determine what fingers have not been killed
 func _determine_esp32_message():
