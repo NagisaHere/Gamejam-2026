@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://b2di38fdmtj54"]
+
+[sub_resource type="Gradient" id="Gradient_wpv6j"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.4, 0.4, 0.4, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1oo4x"]
+gradient = SubResource("Gradient_wpv6j")
+width = 631
+height = 46
+fill_from = Vector2(0, 0.35612535)
+fill_to = Vector2(0.982906, 0.4074074)
+
+[node name="TextureRect" type="TextureRect" unique_id=229723738]
+offset_left = 236.0
+offset_top = 33.0
+offset_right = 868.0
+offset_bottom = 79.0
+texture = SubResource("GradientTexture2D_1oo4x")
+stretch_mode = 2
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="." unique_id=907313539]
+layout_mode = 0
+offset_left = 230.0
+offset_top = 1.0
+offset_right = 394.0
+offset_bottom = 48.0
+theme_override_font_sizes/normal_font_size = 30
+text = "Time Left"
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="." unique_id=1337557560]
+layout_mode = 0
+offset_left = -72.0
+offset_top = 7.0
+offset_right = 54.0
+offset_bottom = 55.0
+text = "Position
+"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=711996398]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 2.0
+offset_right = 117.0
+offset_bottom = 50.0
+theme_override_font_sizes/normal_font_size = 30
+text = "Name"
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="." unique_id=1714469715]
+layout_mode = 0
+offset_left = 451.0
+offset_top = 1.0
+offset_right = 634.0
+offset_bottom = 47.0
+theme_override_font_sizes/normal_font_size = 30
+text = "Fingers Left"

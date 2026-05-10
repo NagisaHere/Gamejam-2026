@@ -1,0 +1,177 @@
+[gd_scene format=3 uid="uid://ch2db7q0k0rwi"]
+
+[ext_resource type="Script" uid="uid://clnoqo2lbm3dr" path="res://World/Scripts/typing_hand.gd" id="1_llfro"]
+[ext_resource type="Texture2D" uid="uid://cla2ox54bvm17" path="res://World/AssetsWorld/handLeft0 (20260509073652).png" id="2_54b4o"]
+[ext_resource type="Texture2D" uid="uid://dov7tn3jkjbou" path="res://World/AssetsWorld/handLeft01 (20260509073753).png" id="3_a244s"]
+[ext_resource type="Texture2D" uid="uid://dd5oaiqyw3mte" path="res://World/AssetsWorld/handLeft02 (20260509073808).png" id="4_54b4o"]
+[ext_resource type="Texture2D" uid="uid://cmcaumr0loi3d" path="res://World/AssetsWorld/handLeft03 (20260509073825).png" id="5_y8uio"]
+[ext_resource type="Texture2D" uid="uid://b3pmiyujuhmkl" path="res://World/AssetsWorld/handLeft04 (20260509073839).png" id="6_ajxp7"]
+[ext_resource type="Texture2D" uid="uid://ci7ruu61tb3ad" path="res://World/AssetsWorld/handLeft05 (20260509073859).png" id="7_lwb2q"]
+[ext_resource type="Texture2D" uid="uid://dp6mc5ibliey3" path="res://World/AssetsWorld/handRi00 (20260509073941).png" id="8_cd45x"]
+[ext_resource type="Texture2D" uid="uid://b0ijc8fmh0arn" path="res://World/AssetsWorld/handRi01 (20260509074001).png" id="9_ucci1"]
+[ext_resource type="Texture2D" uid="uid://dma1h081um1pq" path="res://World/AssetsWorld/handRi02 (20260509074016).png" id="10_ny2cw"]
+[ext_resource type="Texture2D" uid="uid://h75yi2dkial2" path="res://World/AssetsWorld/handRi03 (20260509074030).png" id="11_cd45x"]
+[ext_resource type="Texture2D" uid="uid://brj7yubrh5d2t" path="res://World/AssetsWorld/handRi04 (20260509074045).png" id="12_b8tix"]
+[ext_resource type="Texture2D" uid="uid://cjc31k3djwqk5" path="res://World/AssetsWorld/handRi05 (20260509074058).png" id="13_411kf"]
+
+[sub_resource type="Animation" id="Animation_54b4o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-20, -19.000002)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../RightHand:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(41, -14)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../RightHand:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.10471976]
+}
+
+[sub_resource type="Animation" id="Animation_y8uio"]
+resource_name = "RIght"
+length = 5.233333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../RightHand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.43333334, 0.9540498, 1.4959581, 1.8626246, 2.3361642, 2.9258876, 3.3258882, 3.8327608, 4.17588, 4.6092134, 5.1299295),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(41, -14), Vector2(41, -21), Vector2(41, -11.07), Vector2(41, -14), Vector2(41, -21), Vector2(41, -11.07), Vector2(41, -14), Vector2(41, -21), Vector2(41, -11.07), Vector2(41, -14), Vector2(41, -21), Vector2(41, -11.07)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../RightHand:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.43333334, 0.98051023, 1.6138434, 2.0333333, 2.7666664, 3.4, 3.8333333, 4.17588, 4.6092134, 5.15639),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [-0.10471976, 0.034906585, -0.13962634, 0.0, -0.10471976, 0.034906585, -0.13962634, 0.0, -0.10471976, 0.034906585, -0.13962634]
+}
+
+[sub_resource type="Animation" id="Animation_a244s"]
+resource_name = "Left"
+length = 5.4666667
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.43333328, 1.0133332, 1.7300004, 2.2299995, 2.763333, 3.1633327, 3.6333332, 4.1, 4.4117174, 5.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-20, -19.000002), Vector2(-20, -26), Vector2(-20, -19.000002), Vector2(-20, -26), Vector2(-20, -19.000002), Vector2(-20, -26), Vector2(-20, -19.000002), Vector2(-20, -26), Vector2(-20, -19.000002), Vector2(-20, -26), Vector2(-20, -19.000002)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.79999983, 1.3200003, 2.0299997, 2.8666666, 3.5333333, 4.0666666, 4.6666665),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.18151425, 0.0, 0.18151425, 0.0, 0.18151425, 0.0, 0.18151425]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../RightHand:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.43333334, 0.9540498, 1.4959581, 1.8626246, 2.3361642, 2.9258876, 3.3258882, 3.8327608, 4.17588, 4.6092134, 5.1299295),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(41, -14), Vector2(41, -21), Vector2(41, -11.07), Vector2(41, -14), Vector2(41, -21), Vector2(41, -11.07), Vector2(41, -14), Vector2(41, -21), Vector2(41, -11.07), Vector2(41, -14), Vector2(41, -21), Vector2(41, -11.07)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../RightHand:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.43333334, 0.98051023, 1.6138434, 2.0333333, 2.7666664, 3.4, 3.8333333, 4.17588, 4.6092134, 5.15639),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [-0.10471976, 0.034906585, -0.13962634, 0.0, -0.10471976, 0.034906585, -0.13962634, 0.0, -0.10471976, 0.034906585, -0.13962634]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ajxp7"]
+_data = {
+&"RESET": SubResource("Animation_54b4o"),
+&"Right": SubResource("Animation_y8uio"),
+&"typing_loop": SubResource("Animation_a244s")
+}
+
+[node name="TypingHand" type="Node2D" unique_id=832879252]
+script = ExtResource("1_llfro")
+left_hand_states = Array[Texture2D]([ExtResource("2_54b4o"), ExtResource("3_a244s"), ExtResource("4_54b4o"), ExtResource("5_y8uio"), ExtResource("6_ajxp7"), ExtResource("7_lwb2q")])
+right_hand_states = Array[Texture2D]([ExtResource("8_cd45x"), ExtResource("9_ucci1"), ExtResource("10_ny2cw"), ExtResource("11_cd45x"), ExtResource("12_b8tix"), ExtResource("13_411kf")])
+
+[node name="LeftHand" type="Sprite2D" parent="." unique_id=1586000916]
+position = Vector2(-20, -19.000002)
+scale = Vector2(0.78131866, 0.7813188)
+texture = ExtResource("2_54b4o")
+
+[node name="RightHand" type="Sprite2D" parent="." unique_id=568026175]
+position = Vector2(41, -14)
+rotation = -0.10471976
+scale = Vector2(0.7239424, 0.7239425)
+texture = ExtResource("8_cd45x")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=240439904]
+root_node = NodePath("../LeftHand")
+libraries/ = SubResource("AnimationLibrary_ajxp7")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1962851746]
+zoom = Vector2(1.32, 1.32)

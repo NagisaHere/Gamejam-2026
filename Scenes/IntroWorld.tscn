@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://bprwpgdqtkrw6"]
+
+[ext_resource type="Texture2D" uid="uid://dn3ihrcvkgdwa" path="res://World/AssetsWorld/opening.png" id="1_xychh"]
+[ext_resource type="PackedScene" uid="uid://4d2uksj4uxh7" path="res://World/Scenes/CharTest.tscn" id="2_53mm0"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xychh"]
+
+[node name="IntroWorld" type="Node2D" unique_id=27276651]
+metadata/_edit_vertical_guides_ = [-644.0, -639.0]
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1732421221]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xychh")
+
+[node name="Character" parent="." unique_id=98430758 instance=ExtResource("2_53mm0")]
+position = Vector2(164, 117)
+
+[node name="Camera2D" type="Camera2D" parent="Character" unique_id=1072134139]
+position = Vector2(-0.5, 2.5)
+scale = Vector2(0.5, 0.5)
+zoom = Vector2(3, 3)
+limit_left = -640
+limit_right = 640
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=598897560]
+position = Vector2(82, 92)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1315459950]
+position = Vector2(-83, 138)
+scale = Vector2(0.5, 0.5)
+shape = SubResource("WorldBoundaryShape2D_xychh")
+
+[node name="LeftWall" type="StaticBody2D" parent="." unique_id=1145458307]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=1603038863]
+position = Vector2(-639, 299)
+rotation = 1.5707964
+scale = Vector2(0.25, 0.25)
+shape = SubResource("WorldBoundaryShape2D_xychh")
+
+[node name="RightWall" type="StaticBody2D" parent="LeftWall" unique_id=1725339628]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall/RightWall" unique_id=1441825532]
+position = Vector2(640, 299)
+rotation = -1.5707964
+scale = Vector2(0.25, 0.25)
+shape = SubResource("WorldBoundaryShape2D_xychh")

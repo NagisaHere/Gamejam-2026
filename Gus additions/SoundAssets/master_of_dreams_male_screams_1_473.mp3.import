@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://0mvxfm5g4xjp"
+path="res://.godot/imported/master_of_dreams_male_screams_1_473.mp3-f71dfdd5954bc8847042d778d47f3379.mp3str"
+
+[deps]
+
+source_file="res://Gus additions/SoundAssets/master_of_dreams_male_screams_1_473.mp3"
+dest_files=["res://.godot/imported/master_of_dreams_male_screams_1_473.mp3-f71dfdd5954bc8847042d778d47f3379.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

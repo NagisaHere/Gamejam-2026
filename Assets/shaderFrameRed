@@ -1,0 +1,16 @@
+shader_type canvas_item;
+
+uniform float border_size = 0.12;
+
+void fragment() {
+	vec2 uv = UV;
+
+	float left = smoothstep(0.0, border_size, uv.x);
+	float right = smoothstep(0.0, border_size, 1.0 - uv.x);
+	float top = smoothstep(0.0, border_size, uv.y);
+	float bottom = smoothstep(0.0, border_size, 1.0 - uv.y);
+
+	float frame = 1.0 - min(min(left, right), min(top, bottom));
+
+	COLOR = vec4(1.0, 0.0, 0.0, frame) * COLOR;
+}

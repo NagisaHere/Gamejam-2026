@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://bu3pgitvh6nbt"]
+[gd_scene format=3 uid="uid://hkosa7mnmapu"]
 
-[ext_resource type="Script" uid="uid://c5yi6ajyf5dqk" path="res://main_menu.gd" id="1_06t4h"]
-[ext_resource type="FontFile" uid="uid://cvn3gxuile5mo" path="res://PolarVortex-raAA.ttf" id="2_7vrkn"]
-[ext_resource type="Theme" uid="uid://clkea58eh2cm2" path="res://MainMenuButtons.tres" id="3_fu7sn"]
+[ext_resource type="Script" path="res://main_menu.gd" id="1_06t4h"]
+[ext_resource type="FontFile" path="res://PolarVortex-raAA.ttf" id="2_7vrkn"]
+[ext_resource type="Theme" path="res://MainMenuButtons.tres" id="3_fu7sn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fu7sn"]
 bg_color = Color(0.348, 0.5258667, 0.58, 1)
@@ -150,7 +150,7 @@ metadata/_edit_use_anchors_ = true
 [node name="Quit" type="Button" parent="Button Manager" unique_id=1089332677]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.9588821
+anchor_left = 0.9588816
 anchor_top = 2.0
 anchor_right = 0.9588816
 anchor_bottom = 2.0

@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://brl21e46ya44q"]
+
+[node name="Popup" type="Node2D" unique_id=2044758985]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1776628095]
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer" unique_id=1441889460]
+offset_left = 232.0
+offset_top = 180.0
+offset_right = 832.0
+offset_bottom = 333.0
+theme_override_font_sizes/font_size = 50
