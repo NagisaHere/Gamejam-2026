@@ -8,7 +8,7 @@ var fingers_remaining: int = 10
 var prev_keycode: int = -1 # undefined for now
 var backspace_is_held := false
 var sentences_completed := 0
-var sentences_to_win := 3
+var sentences_to_win := 0
 @onready var enemy = $EnemyContainer/Enemy
 @onready var enemy_container = $EnemyContainer
 @onready var fingers_label = $"CanvasLayer/VBoxContainer/BottomRow/fingers-value"
@@ -31,15 +31,14 @@ func _ready() -> void:
 	randomize()
 	load_phrases()
 	spawn_phrase()
-	
+
 func _win_game() -> void:
-	get_tree().change_scene_to_file("res://Scenes/veryhappy.tscn")
-	SaveManager.current_save = SaveData.new()
-	SaveManager.current_save.test_data = [{"name": "no-one","time": $"../Timer".time_left, "score": fingers_remaining }]
-	SaveManager.save_data()
-	
-	
-	
+	SaveManager.temp_time = $"../Timer".time_left
+	SaveManager.temp_score = fingers_remaining
+
+	# 2. Change to the popup scene
+	# This current scene (and this script) will now be destroyed
+	get_tree().change_scene_to_file("res://popup.tscn")
 
 func spawn_phrase():
 	var index = randi_range(0, passphrases.size() - 1)

@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://brl21e46ya44q"]
 
+[ext_resource type="Script" uid="uid://crqewhf3lnfs1" path="res://popup.gd" id="1_0fd7b"]
+
 [node name="Popup" type="Node2D" unique_id=2044758985]
+script = ExtResource("1_0fd7b")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1776628095]
 
@@ -17,3 +20,9 @@ offset_top = 84.0
 offset_right = 661.0
 offset_bottom = 120.0
 text = "Enter your name"
+
+[node name="Name" type="RichTextLabel" parent="." unique_id=797650877]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="text_submitted" from="CanvasLayer/LineEdit" to="." method="_on_line_edit_text_submitted"]
