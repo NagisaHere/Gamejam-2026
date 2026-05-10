@@ -7,8 +7,8 @@
 script = ExtResource("1_cpmfc")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2005838692]
-position = Vector2(5, 0)
-scale = Vector2(0.59814817, 0.59814817)
+position = Vector2(568.00006, 323.00003)
+scale = Vector2(0.6157407, 0.6157407)
 texture = ExtResource("2_kwlve")
 
 [node name="Camera2D" type="Camera2D" parent="Sprite2D" unique_id=1852006942]

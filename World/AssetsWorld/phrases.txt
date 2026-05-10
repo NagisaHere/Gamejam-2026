@@ -23,9 +23,9 @@ someone disconnected the life support systems from the main reactor
 the synthetic workers continued operating after all human supervisors vanished
 encrypted transmissions are still originating from the submerged station
 the system classified organic thought patterns as computational anomalies
-June 20th marks the day the southern hemisphere tilts furthest from the sun.
-Your skin turns cold, red, and numb. Eventually, ice crystals take root.
-Frostnip is the first degree of frostbite. It is mild and would not damage your skin.
-Blue tinted skin is a noticeable sign of second-degree frostbite.
-Third-degree frostbite can appear in as little as 30 minutes.
-The areas farthest from your heart are the most likely to get frostbitten.
+june 20th marks the day the southern hemisphere tilts furthest from the sun.
+your skin turns cold, red, and numb. eventually, ice crystals take root.
+frostnip is the first degree of frostbite. it is mild and would not damage your skin.
+blue tinted skin is a noticeable sign of second-degree frostbite.
+third-degree frostbite can appear in as little as 30 minutes.
+the areas farthest from your heart are the most likely to get frostbitten.
