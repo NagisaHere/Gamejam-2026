@@ -116,7 +116,7 @@ text = "Leaderboard"
 
 [node name="Competetive Music" type="AudioStreamPlayer" parent="." unique_id=620619298]
 stream = ExtResource("6_5ww5k")
-volume_db = -13.5
+volume_db = -20.645
 autoplay = true
 
 [node name="Button" type="Button" parent="." unique_id=1942617716]

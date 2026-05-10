@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://iaeahcsacts3" path="res://Gus additions/BadEnding/BadEnding_1.jpeg" id="1_rh6a4"]
 [ext_resource type="Texture2D" uid="uid://beu3klspq2f3q" path="res://Gus additions/BadEnding/Bad Ending_2.jpeg" id="2_jwdyd"]
 [ext_resource type="Texture2D" uid="uid://b2xkjriadsgb3" path="res://Gus additions/BadEnding/BadEnding3.jpeg" id="3_bvueo"]
+[ext_resource type="AudioStream" uid="uid://dobdiukpwxifh" path="res://Gus additions/SoundAssets/Insect Screech.wav" id="4_53w12"]
 [ext_resource type="Texture2D" uid="uid://cxw43ic5xcqiy" path="res://Gus additions/BadEnding/NothingBadEnding.jpeg" id="4_hu78o"]
 [ext_resource type="Texture2D" uid="uid://ccnw85fe1gtpf" path="res://Gus additions/BadEnding/BadEnding_Last.jpeg" id="4_ochfi"]
 [ext_resource type="AudioStream" uid="uid://bwhkuvg1chcg6" path="res://Gus additions/SoundAssets/RapidBreathDone.wav" id="6_ochfi"]
@@ -11,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dfl2frpp6rnjv" path="res://Gus additions/BadEnding/handLeft05 (20260509073859).png" id="8_1g3u6"]
 [ext_resource type="AudioStream" uid="uid://0mvxfm5g4xjp" path="res://Gus additions/SoundAssets/master_of_dreams_male_screams_1_473.mp3" id="8_gkj27"]
 [ext_resource type="Texture2D" uid="uid://ppq6rcp430gu" path="res://Gus additions/BadEnding/handRi05 (20260509074058).png" id="11_vo478"]
+[ext_resource type="AudioStream" uid="uid://cyh23aeievc11" path="res://Gus additions/SoundAssets/345815__vendarro__alarm-no.mp3" id="12_t15vw"]
 
 [sub_resource type="Animation" id="Animation_gkj27"]
 resource_name = "BadEnding"
@@ -152,6 +154,33 @@ tracks/9/keys = {
 "update": 0,
 "values": [11.918999999999997]
 }
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("AnimationPlayer/attack:volume_db")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(17.71),
+"transitions": PackedFloat32Array(1.0717735),
+"update": 0,
+"values": [-1.8619999999999948]
+}
+tracks/11/type = "audio"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("AnimationPlayer/attack")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"clips": [{
+"end_offset": 0.95000017,
+"start_offset": 0.0,
+"stream": ExtResource("4_53w12")
+}],
+"times": PackedFloat32Array(17.3)
+}
+tracks/11/use_blend = true
 
 [sub_resource type="Animation" id="Animation_vo478"]
 resource_name = "Fade out"
@@ -243,6 +272,18 @@ tracks/5/keys = {
 "update": 0,
 "values": [-13.714]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AnimationPlayer/attack:volume_db")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-19.195]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hu78o"]
 _data = {
@@ -280,7 +321,7 @@ autoplay = &"BadEnding"
 
 [node name="Cutscenes" type="Sprite2D" parent="AnimationPlayer" unique_id=1421092739]
 position = Vector2(577, 327)
-texture = ExtResource("4_hu78o")
+texture = ExtResource("4_ochfi")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AnimationPlayer" unique_id=1111179426]
 volume_db = -14.781
@@ -305,6 +346,14 @@ volume_db = -13.714
 [node name="Footstep" type="AudioStreamPlayer" parent="AnimationPlayer" unique_id=992052452]
 volume_db = -11.429
 
+[node name="alarm" type="AudioStreamPlayer" parent="AnimationPlayer" unique_id=1176752741]
+stream = ExtResource("12_t15vw")
+volume_db = -22.744
+autoplay = true
+
+[node name="attack" type="AudioStreamPlayer" parent="AnimationPlayer" unique_id=483301940]
+volume_db = -19.195
+
 [node name="Button" type="Button" parent="." unique_id=899840507]
 z_index = 5
 offset_left = 945.0
@@ -319,4 +368,5 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_53w12")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_o74jn")
 text = "Skip>>>"
 
+[connection signal="finished" from="AnimationPlayer/alarm" to="." method="_on_alarm_finished"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

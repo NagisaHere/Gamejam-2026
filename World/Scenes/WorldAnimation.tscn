@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://lwh6b1r6cvs4" path="res://Gus additions/SoundAssets/ropefinished2.wav" id="9_w3uqr"]
 [ext_resource type="AudioStream" uid="uid://q87attx503bw" path="res://Gus additions/SoundAssets/Quiet Snow Walk Finished.wav" id="10_h5lna"]
 [ext_resource type="AudioStream" uid="uid://egqur4hgwim1" path="res://Gus additions/SoundAssets/black_hole_soundridemusic.mp3" id="11_nxq72"]
+[ext_resource type="AudioStream" uid="uid://6gsghsnq6ac1" path="res://Gus additions/SoundAssets/tutorial4.wav" id="12_kt7v7"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xychh"]
 distance = 684.0
@@ -212,6 +213,42 @@ volume_db = -9.862
 [node name="Thretening ambience" type="AudioStreamPlayer" parent="." unique_id=802608431]
 stream = ExtResource("11_nxq72")
 volume_db = -16.355
+bus = &"Ambience"
 parameters/looping = true
 
+[node name="tutorial" type="AudioStreamPlayer" parent="." unique_id=1664916101]
+stream = ExtResource("12_kt7v7")
+bus = &"Voice"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=880986077]
+
+[node name="Button" type="Button" parent="CanvasLayer" unique_id=1526723661]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -215.0
+offset_top = -89.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Start Recording"
+
+[node name="Button2" type="Button" parent="CanvasLayer" unique_id=2085118914]
+visible = false
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -214.0
+offset_top = -88.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Stop Recording"
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Button2" to="." method="_on_button_2_pressed"]

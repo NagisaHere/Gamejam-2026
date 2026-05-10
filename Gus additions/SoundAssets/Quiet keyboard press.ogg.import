@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://iikwx34gh0a3"
+path="res://.godot/imported/Quiet keyboard press.ogg-7f92b173820b1687eb0ec09e061b4b33.oggvorbisstr"
+
+[deps]
+
+source_file="res://Gus additions/SoundAssets/Quiet keyboard press.ogg"
+dest_files=["res://.godot/imported/Quiet keyboard press.ogg-7f92b173820b1687eb0ec09e061b4b33.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
