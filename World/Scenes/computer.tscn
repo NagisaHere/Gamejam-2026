@@ -71,7 +71,7 @@ color = Color(0.8900982, 0, 0.07699553, 1)
 script = ExtResource("6_27goh")
 
 [node name="Timer" type="Timer" parent="." unique_id=1206964675]
-wait_time = 90.0
+wait_time = 150.0
 one_shot = true
 script = ExtResource("9_ds0at")
 

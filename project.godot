@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="frigid-digits"
-run/main_scene="uid://hkosa7mnmapu"
+run/main_scene="uid://bu3pgitvh6nbt"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
