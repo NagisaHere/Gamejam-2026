@@ -52,11 +52,13 @@ func spawn_phrase():
 	current_mistakes = ""
 
 	active_enemy.set_next_character(current_letter_index)
-	
+
 func load_phrases():
 	var file = FileAccess.open("res://World/AssetsWorld/phrases.txt", FileAccess.READ)
 	var text = file.get_as_text()
 	passphrases = text.split("\n")
+	if (not passphrases.is_empty()): # last is empty string, not good practice but filter doesnt work idk
+		passphrases.remove_at(passphrases.size() - 1)
 	
 func _check_win(prompt: String) -> void:
 	if current_letter_index == prompt.length() and current_mistakes.length() == 0:
@@ -144,6 +146,9 @@ func _unhandled_input(event: InputEvent) -> void:
 				return
 
 		if not event.is_pressed() or event.is_echo():
+			return
+		# some other character
+		if typed_event.unicode == 0:
 			return
 			
 		if randf() < (10 - fingers_remaining) * 0.0:
