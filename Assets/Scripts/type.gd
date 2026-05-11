@@ -18,15 +18,17 @@ var killed_fingers: Array[int] = []
 
 func _ready() -> void:
 	# 1. Instantiate the BluetoothManager and add it to the scene tree
-	bluetooth_manager = BluetoothManager.new()
-	add_child(bluetooth_manager)
-	
-	# 2. Connect core manager signals
-	bluetooth_manager.adapter_initialized.connect(_on_adapter_initialized)
-	bluetooth_manager.device_discovered.connect(_on_device_discovered)
-	bluetooth_manager.scan_stopped.connect(_on_scan_stopped)
-	
-	bluetooth_manager.initialize()
+	if not OS.has_feature("web"):
+		if ClassDB.class_exists("BluetoothManager"):
+			bluetooth_manager = ClassDB.instantiate("BluetoothManager")
+		add_child(bluetooth_manager)
+		
+		# 2. Connect core manager signals
+		bluetooth_manager.adapter_initialized.connect(_on_adapter_initialized)
+		bluetooth_manager.device_discovered.connect(_on_device_discovered)
+		bluetooth_manager.scan_stopped.connect(_on_scan_stopped)
+		
+		bluetooth_manager.initialize()
 	#start_game()
 	randomize()
 	load_phrases()
@@ -106,19 +108,22 @@ func _determine_esp32_message():
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey:
-		
-		var prompt = active_enemy.get_prompt()
-		var next_character = prompt.substr(current_letter_index, 1)
+
 		var typed_event = event as InputEventKey
 		var key_typed = PackedByteArray([typed_event.unicode]).get_string_from_utf8()
-
+		if active_enemy == null:
+			find_new_active_enemy(key_typed)
+			return
+		var prompt = active_enemy.get_prompt()
+		var next_character = prompt.substr(current_letter_index, 1)
 		if event.keycode == KEY_BACKSPACE:
 			if event.is_pressed():
 				
 				if not backspace_is_held:
 					fingers_remaining -= 1
 					fingers_changed.emit(fingers_remaining)
-					_determine_esp32_message()
+					if not OS.has_feature("web"):
+						_determine_esp32_message()
 					backspace_is_held = true
 					$"../backspace press".play()
 
@@ -188,9 +193,10 @@ func _unhandled_input(event: InputEvent) -> void:
 const TARGET_DEVICE_NAME = "ESP32S3_BLE_UART"
 const SERVICE_UUID = "6e400001-b5a3-f393-e0a9-e50e24dcca9e"
 const CHAR_UUID_RX = "6e400002-b5a3-f393-e0a9-e50e24dcca9e"
-
-var bluetooth_manager: BluetoothManager
-var connected_device: BleDevice = null
+# BluetoothManager
+var bluetooth_manager = null
+# BleDevice (need to remove typehints otherwise web broke)
+var connected_device = null
 
 
 
@@ -232,9 +238,9 @@ func connect_to_esp32(address: String):
 	
 	if connected_device:
 		# Wire up the device-specific signals
-		connected_device.connected.connect(_on_device_connected)
-		connected_device.services_discovered.connect(_on_services_discovered)
-		connected_device.characteristic_written.connect(_on_characteristic_written)
+		connected_device.connect("connected", _on_device_connected)
+		connected_device.connect("services_discovered", _on_services_discovered)
+		connected_device.connect("characteristic_written", _on_characteristic_written)
 		
 		print("Attempting to connect...")
 		connected_device.connect_async()
