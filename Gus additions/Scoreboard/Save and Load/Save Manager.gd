@@ -6,6 +6,7 @@ const SUPABASE_KEY = "sb_publishable_xStcRVKY3hzkQPrfEhOoig_IfYhZxCH"
 
 @onready var save_http_request: HTTPRequest = HTTPRequest.new()
 @onready var load_http_request: HTTPRequest = HTTPRequest.new()
+var leaderboard_data: Array[Dictionary] = []
 
 const SAVE_PATH := "user://save_data.tres"
 var current_save: SaveData
@@ -72,11 +73,8 @@ func _on_load_completed(result, response_code, headers, body):
 	if response_code >= 200 and response_code < 300:
 		var json_string = body.get_string_from_utf8()
 		var data = JSON.parse_string(json_string)
-		if (current_save == null):
-			current_save = SaveData.new()
-		if (data != null and typeof(data) == TYPE_ARRAY):
-			current_save.test_data = data
-			print("wow supa data")
+		if true:
+			pass
 		else:
 			current_save.test_data = []
 		# yeah this is bad lmao
