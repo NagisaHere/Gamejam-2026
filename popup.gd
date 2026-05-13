@@ -17,8 +17,7 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 		"score": SaveManager.temp_score 
 	}
 	SaveManager.current_save.test_data.append(new_user)
-	
-	SaveManager.save_data()
+	SaveManager.save_data_supabase(new_user)
 	
 	# happy happy very happy scene
 	get_tree().change_scene_to_file("res://Scenes/veryhappy.tscn")
