@@ -9,9 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://um3lncr8ht08" path="res://Gus additions/Menu/fram4.jpeg" id="5_im2pk"]
 [ext_resource type="Texture2D" uid="uid://3wq6fy4pxqmj" path="res://Gus additions/Menu/fram5.jpeg" id="6_fv5i7"]
 [ext_resource type="AudioStream" uid="uid://bwy11pfplrcu2" path="res://Gus additions/SoundAssets/Near_entrance.mp3" id="9_hjsem"]
-[ext_resource type="AudioStream" uid="uid://clkbkpa4nn12y" path="res://Gus additions/SoundAssets/StartSound.wav" id="10_spm0g"]
 [ext_resource type="FontFile" uid="uid://dd82rwkhe8alc" path="res://Assets/fonts/Alien-Encounters-Italic.ttf" id="9_spm0g"]
-
+[ext_resource type="AudioStream" uid="uid://clkbkpa4nn12y" path="res://Gus additions/SoundAssets/StartSound.wav" id="10_spm0g"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fu7sn"]
 bg_color = Color(0.348, 0.5258667, 0.58, 1)
@@ -218,13 +217,43 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Settings" type="Button" parent="Button Manager" unique_id=258615799]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.95888186
+anchor_top = 2.2558138
+anchor_right = 2.103252
+anchor_bottom = 2.2558138
+offset_left = 25.0
+offset_top = 124.0
+offset_right = 153.06543
+offset_bottom = 204.0
+theme = ExtResource("3_wkns5")
+theme_override_fonts/font = ExtResource("9_spm0g")
+theme_override_font_sizes/font_size = 40
+text = "Settings"
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Button Manager/Settings" unique_id=549226797]
+visible = false
+layout_mode = 0
+offset_right = 275.9563
+offset_bottom = 88.0
+theme_override_fonts/normal_font = ExtResource("9_spm0g")
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "Ranking"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Quit" type="Button" parent="Button Manager" unique_id=1089332677]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.9588816
-anchor_top = 2.0
+anchor_left = 0.95888174
+anchor_top = 2.6124032
 anchor_right = 0.9816135
-anchor_bottom = 2.0
+anchor_bottom = 2.6124032
 offset_left = 25.0
 offset_top = 157.0
 offset_right = 300.00006
@@ -271,9 +300,11 @@ parameters/looping = false
 
 [node name="Start" type="AudioStreamPlayer" parent="." unique_id=693200722]
 stream = ExtResource("10_spm0g")
+
 [node name="ButtonMovement" type="AnimationPlayer" parent="." unique_id=795434495]
 
 [connection signal="pressed" from="Button Manager/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Button Manager/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Button Manager/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Button Manager/Quit" to="." method="_on_quit_pressed"]
 [connection signal="timeout" from="Fade Transition/Fade_Timer" to="." method="_on_fade_timer_timeout"]
