@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://bjjii6iebxoji"]
 
 [ext_resource type="Texture2D" uid="uid://kwvpta1siu4t" path="res://World/AssetsWorld/bg.png" id="1_a2tr8"]
+[ext_resource type="Script" uid="uid://bweju6qeo5l32" path="res://Gus additions/Settings/Script/buttons.gd" id="1_cg3lk"]
 
 [node name="Settings" type="Node2D" unique_id=390334508]
+script = ExtResource("1_cg3lk")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=327163123]
 offset_left = 288.0
@@ -11,3 +13,28 @@ offset_right = 853.0
 offset_bottom = 593.0
 texture = ExtResource("1_a2tr8")
 expand_mode = 1
+
+[node name="Easy" type="Button" parent="." unique_id=1110500846]
+offset_left = 403.0
+offset_top = 134.0
+offset_right = 471.0
+offset_bottom = 185.0
+text = "Easy"
+
+[node name="Normal" type="Button" parent="." unique_id=1228734487]
+offset_left = 523.0
+offset_top = 138.0
+offset_right = 617.0
+offset_bottom = 186.0
+text = "Normal"
+
+[node name="Hard" type="Button" parent="." unique_id=867443315]
+offset_left = 681.0
+offset_top = 128.0
+offset_right = 765.0
+offset_bottom = 181.0
+text = "Hard"
+
+[connection signal="pressed" from="Easy" to="." method="_on_easy_pressed"]
+[connection signal="pressed" from="Normal" to="." method="_on_normal_pressed"]
+[connection signal="pressed" from="Hard" to="." method="_on_hard_pressed"]
