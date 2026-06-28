@@ -2,6 +2,15 @@
 
 [ext_resource type="Texture2D" uid="uid://kwvpta1siu4t" path="res://World/AssetsWorld/bg.png" id="1_a2tr8"]
 [ext_resource type="Script" uid="uid://bweju6qeo5l32" path="res://Gus additions/Settings/Script/buttons.gd" id="1_cg3lk"]
+[ext_resource type="FontFile" uid="uid://cy20ni1pqq46h" path="res://Gus additions/Scoreboard/Aquire-BW0ox.otf" id="3_j1y1v"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dlqf6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vahnp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nnjj0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pmadn"]
 
 [node name="Settings" type="Node2D" unique_id=390334508]
 script = ExtResource("1_cg3lk")
@@ -23,18 +32,60 @@ text = "Easy"
 
 [node name="Normal" type="Button" parent="." unique_id=1228734487]
 offset_left = 523.0
-offset_top = 138.0
+offset_top = 135.0
 offset_right = 617.0
-offset_bottom = 186.0
+offset_bottom = 183.0
 text = "Normal"
 
 [node name="Hard" type="Button" parent="." unique_id=867443315]
-offset_left = 681.0
-offset_top = 128.0
-offset_right = 765.0
-offset_bottom = 181.0
+offset_left = 676.0
+offset_top = 136.0
+offset_right = 760.0
+offset_bottom = 189.0
 text = "Hard"
+
+[node name="LevelLabel" type="RichTextLabel" parent="." unique_id=1516205096]
+offset_left = 381.0
+offset_top = 306.0
+offset_right = 454.0
+offset_bottom = 332.0
+text = "Levels"
+
+[node name="TTCLabel" type="RichTextLabel" parent="." unique_id=1075981298]
+offset_left = 587.0
+offset_top = 307.0
+offset_right = 704.0
+offset_bottom = 345.0
+text = "Time to clear"
+
+[node name="LevelCount" type="RichTextLabel" parent="." unique_id=761841838]
+offset_left = 453.0
+offset_top = 312.0
+offset_right = 550.0
+offset_bottom = 349.0
+text = "placeholder"
+
+[node name="TimeCount" type="RichTextLabel" parent="." unique_id=1595599323]
+offset_left = 710.0
+offset_top = 309.0
+offset_right = 799.0
+offset_bottom = 350.0
+text = "place"
+
+[node name="Button" type="Button" parent="." unique_id=39935284]
+offset_left = 629.0
+offset_top = 44.0
+offset_right = 838.0
+offset_bottom = 126.0
+theme_override_fonts/font = ExtResource("3_j1y1v")
+theme_override_font_sizes/font_size = 37
+theme_override_styles/normal = SubResource("StyleBoxEmpty_dlqf6")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_vahnp")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_nnjj0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pmadn")
+text = "Main Menu"
 
 [connection signal="pressed" from="Easy" to="." method="_on_easy_pressed"]
 [connection signal="pressed" from="Normal" to="." method="_on_normal_pressed"]
 [connection signal="pressed" from="Hard" to="." method="_on_hard_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_main_menu_pressed"]

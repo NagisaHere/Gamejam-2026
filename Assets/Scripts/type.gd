@@ -30,6 +30,10 @@ func _ready() -> void:
 		
 		bluetooth_manager.initialize()
 	#start_game()
+	# set time and level count from settings
+	sentences_to_win = SaveManager.sentences_needed
+	$"../Timer".wait_time = SaveManager.time_limit
+	
 	randomize()
 	load_phrases()
 	spawn_phrase()
