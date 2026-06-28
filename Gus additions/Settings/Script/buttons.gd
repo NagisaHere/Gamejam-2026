@@ -1,16 +1,17 @@
 extends Node
 
-var button_type = null
+var button_type: String = ""
 
-var time_left = SaveManager.time_limit
-var sentences_to_win_adjusted = SaveManager.sentences_needed
+var time_left: float = 150.0
+var sentences_to_win_adjusted: int = 3
+
+const MAX_TIME: float = 5940.0;
+const MAX_LEVEL: int = 99;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# if value exists?
-	#$LevelCount.text = str(sentences_to_win_adjusted)
-	#$TimeCount.text = str(time_left)
-	pass # Replace with function body.
+	display_settings();
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.aa
@@ -18,8 +19,9 @@ func _ready() -> void:
 #	pass
 
 func display_settings() -> void:
-	$LevelCount.text = str(sentences_to_win_adjusted)
-	$TimeCount.text = str(time_left)
+	$LevelControl/LevelCount.text = str(sentences_to_win_adjusted)
+	$TimeControl/TimeCount.text = str(int(time_left/60)) # I hope you do floor div by default mins
+	$TimeControl/TimeSecond.text = str(int(time_left) % 60)
 	SaveManager.time_limit = time_left
 	SaveManager.sentences_needed = sentences_to_win_adjusted
 	return
@@ -47,6 +49,48 @@ func _on_hard_pressed() -> void:
 func _on_main_menu_pressed() -> void:
 	get_tree().change_scene_to_file("res://Gus additions/Menu/main_menu.tscn")
 
+func _on_min_up_pressed() -> void:
+	time_left += 60.0;
+	if (time_left >= MAX_TIME):
+		time_left = MAX_TIME;
+	display_settings();
+	return
+
+func _on_min_down_pressed() -> void:
+	time_left -= 60.0;
+	if (time_left <= 0):
+		time_left = 0;
+	display_settings();
+	return
+
+func _on_sec_up_pressed() -> void:
+	time_left += 1.0;
+	if (time_left >= MAX_TIME):
+		time_left = MAX_TIME;
+	display_settings();
+	return
+
+func _on_sec_down_pressed() -> void:
+	time_left -= 1.0;
+	if (time_left <= 0):
+		time_left = 0;
+	display_settings();
+	return
+
+func _on_level_up_pressed() -> void:
+	sentences_to_win_adjusted += 1;
+	if (sentences_to_win_adjusted > MAX_LEVEL):
+		sentences_to_win_adjusted = MAX_LEVEL;
+	display_settings();
+	return
+
+func _on_level_down_pressed() -> void:
+	sentences_to_win_adjusted -= 1;
+	if (sentences_to_win_adjusted <= 0):
+		sentences_to_win_adjusted = 1
+	display_settings();
+	return
+
 func _when_button_worked() -> void:
 	if button_type == "easy":
 		_on_easy_pressed()
@@ -60,4 +104,3 @@ func _when_button_worked() -> void:
 		_on_hard_pressed()
 		print(time_left)
 		print(sentences_to_win_adjusted)
-	
