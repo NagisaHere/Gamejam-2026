@@ -7,7 +7,7 @@ func _ready():
 	$AnimationPlayer.play("Intro")
 	$Rope.play()
 	await $AnimationPlayer.animation_finished
-	$"Thretening ambience".play()
+	$"threatening ambience".play()
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "Intro":
