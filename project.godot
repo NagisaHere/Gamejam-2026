@@ -24,6 +24,12 @@ buses/default_bus_layout="uid://cwgmsi2grxud4"
 SaveManager="*uid://bxavgeq022cqr"
 Leaderboard="*uid://8h7t5poo6krj"
 DialogueManager="*uid://c3rodes2l3gxb"
+VideoManager="*uid://bcuulk7ptu4tf"
+
+[dialogue_manager]
+
+runtime/balloon_path="res://Tutorial/Tutorial.tscn"
+runtime/warn_about_method_property_or_signal_name_conflicts=true
 
 [display]
 
@@ -33,6 +39,10 @@ window/stretch/aspect="expand"
 [dotnet]
 
 project/assembly_name="frigid-digits"
+
+[editor]
+
+movie_writer/movie_file="res://Tutorial/example_tutorial.ogv"
 
 [editor_plugins]
 
@@ -79,7 +89,7 @@ interact={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://untitled.dialogue")
+locale/translations_pot_files=PackedStringArray("res://Tutorial/tutorial.dialogue")
 
 [physics]
 

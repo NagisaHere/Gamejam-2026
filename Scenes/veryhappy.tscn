@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c2hnbb3cuqkls"]
 
-[ext_resource type="Script" uid="uid://l1mkq8vfgjue" path="res://canvas_layer.gd" id="1_cpmfc"]
+[ext_resource type="Script" path="res://canvas_layer.gd" id="1_cpmfc"]
 [ext_resource type="Texture2D" uid="uid://b0lrrqe3f2yx3" path="res://Assets/happyhappyhappy (20260510094541).png" id="2_kwlve"]
 
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1817764815]
