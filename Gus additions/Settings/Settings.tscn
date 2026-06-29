@@ -1,0 +1,200 @@
+[gd_scene format=3 uid="uid://bjjii6iebxoji"]
+
+[ext_resource type="Texture2D" uid="uid://kwvpta1siu4t" path="res://World/AssetsWorld/bg.png" id="1_a2tr8"]
+[ext_resource type="Script" uid="uid://bweju6qeo5l32" path="res://Gus additions/Settings/Script/buttons.gd" id="1_cg3lk"]
+[ext_resource type="FontFile" uid="uid://cy20ni1pqq46h" path="res://Gus additions/Scoreboard/Aquire-BW0ox.otf" id="3_j1y1v"]
+[ext_resource type="Texture2D" uid="uid://c8vsdclo31f70" path="res://Assets/Icons/up-xxl.png" id="4_dlqf6"]
+[ext_resource type="AudioStream" uid="uid://bwiyol83ptubt" path="res://Gus additions/Settings/391670__jeckkech__jump.wav" id="5_nnjj0"]
+[ext_resource type="AudioStream" uid="uid://ciwsqudkwwxcp" path="res://Gus additions/Settings/level_down.wav" id="6_pmadn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dlqf6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vahnp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nnjj0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pmadn"]
+
+[node name="Settings" type="Control" unique_id=615567251]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cg3lk")
+
+[node name="Background" type="TextureRect" parent="." unique_id=327163123]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_a2tr8")
+expand_mode = 1
+
+[node name="Background panel" type="Panel" parent="." unique_id=237529688]
+modulate = Color(0, 0, 0, 0.6862745)
+layout_mode = 0
+offset_left = 269.0
+offset_top = 2.0
+offset_right = 904.0
+offset_bottom = 652.0
+
+[node name="MainMenu" type="Button" parent="." unique_id=39935284]
+layout_mode = 0
+offset_left = 939.0
+offset_top = 2.0
+offset_right = 1148.0
+offset_bottom = 84.0
+theme_override_fonts/font = ExtResource("3_j1y1v")
+theme_override_font_sizes/font_size = 37
+theme_override_styles/normal = SubResource("StyleBoxEmpty_dlqf6")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_vahnp")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_nnjj0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pmadn")
+text = "Main Menu"
+
+[node name="LevelControl" type="Node" parent="." unique_id=1593319058]
+
+[node name="LevelUp" type="TextureButton" parent="LevelControl" unique_id=217382426]
+offset_left = 491.0
+offset_top = 276.0
+offset_right = 516.0
+offset_bottom = 302.0
+texture_normal = ExtResource("4_dlqf6")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="LevelDown" type="TextureButton" parent="LevelControl" unique_id=105927714]
+offset_left = 515.0
+offset_top = 364.0
+offset_right = 540.0
+offset_bottom = 390.0
+rotation = 3.1415927
+texture_normal = ExtResource("4_dlqf6")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="LevelCount" type="RichTextLabel" parent="LevelControl" unique_id=761841838]
+offset_left = 490.0
+offset_top = 308.0
+offset_right = 516.0
+offset_bottom = 338.0
+text = "0"
+horizontal_alignment = 1
+
+[node name="LevelLabel" type="RichTextLabel" parent="LevelControl" unique_id=1516205096]
+offset_left = 373.0
+offset_top = 309.0
+offset_right = 446.0
+offset_bottom = 335.0
+text = "Levels"
+
+[node name="TimeControl" type="Node" parent="." unique_id=2085651880]
+
+[node name="TTCLabel" type="RichTextLabel" parent="TimeControl" unique_id=1075981298]
+offset_left = 587.0
+offset_top = 307.0
+offset_right = 704.0
+offset_bottom = 345.0
+text = "Time Limit"
+
+[node name="TimeCount" type="RichTextLabel" parent="TimeControl" unique_id=1595599323]
+offset_left = 706.0
+offset_top = 304.0
+offset_right = 752.0
+offset_bottom = 329.0
+text = "0"
+horizontal_alignment = 1
+
+[node name="TimeUp" type="TextureButton" parent="TimeControl" unique_id=805435074]
+offset_left = 716.0
+offset_top = 270.0
+offset_right = 741.0
+offset_bottom = 296.0
+texture_normal = ExtResource("4_dlqf6")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="TimeDown" type="TextureButton" parent="TimeControl" unique_id=531949839]
+offset_left = 741.0
+offset_top = 363.0
+offset_right = 766.0
+offset_bottom = 389.0
+rotation = 3.1415927
+texture_normal = ExtResource("4_dlqf6")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="TimeUpSec" type="TextureButton" parent="TimeControl" unique_id=1907643419]
+offset_left = 779.0
+offset_top = 271.0
+offset_right = 804.0
+offset_bottom = 297.0
+texture_normal = ExtResource("4_dlqf6")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="TimeDownSec" type="TextureButton" parent="TimeControl" unique_id=347567558]
+offset_left = 805.0
+offset_top = 363.0
+offset_right = 830.0
+offset_bottom = 389.0
+rotation = 3.1415927
+texture_normal = ExtResource("4_dlqf6")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="TimeSecond" type="RichTextLabel" parent="TimeControl" unique_id=1084956054]
+offset_left = 770.0
+offset_top = 304.0
+offset_right = 816.0
+offset_bottom = 329.0
+text = "0"
+horizontal_alignment = 1
+
+[node name="Difficulty" type="Node" parent="." unique_id=207337893]
+
+[node name="Easy" type="Button" parent="Difficulty" unique_id=1110500846]
+offset_left = 403.0
+offset_top = 134.0
+offset_right = 471.0
+offset_bottom = 185.0
+text = "Easy"
+
+[node name="Normal" type="Button" parent="Difficulty" unique_id=1228734487]
+offset_left = 523.0
+offset_top = 135.0
+offset_right = 617.0
+offset_bottom = 183.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Normal"
+
+[node name="Hard" type="Button" parent="Difficulty" unique_id=867443315]
+offset_left = 673.0
+offset_top = 134.0
+offset_right = 757.0
+offset_bottom = 187.0
+text = "Hard"
+
+[node name="Sounds" type="Node" parent="." unique_id=39729445]
+
+[node name="LevelUpSound" type="AudioStreamPlayer" parent="Sounds" unique_id=1332547861]
+stream = ExtResource("5_nnjj0")
+
+[node name="LevelDownSound" type="AudioStreamPlayer" parent="Sounds" unique_id=1451162283]
+stream = ExtResource("6_pmadn")
+
+[connection signal="pressed" from="MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="LevelControl/LevelUp" to="." method="_on_level_up_pressed"]
+[connection signal="pressed" from="LevelControl/LevelDown" to="." method="_on_level_down_pressed"]
+[connection signal="pressed" from="TimeControl/TimeUp" to="." method="_on_min_up_pressed"]
+[connection signal="pressed" from="TimeControl/TimeDown" to="." method="_on_min_down_pressed"]
+[connection signal="pressed" from="TimeControl/TimeUpSec" to="." method="_on_sec_up_pressed"]
+[connection signal="pressed" from="TimeControl/TimeDownSec" to="." method="_on_sec_down_pressed"]
+[connection signal="pressed" from="Difficulty/Easy" to="." method="_on_easy_pressed"]
+[connection signal="pressed" from="Difficulty/Normal" to="." method="_on_normal_pressed"]
+[connection signal="pressed" from="Difficulty/Hard" to="." method="_on_hard_pressed"]

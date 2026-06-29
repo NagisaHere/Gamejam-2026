@@ -5,6 +5,9 @@ var current_save: SaveData
 var temp_time: float = 0.0
 var temp_score: int = 0
 
+var time_limit: float = 0.0
+var sentences_needed: int = 0
+
 func _ready():
 	load_data()
 	
@@ -16,5 +19,6 @@ func load_data():
 		current_save = ResourceLoader.load(SAVE_PATH)
 	else:
 		current_save = SaveData.new()
-		current_save.test_data = [{"name": "no-one","time": 40, "score": 1000}]
+		current_save.test_data = [{"name": "no-one","time": 40, "score": 1000,
+		 "levels": 0, "time_limit": 0.0}]
 		save_data()
