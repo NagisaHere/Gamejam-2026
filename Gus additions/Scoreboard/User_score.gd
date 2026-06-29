@@ -11,15 +11,6 @@ func setup(n, t, f) -> void:
 	Name.text = n
 	FingersLeft.text = str(f)
 	
-	while t > 60:
-		minutes += 1
-		t -= 60
-		
-	if t > 9 and minutes > 9:
-		TimeLeft.text = str(minutes) + ":" + str(t)
-	elif t > 9:
-		TimeLeft.text = "0" + str(minutes) + ":" + str(t)
-	elif minutes > 9:
-		TimeLeft.text = str(minutes) + ":" + "0" + str(t)
-	else:
-		TimeLeft.text = "0" + str(minutes) + ":" + "0" + str(t)
+	var minutes = int(t / 60)
+	var seconds = fmod(t, 60.0)
+	TimeLeft.text = "%02d:%05.2f" % [minutes, seconds]
