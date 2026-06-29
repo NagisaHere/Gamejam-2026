@@ -27,6 +27,14 @@ func _ready() -> void:
 	$typing.fingers_changed.connect($CanvasLayer.set_fingers_remaining)
 	redGlow.modulate.a = 0.0
 	
+
+
+func _on_skip_button_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://World/Scenes/WorldAnimation.tscn\")
+
+
+func _on_reload_button_pressed() -> void:
+	get_tree().reload_current_scene()
 "
 
 [sub_resource type="GDScript" id="GDScript_g2f8q"]
@@ -67,9 +75,6 @@ func _ready() -> void:
 	spawn_phrase()
 
 func _win_game() -> void:
-	SaveManager.temp_time = $\"../Timer\".time_left
-	SaveManager.temp_score = fingers_remaining
-
 	# 2. Change to the popup scene
 	# This current scene (and this script) will now be destroyed
 	get_tree().change_scene_to_file(\"res://World/Scenes/WorldAnimation.tscn\")
@@ -352,6 +357,14 @@ fill = 1
 fill_from = Vector2(0.48958334, 0.48958334)
 fill_to = Vector2(1, 1)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_16q2i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g2f8q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ar1gl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qcwpo"]
+
 [node name="Trial Part" type="Node2D" unique_id=1815070021]
 script = SubResource("GDScript_jphvt")
 metadata/_edit_vertical_guides_ = [1136.0]
@@ -415,13 +428,13 @@ text = "N/A"
 horizontal_alignment = 1
 
 [node name="KeyDropChance" type="Label" parent="CanvasTimer" unique_id=975888102]
-offset_left = 191.0
-offset_top = 500.0
-offset_right = 599.0
-offset_bottom = 568.0
+offset_left = 209.0
+offset_top = 526.0
+offset_right = 717.0
+offset_bottom = 594.0
 theme_override_fonts/font = ExtResource("8_fvxgd")
 theme_override_font_sizes/font_size = 35
-text = "Chance to Drop key: 0%"
+text = "Chance to Drop key: 0.0%"
 horizontal_alignment = 1
 
 [node name="normal press" type="AudioStreamPlayer" parent="." unique_id=934232229]
@@ -445,6 +458,7 @@ volume_db = -6.476
 [node name="alarm overlay" type="CanvasLayer" parent="." unique_id=269115034]
 
 [node name="RedGlow" type="TextureRect" parent="alarm overlay" unique_id=1648302740]
+visible = false
 modulate = Color(0.81, 0.16199999, 0.16199999, 1)
 anchors_preset = 15
 anchor_right = 1.0
@@ -454,3 +468,34 @@ grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_73g8m")
 metadata/_edit_lock_ = true
+
+[node name="skip_button" type="Button" parent="." unique_id=1327825595]
+z_index = 5
+offset_left = 943.0
+offset_top = 576.0
+offset_right = 1141.0
+offset_bottom = 652.0
+theme_override_colors/font_color = Color(0.69, 0.69, 0.69, 1)
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxEmpty_16q2i")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_g2f8q")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ar1gl")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qcwpo")
+text = "Skip>>>"
+
+[node name="reload_button" type="Button" parent="." unique_id=1727089982]
+z_index = 5
+offset_left = 941.0
+offset_top = 4.0
+offset_right = 1139.0
+offset_bottom = 80.0
+theme_override_colors/font_color = Color(0.69, 0.69, 0.69, 1)
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxEmpty_16q2i")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_g2f8q")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ar1gl")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qcwpo")
+text = "Reload⟳"
+
+[connection signal="pressed" from="skip_button" to="." method="_on_skip_button_pressed"]
+[connection signal="pressed" from="reload_button" to="." method="_on_reload_button_pressed"]
