@@ -4,22 +4,35 @@
 [ext_resource type="Texture2D" uid="uid://d0f7fyndmi306" path="res://Assets/interface (20260510063538).png" id="2_ysobb"]
 [ext_resource type="PackedScene" uid="uid://43tltcd7ygvn" path="res://Scenes/type.tscn" id="3_p2dj2"]
 [ext_resource type="PackedScene" uid="uid://ch2db7q0k0rwi" path="res://World/Scenes/typing_hand.tscn" id="3_vdqhu"]
-[ext_resource type="Script" uid="uid://buvbchte83rch" path="res://World/Scenes/canvas_layer.gd" id="5_27goh"]
+[ext_resource type="Script" path="res://World/Scenes/canvas_layer.gd" id="5_27goh"]
 [ext_resource type="Texture2D" uid="uid://dsw7gnjfaql5m" path="res://Assets/interface (20260510071510).png" id="5_ds0at"]
 [ext_resource type="Shader" uid="uid://dmm08vcn5k064" path="res://World/Scenes/computer.gdshader" id="5_kic7h"]
-[ext_resource type="Script" uid="uid://bi6bwgu5ike4v" path="res://World/Scripts/color_rect.gd" id="6_27goh"]
-[ext_resource type="Script" uid="uid://d4ftahshflju3" path="res://World/Scenes/timer.gd" id="9_ds0at"]
-[ext_resource type="Script" uid="uid://bfqb70ago7iaw" path="res://World/Scenes/label.gd" id="10_udr8r"]
+[ext_resource type="Script" path="res://World/Scripts/color_rect.gd" id="6_27goh"]
+[ext_resource type="Script" path="res://World/Scenes/timer.gd" id="9_ds0at"]
+[ext_resource type="Script" path="res://World/Scenes/label.gd" id="10_udr8r"]
 [ext_resource type="FontFile" uid="uid://dc1f2eykeohyp" path="res://Assets/fonts/abduction2002.ttf" id="10_y05vg"]
 [ext_resource type="AudioStream" uid="uid://iikwx34gh0a3" path="res://Gus additions/SoundAssets/Quiet keyboard press.ogg" id="12_c8qam"]
 [ext_resource type="AudioStream" uid="uid://dgk3ynw3xk8te" path="res://Gus additions/SoundAssets/Backspace press.wav" id="13_p2dhd"]
 [ext_resource type="AudioStream" uid="uid://dxw8xdh2ahso2" path="res://Gus additions/SoundAssets/startup2.wav" id="14_21suy"]
 [ext_resource type="AudioStream" uid="uid://dxkneow34sox5" path="res://Gus additions/SoundAssets/722375__qubodup__error-1.wav" id="15_21suy"]
 [ext_resource type="AudioStream" uid="uid://bmiw6bnte8l3e" path="res://Gus additions/SoundAssets/327738__distillerystudio__error_01.wav" id="16_lio8n"]
+[ext_resource type="AudioStream" uid="uid://5yymottru5si" path="res://Gus additions/SoundAssets/520200__latranz__industrial-alarm.wav" id="17_lio8n"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ysobb"]
 shader = ExtResource("5_kic7h")
 shader_parameter/border_size = 0.12
+
+[sub_resource type="Gradient" id="Gradient_lio8n"]
+offsets = PackedFloat32Array(0, 0.8854167, 1)
+colors = PackedColorArray(1, 1, 1, 0.003921569, 1, 1, 1, 0.38431373, 1, 0.089999974, 0.089999974, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_73g8m"]
+gradient = SubResource("Gradient_lio8n")
+width = 1024
+height = 1024
+fill = 1
+fill_from = Vector2(0.48958334, 0.48958334)
+fill_to = Vector2(1, 1)
 
 [node name="Computer" type="Node2D" unique_id=1815070021]
 script = ExtResource("1_pepux")
@@ -71,7 +84,7 @@ color = Color(0.8900982, 0, 0.07699553, 1)
 script = ExtResource("6_27goh")
 
 [node name="Timer" type="Timer" parent="." unique_id=1206964675]
-wait_time = 150.0
+wait_time = 3.0
 one_shot = true
 script = ExtResource("9_ds0at")
 
@@ -105,5 +118,20 @@ volume_db = -20.62
 [node name="Input not registered" type="AudioStreamPlayer" parent="." unique_id=441186533]
 stream = ExtResource("16_lio8n")
 volume_db = -6.476
+
+[node name="alarm" type="AudioStreamPlayer" parent="." unique_id=374980560]
+stream = ExtResource("17_lio8n")
+
+[node name="alarm overlay" type="CanvasLayer" parent="." unique_id=269115034]
+
+[node name="RedGlow" type="TextureRect" parent="alarm overlay" unique_id=1648302740]
+modulate = Color(0.81, 0.16199999, 0.16199999, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_73g8m")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
