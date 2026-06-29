@@ -13,10 +13,11 @@
 [ext_resource type="FontFile" uid="uid://dc1f2eykeohyp" path="res://Assets/fonts/abduction2002.ttf" id="10_y05vg"]
 [ext_resource type="AudioStream" uid="uid://iikwx34gh0a3" path="res://Gus additions/SoundAssets/Quiet keyboard press.ogg" id="12_c8qam"]
 [ext_resource type="AudioStream" uid="uid://dgk3ynw3xk8te" path="res://Gus additions/SoundAssets/Backspace press.wav" id="13_p2dhd"]
-[ext_resource type="AudioStream" uid="uid://dxw8xdh2ahso2" path="res://Gus additions/SoundAssets/startup2.wav" id="14_21suy"]
+[ext_resource type="AudioStream" uid="uid://bnw6np7ly67jq" path="res://Gus additions/SoundAssets/computer startup.wav" id="14_73g8m"]
 [ext_resource type="AudioStream" uid="uid://dxkneow34sox5" path="res://Gus additions/SoundAssets/722375__qubodup__error-1.wav" id="15_21suy"]
 [ext_resource type="AudioStream" uid="uid://bmiw6bnte8l3e" path="res://Gus additions/SoundAssets/327738__distillerystudio__error_01.wav" id="16_lio8n"]
 [ext_resource type="AudioStream" uid="uid://5yymottru5si" path="res://Gus additions/SoundAssets/520200__latranz__industrial-alarm.wav" id="17_lio8n"]
+[ext_resource type="AudioStream" uid="uid://mqj6e1171o6h" path="res://Gus additions/SoundAssets/computer ambience.wav" id="18_wjrsh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ysobb"]
 shader = ExtResource("5_kic7h")
@@ -108,7 +109,7 @@ stream = ExtResource("12_c8qam")
 stream = ExtResource("13_p2dhd")
 
 [node name="Startup" type="AudioStreamPlayer" parent="." unique_id=737846912]
-stream = ExtResource("14_21suy")
+stream = ExtResource("14_73g8m")
 autoplay = true
 
 [node name="Wrong Input" type="AudioStreamPlayer" parent="." unique_id=726268909]
@@ -121,6 +122,9 @@ volume_db = -6.476
 
 [node name="alarm" type="AudioStreamPlayer" parent="." unique_id=374980560]
 stream = ExtResource("17_lio8n")
+
+[node name="computer ambience" type="AudioStreamPlayer" parent="." unique_id=2029981758]
+stream = ExtResource("18_wjrsh")
 
 [node name="alarm overlay" type="CanvasLayer" parent="." unique_id=269115034]
 
@@ -135,3 +139,6 @@ mouse_filter = 2
 texture = SubResource("GradientTexture2D_73g8m")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="finished" from="Startup" to="." method="_on_startup_finished"]
+[connection signal="finished" from="alarm" to="." method="_on_alarm_finished"]
+[connection signal="finished" from="computer ambience" to="." method="_on_computer_ambience_finished"]

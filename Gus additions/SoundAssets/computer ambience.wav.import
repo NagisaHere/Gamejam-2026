@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://mqj6e1171o6h"
+path="res://.godot/imported/computer ambience.wav-cd88b35862d87dce147de0d7e7bfe2b4.sample"
+
+[deps]
+
+source_file="res://Gus additions/SoundAssets/computer ambience.wav"
+dest_files=["res://.godot/imported/computer ambience.wav-cd88b35862d87dce147de0d7e7bfe2b4.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

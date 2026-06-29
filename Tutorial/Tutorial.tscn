@@ -101,6 +101,50 @@ _data = {
 &"progress": SubResource("Animation_qkmqt")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3oavh"]
+bg_color = Color(0, 0, 0, 0.22745098)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yhiv6"]
+bg_color = Color(0, 0, 0, 0.22745098)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hgldx"]
+bg_color = Color(0, 0, 0, 0.22745098)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l41xm"]
+bg_color = Color(0, 0, 0, 0.22745098)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yhiv6"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3oavh"]
@@ -197,37 +241,42 @@ polygon = PackedVector2Array(0, 0, 10, 10, 20, 0)
 libraries/ = SubResource("AnimationLibrary_1337t")
 autoplay = &"progress"
 
-[node name="ResponsesMenu" type="VBoxContainer" parent="Balloon" unique_id=966297223 node_paths=PackedStringArray("response_template")]
+[node name="ResponsesMenu" type="HBoxContainer" parent="Balloon" unique_id=1683596063 node_paths=PackedStringArray("response_template")]
 unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.7372549)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -290.5
-offset_top = -35.0
-offset_right = 290.5
-offset_bottom = 35.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -280.0
+offset_top = -56.0
+offset_right = -34.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
 size_flags_vertical = 8
-theme_override_constants/separation = 2
+theme_override_constants/separation = 1
 alignment = 1
 script = ExtResource("4_l41xm")
 response_template = NodePath("ResponseExample")
 
 [node name="ResponseExample" type="Button" parent="Balloon/ResponsesMenu" unique_id=914537232]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_3oavh")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yhiv6")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_hgldx")
+theme_override_styles/focus = SubResource("StyleBoxFlat_l41xm")
 text = "Response example"
 
 [node name="skip_button" type="Button" parent="Balloon" unique_id=417724651]
 z_index = 5
 layout_mode = 0
-offset_left = 945.0
-offset_top = 554.0
-offset_right = 1143.0
-offset_bottom = 630.0
+offset_left = 959.0
+offset_top = -12.0
+offset_right = 1157.0
+offset_bottom = 64.0
 theme_override_colors/font_color = Color(0.69, 0.69, 0.69, 1)
 theme_override_font_sizes/font_size = 45
 theme_override_styles/normal = SubResource("StyleBoxEmpty_yhiv6")

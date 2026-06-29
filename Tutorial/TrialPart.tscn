@@ -9,10 +9,11 @@
 [ext_resource type="Script" path="res://World/Scripts/color_rect.gd" id="7_v7hhm"]
 [ext_resource type="FontFile" uid="uid://dc1f2eykeohyp" path="res://Assets/fonts/abduction2002.ttf" id="8_fvxgd"]
 [ext_resource type="AudioStream" uid="uid://iikwx34gh0a3" path="res://Gus additions/SoundAssets/Quiet keyboard press.ogg" id="10_hjxlb"]
+[ext_resource type="AudioStream" uid="uid://bnw6np7ly67jq" path="res://Gus additions/SoundAssets/computer startup.wav" id="11_g2f8q"]
 [ext_resource type="AudioStream" uid="uid://dgk3ynw3xk8te" path="res://Gus additions/SoundAssets/Backspace press.wav" id="11_vlhc3"]
-[ext_resource type="AudioStream" uid="uid://dxw8xdh2ahso2" path="res://Gus additions/SoundAssets/startup2.wav" id="12_j5uy5"]
 [ext_resource type="AudioStream" uid="uid://dxkneow34sox5" path="res://Gus additions/SoundAssets/722375__qubodup__error-1.wav" id="13_jyurp"]
 [ext_resource type="AudioStream" uid="uid://bmiw6bnte8l3e" path="res://Gus additions/SoundAssets/327738__distillerystudio__error_01.wav" id="14_8tthm"]
+[ext_resource type="AudioStream" uid="uid://mqj6e1171o6h" path="res://Gus additions/SoundAssets/computer ambience.wav" id="14_ar1gl"]
 
 [sub_resource type="GDScript" id="GDScript_jphvt"]
 script/source = "extends Node2D
@@ -35,6 +36,13 @@ func _on_skip_button_pressed() -> void:
 
 func _on_reload_button_pressed() -> void:
 	get_tree().reload_current_scene()
+	
+func _on_startup_finished() -> void:
+	$\"computer ambience\".play()
+
+
+func _on_computer_ambience_finished() -> void:
+	$\"computer ambience\".play()
 "
 
 [sub_resource type="GDScript" id="GDScript_g2f8q"]
@@ -444,7 +452,7 @@ stream = ExtResource("10_hjxlb")
 stream = ExtResource("11_vlhc3")
 
 [node name="Startup" type="AudioStreamPlayer" parent="." unique_id=737846912]
-stream = ExtResource("12_j5uy5")
+stream = ExtResource("11_g2f8q")
 autoplay = true
 
 [node name="Wrong Input" type="AudioStreamPlayer" parent="." unique_id=726268909]
@@ -454,6 +462,9 @@ volume_db = -20.62
 [node name="Input not registered" type="AudioStreamPlayer" parent="." unique_id=441186533]
 stream = ExtResource("14_8tthm")
 volume_db = -6.476
+
+[node name="computer ambience" type="AudioStreamPlayer" parent="." unique_id=1026343954]
+stream = ExtResource("14_ar1gl")
 
 [node name="alarm overlay" type="CanvasLayer" parent="." unique_id=269115034]
 
@@ -497,5 +508,7 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_ar1gl")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_qcwpo")
 text = "Reload⟳"
 
+[connection signal="finished" from="Startup" to="." method="_on_startup_finished"]
+[connection signal="finished" from="computer ambience" to="." method="_on_computer_ambience_finished"]
 [connection signal="pressed" from="skip_button" to="." method="_on_skip_button_pressed"]
 [connection signal="pressed" from="reload_button" to="." method="_on_reload_button_pressed"]

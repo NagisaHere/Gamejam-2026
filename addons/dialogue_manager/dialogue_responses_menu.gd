@@ -122,6 +122,7 @@ func _apply_responses() -> void:
 			if is_instance_valid(response_template):
 				item = response_template.duplicate(DUPLICATE_GROUPS | DUPLICATE_SCRIPTS | DUPLICATE_SIGNALS)
 				item.show()
+				item.size_flags_horizontal = Control.SIZE_EXPAND | Control.SIZE_FILL
 			else:
 				item = Button.new()
 			item.name = "Response%d" % get_child_count()

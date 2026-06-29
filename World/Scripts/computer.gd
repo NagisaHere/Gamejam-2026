@@ -37,6 +37,14 @@ func _process(delta):
 	redGlow.modulate.a = lerp(redGlow.modulate.a, 0.0, delta * 1.0)
 	
 func _on_timer_timeout() -> void:
-
+	
 	$typing._game_over()
 	
+
+
+func _on_startup_finished() -> void:
+	$"computer ambience".play()
+
+
+func _on_computer_ambience_finished() -> void:
+	$"computer ambience".play()
