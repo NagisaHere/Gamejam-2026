@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://bweju6qeo5l32" path="res://Gus additions/Settings/Script/buttons.gd" id="1_cg3lk"]
 [ext_resource type="FontFile" uid="uid://cy20ni1pqq46h" path="res://Gus additions/Scoreboard/Aquire-BW0ox.otf" id="3_j1y1v"]
 [ext_resource type="Texture2D" uid="uid://c8vsdclo31f70" path="res://Assets/Icons/up-xxl.png" id="4_dlqf6"]
+[ext_resource type="AudioStream" uid="uid://bwiyol83ptubt" path="res://Gus additions/Settings/391670__jeckkech__jump.wav" id="5_nnjj0"]
+[ext_resource type="AudioStream" uid="uid://ciwsqudkwwxcp" path="res://Gus additions/Settings/level_down.wav" id="6_pmadn"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dlqf6"]
 
@@ -13,22 +15,39 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pmadn"]
 
-[node name="Settings" type="Node2D" unique_id=390334508]
+[node name="Settings" type="Control" unique_id=615567251]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_cg3lk")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=327163123]
-offset_left = 288.0
-offset_top = 40.0
-offset_right = 853.0
-offset_bottom = 593.0
+[node name="Background" type="TextureRect" parent="." unique_id=327163123]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("1_a2tr8")
 expand_mode = 1
 
+[node name="Background panel" type="Panel" parent="." unique_id=237529688]
+modulate = Color(0, 0, 0, 0.6862745)
+layout_mode = 0
+offset_left = 269.0
+offset_top = 2.0
+offset_right = 904.0
+offset_bottom = 652.0
+
 [node name="MainMenu" type="Button" parent="." unique_id=39935284]
-offset_left = 629.0
-offset_top = 44.0
-offset_right = 838.0
-offset_bottom = 126.0
+layout_mode = 0
+offset_left = 939.0
+offset_top = 2.0
+offset_right = 1148.0
+offset_bottom = 84.0
 theme_override_fonts/font = ExtResource("3_j1y1v")
 theme_override_font_sizes/font_size = 37
 theme_override_styles/normal = SubResource("StyleBoxEmpty_dlqf6")
@@ -150,14 +169,24 @@ offset_left = 523.0
 offset_top = 135.0
 offset_right = 617.0
 offset_bottom = 183.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 text = "Normal"
 
 [node name="Hard" type="Button" parent="Difficulty" unique_id=867443315]
-offset_left = 676.0
-offset_top = 136.0
-offset_right = 760.0
-offset_bottom = 189.0
+offset_left = 673.0
+offset_top = 134.0
+offset_right = 757.0
+offset_bottom = 187.0
 text = "Hard"
+
+[node name="Sounds" type="Node" parent="." unique_id=39729445]
+
+[node name="LevelUpSound" type="AudioStreamPlayer" parent="Sounds" unique_id=1332547861]
+stream = ExtResource("5_nnjj0")
+
+[node name="LevelDownSound" type="AudioStreamPlayer" parent="Sounds" unique_id=1451162283]
+stream = ExtResource("6_pmadn")
 
 [connection signal="pressed" from="MainMenu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="LevelControl/LevelUp" to="." method="_on_level_up_pressed"]

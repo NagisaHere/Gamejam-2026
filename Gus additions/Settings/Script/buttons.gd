@@ -82,6 +82,7 @@ func _on_level_up_pressed() -> void:
 	if (sentences_to_win_adjusted > MAX_LEVEL):
 		sentences_to_win_adjusted = MAX_LEVEL;
 	display_settings();
+	$Sounds/LevelUpSound.play()
 	return
 
 func _on_level_down_pressed() -> void:
@@ -89,6 +90,7 @@ func _on_level_down_pressed() -> void:
 	if (sentences_to_win_adjusted <= 0):
 		sentences_to_win_adjusted = 1
 	display_settings();
+	$Sounds/LevelDownSound.play()
 	return
 
 func _when_button_worked() -> void:
