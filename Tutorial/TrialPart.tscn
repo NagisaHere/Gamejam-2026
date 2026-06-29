@@ -1,0 +1,456 @@
+[gd_scene format=3 uid="uid://dxhv05iv6ov7k"]
+
+[ext_resource type="Texture2D" uid="uid://d0f7fyndmi306" path="res://Assets/interface (20260510063538).png" id="1_g2f8q"]
+[ext_resource type="PackedScene" uid="uid://43tltcd7ygvn" path="res://Scenes/type.tscn" id="2_ar1gl"]
+[ext_resource type="PackedScene" uid="uid://ch2db7q0k0rwi" path="res://World/Scenes/typing_hand.tscn" id="3_qcwpo"]
+[ext_resource type="Texture2D" uid="uid://dsw7gnjfaql5m" path="res://Assets/interface (20260510071510).png" id="4_p1vff"]
+[ext_resource type="Script" path="res://World/Scenes/canvas_layer.gd" id="5_7a4s8"]
+[ext_resource type="Shader" uid="uid://dmm08vcn5k064" path="res://World/Scenes/computer.gdshader" id="6_3rfbp"]
+[ext_resource type="Script" path="res://World/Scripts/color_rect.gd" id="7_v7hhm"]
+[ext_resource type="FontFile" uid="uid://dc1f2eykeohyp" path="res://Assets/fonts/abduction2002.ttf" id="8_fvxgd"]
+[ext_resource type="AudioStream" uid="uid://iikwx34gh0a3" path="res://Gus additions/SoundAssets/Quiet keyboard press.ogg" id="10_hjxlb"]
+[ext_resource type="AudioStream" uid="uid://dgk3ynw3xk8te" path="res://Gus additions/SoundAssets/Backspace press.wav" id="11_vlhc3"]
+[ext_resource type="AudioStream" uid="uid://dxw8xdh2ahso2" path="res://Gus additions/SoundAssets/startup2.wav" id="12_j5uy5"]
+[ext_resource type="AudioStream" uid="uid://dxkneow34sox5" path="res://Gus additions/SoundAssets/722375__qubodup__error-1.wav" id="13_jyurp"]
+[ext_resource type="AudioStream" uid="uid://bmiw6bnte8l3e" path="res://Gus additions/SoundAssets/327738__distillerystudio__error_01.wav" id="14_8tthm"]
+
+[sub_resource type="GDScript" id="GDScript_jphvt"]
+script/source = "extends Node2D
+
+@onready var time_label = $CanvasTimer/Label
+@onready var redGlow = $\"alarm overlay/RedGlow\"
+@onready var previous_second: int
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	$TypingHand.show_typing_state(0)
+	$typing.fingers_changed.connect($CanvasLayer.set_fingers_remaining)
+	redGlow.modulate.a = 0.0
+	
+"
+
+[sub_resource type="GDScript" id="GDScript_g2f8q"]
+script/source = "extends Node2D
+#test section
+signal fingers_changed(value)
+var passphrases = []
+var active_enemy = null
+var current_letter_index: int = -1 # undefined
+var fingers_remaining: int = 10 
+var prev_keycode: int = -1 # undefined for now
+var backspace_is_held := false
+var sentences_completed := 0
+var sentences_to_win := 1
+@onready var enemy = $EnemyContainer/Enemy
+@onready var enemy_container = $EnemyContainer
+@onready var fingers_label = $\"CanvasLayer/VBoxContainer/BottomRow/fingers-value\"
+@onready var warning_label = $Label
+var current_mistakes: String = \"\"
+var killed_fingers: Array[int] = []
+
+func _ready() -> void:
+	# 1. Instantiate the BluetoothManager and add it to the scene tree
+	if not OS.has_feature(\"web\"):
+		if ClassDB.class_exists(\"BluetoothManager\"):
+			bluetooth_manager = ClassDB.instantiate(\"BluetoothManager\")
+		add_child(bluetooth_manager)
+		
+		# 2. Connect core manager signals
+		bluetooth_manager.adapter_initialized.connect(_on_adapter_initialized)
+		bluetooth_manager.device_discovered.connect(_on_device_discovered)
+		bluetooth_manager.scan_stopped.connect(_on_scan_stopped)
+		
+		bluetooth_manager.initialize()
+	#start_game()
+	randomize()
+	load_phrases()
+	spawn_phrase()
+
+func _win_game() -> void:
+	SaveManager.temp_time = $\"../Timer\".time_left
+	SaveManager.temp_score = fingers_remaining
+
+	# 2. Change to the popup scene
+	# This current scene (and this script) will now be destroyed
+	get_tree().change_scene_to_file(\"res://World/Scenes/WorldAnimation.tscn\")
+
+func spawn_phrase():
+	var index = randi_range(0, passphrases.size() - 1)
+	var phrase = passphrases[index].strip_edges()
+	enemy.set_prompt(phrase)
+
+	active_enemy = enemy
+	current_letter_index = 0
+	current_mistakes = \"\"
+
+	active_enemy.set_next_character(current_letter_index)
+
+func load_phrases():
+	var file = FileAccess.open(\"res://World/AssetsWorld/phrases.txt\", FileAccess.READ)
+	var text = file.get_as_text()
+	passphrases = text.split(\"\\n\")
+	if (not passphrases.is_empty()): # last is empty string, not good practice but filter doesnt work idk
+		passphrases.remove_at(passphrases.size() - 1)
+	
+func _check_win(prompt: String) -> void:
+	if current_letter_index == prompt.length() and current_mistakes.length() == 0:
+		sentences_completed += 1
+		print(\"done sentences:\", sentences_completed)
+
+		if sentences_completed >= sentences_to_win:
+			_win_game()
+		else:
+			spawn_phrase()
+		
+func find_new_active_enemy(typed_character: String):
+	for enemy in enemy_container.get_children():
+		var prompt = enemy.get_prompt()
+		var next_character = prompt.substr(0, 1)
+		if next_character == typed_character:
+			print(\"found new enemy that starts with %s\" % next_character)
+			active_enemy = enemy
+			current_letter_index = 1
+			active_enemy.set_next_character(current_letter_index)
+	return
+
+func _game_over() -> void:
+	return
+	#get_tree().change_scene_to_file(\"res://Gus additions/BadEnding/BadEnding_.tscn\")
+	
+func show_warning_message():
+	warning_label.text = \"Key Stroke Dropped\"
+	warning_label.visible = true
+
+	await get_tree().create_timer(0.8).timeout
+
+	warning_label.visible = false
+
+# determine what fingers have not been killed
+func _determine_esp32_message():
+#  If all fingers are dead, return immediately
+	if killed_fingers.size() >= 5:
+		print(\"All fingers are dead. Cannot select a new one.\")
+		return
+
+	var available_fingers: Array[int] = []
+	# find alive fingies
+	for i in range(5):
+		if not killed_fingers.has(i):
+			available_fingers.append(i)
+
+	var selected_finger = available_fingers.pick_random()
+	_kill_finger(selected_finger)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey:
+
+		var typed_event = event as InputEventKey
+		var key_typed = PackedByteArray([typed_event.unicode]).get_string_from_utf8()
+		if active_enemy == null:
+			find_new_active_enemy(key_typed)
+			return
+		var prompt = active_enemy.get_prompt()
+		var next_character = prompt.substr(current_letter_index, 1)
+		if event.keycode == KEY_BACKSPACE:
+			if event.is_pressed():
+				
+				if not backspace_is_held:
+					if fingers_remaining > 0:
+						fingers_remaining -= 1
+						fingers_changed.emit(fingers_remaining)
+						
+					if not OS.has_feature(\"web\"):
+						_determine_esp32_message()
+					backspace_is_held = true
+					$\"../backspace press\".play()
+					var chance = (10 - fingers_remaining) * 2.5
+					$\"../CanvasTimer/KeyDropChance\".text = \"Chance to drop key: %.1f%%\" % chance
+
+					if fingers_remaining == 0:
+						_game_over()
+
+				if active_enemy != null:
+					if current_mistakes.length() > 0:
+						current_mistakes = current_mistakes.erase(current_mistakes.length() - 1)
+					elif current_letter_index > 0:
+						current_letter_index -= 1
+
+					active_enemy.set_next_character(current_letter_index, current_mistakes)
+
+				return
+			else:
+				backspace_is_held = false
+				return
+
+		if not event.is_pressed() or event.is_echo():
+			return
+		# some other character
+		if typed_event.unicode == 0:
+			return
+			
+		if randf() < (10 - fingers_remaining) * 0.0:
+			var special_chars = \"!@#$%^&*\"
+			key_typed = special_chars[randi() % special_chars.length()]
+		
+		if next_character != \" \" and randf() < (10 - fingers_remaining) * 0.025:
+			active_enemy.set_next_character(current_letter_index, current_mistakes, true)
+			show_warning_message()
+			#Sound of faulty key, like fallout one
+			$\"../Input not registered\".play()
+			return
+
+		if active_enemy == null:
+			find_new_active_enemy(key_typed)
+			return
+
+		#var prompt = active_enemy.get_prompt()
+		#var next_character = prompt.substr(current_letter_index, 1)
+
+		if current_mistakes.length() > 0:
+			current_mistakes += key_typed
+		else:
+			if key_typed.to_lower() == next_character.to_lower():
+				current_letter_index += 1
+				$\"../normal press\".play()
+			else:
+				current_mistakes += key_typed
+				$\"../Wrong Input\".play()
+
+		active_enemy.set_next_character(current_letter_index, current_mistakes)
+		_check_win(prompt)
+
+#func start_game():
+	##game_over_screen.hide()
+	##difficulty = 0
+	##enemies_killed = 0
+	##difficulty_value.text = str(0)
+	##killed_value.text = str(0)
+	#randomize()
+	##spawn_timer.start()
+	##difficulty_timer.start()
+	#spawn_enemy()
+
+# BLUETOOTH RELATED THINGIES
+# UUIDs from your ESP32 code (Note: BLE plugins often require lowercase UUIDs)
+const TARGET_DEVICE_NAME = \"ESP32S3_BLE_UART\"
+const SERVICE_UUID = \"6e400001-b5a3-f393-e0a9-e50e24dcca9e\"
+const CHAR_UUID_RX = \"6e400002-b5a3-f393-e0a9-e50e24dcca9e\"
+# BluetoothManager
+var bluetooth_manager = null
+# BleDevice (need to remove typehints otherwise web broke)
+var connected_device = null
+
+
+
+# --- BLUETOOTH MANAGER CALLBACKS ---
+# keep scanning for devices
+func _on_adapter_initialized(success: bool, error: String):
+	if success:
+		print(\"Bluetooth Adapter Ready! Starting scan...\")
+		# Start scanning for 10 seconds
+		bluetooth_manager.start_scan(10.0)
+	else:
+		print(\"Failed to initialize Bluetooth: \", error)
+
+# connect
+func _on_device_discovered(device_info: Dictionary):
+	var device_name = device_info.get(\"name\", \"Unknown\")
+	
+	# Check if we found our ESP32
+	if device_name == TARGET_DEVICE_NAME:
+		var address = device_info.get(\"address\")
+		print(\"Found ESP32 at address: \", address)
+		
+		# Stop scanning immediately to save resources
+		bluetooth_manager.stop_scan()
+		
+		# Proceed to connection
+		connect_to_esp32(address)
+
+# eh placeholder function
+func _on_scan_stopped():
+	if connected_device == null:
+		print(\"Scan finished. ESP32 not found. Make sure it is powered on and advertising.\")
+
+# --- DEVICE CONNECTION & COMMUNICATION ---
+
+func connect_to_esp32(address: String):
+	# Fetch the specific BleDevice object
+	connected_device = bluetooth_manager.connect_device(address)
+	
+	if connected_device:
+		# Wire up the device-specific signals
+		connected_device.connect(\"connected\", _on_device_connected)
+		connected_device.connect(\"services_discovered\", _on_services_discovered)
+		connected_device.connect(\"characteristic_written\", _on_characteristic_written)
+		
+		print(\"Attempting to connect...\")
+		connected_device.connect_async()
+
+# send start sequence upon start connection
+func _on_device_connected():
+	print(\"Successfully Connected to ESP32! Discovering services...\")
+	# You must discover services before you can read/write to them
+	connected_device.discover_services()
+
+func _on_services_discovered(services: Array):
+	print(\"Services discovered. Sending Servo command...\")
+	
+	# Send the '1' command (convert string to PackedByteArray/utf8 buffer)
+	var data_to_send = \"S\".to_utf8_buffer()
+	
+	# write_characteristic(service_uuid, char_uuid, data, with_response)
+	# with_response = false is standard for simple UART streams
+	connected_device.write_characteristic(SERVICE_UUID, CHAR_UUID_RX, data_to_send, false)
+
+# 0 for thumb, 1 for index, 2 for middle, 3 for ring, 4 for pinky
+func _kill_finger(finger: int):
+	killed_fingers.append(finger)
+	var command: String = \"\"
+
+	match finger:
+		0: # Thumb
+			command = \"0\"
+		1: # Index
+			command = \"1\"
+		2: # Middle
+			command = \"2\"
+		3: # Ring
+			command = \"3\"
+		4: # Pinky
+			command = \"4\"
+		_: # Default catch-all
+			print(\"Invalid finger index\")
+			return
+	# Convert the matched string command to a byte array
+	var data_to_send = command.to_utf8_buffer()
+	if connected_device != null:
+		connected_device.write_characteristic(SERVICE_UUID, CHAR_UUID_RX, data_to_send, false)
+		print(\"BLE: Sent kill command '\", command, \"' for finger index: \", finger)
+	else:
+		print(\"BLE Error: No connected device to send command to.\")
+
+func _on_characteristic_written(char_uuid: String):
+	print(\"Data successfully written to characteristic: \", char_uuid)
+	# Optional: Disconnect after sending if you only need a single burst
+	# connected_device.disconnect()
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ysobb"]
+shader = ExtResource("6_3rfbp")
+shader_parameter/border_size = 0.12
+
+[sub_resource type="Gradient" id="Gradient_lio8n"]
+offsets = PackedFloat32Array(0, 0.8854167, 1)
+colors = PackedColorArray(1, 1, 1, 0.003921569, 1, 1, 1, 0.38431373, 1, 0.089999974, 0.089999974, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_73g8m"]
+gradient = SubResource("Gradient_lio8n")
+width = 1024
+height = 1024
+fill = 1
+fill_from = Vector2(0.48958334, 0.48958334)
+fill_to = Vector2(1, 1)
+
+[node name="Trial Part" type="Node2D" unique_id=1815070021]
+script = SubResource("GDScript_jphvt")
+metadata/_edit_vertical_guides_ = [1136.0]
+
+[node name="Sprite2D4" type="Sprite2D" parent="." unique_id=1557660312]
+position = Vector2(575.29663, 325.9041)
+scale = Vector2(0.44628382, 0.43537498)
+texture = ExtResource("1_g2f8q")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1329336244]
+position = Vector2(572.4967, 335.00003)
+scale = Vector2(0.44058746, 0.4405875)
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1667786336]
+visible = false
+offset_left = 36.0
+offset_top = 77.0
+offset_right = 857.0
+offset_bottom = 585.0
+color = Color(0.7058824, 0.95686275, 0.91764706, 1)
+
+[node name="typing" parent="." unique_id=1467136492 instance=ExtResource("2_ar1gl")]
+position = Vector2(107, 99)
+scale = Vector2(0.875, 0.875)
+script = SubResource("GDScript_g2f8q")
+
+[node name="TypingHand" parent="." unique_id=832879252 instance=ExtResource("3_qcwpo")]
+position = Vector2(1008, 522)
+scale = Vector2(0.475, 0.475)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1405274404]
+position = Vector2(575, 330.00003)
+scale = Vector2(0.44628382, 0.43537498)
+texture = ExtResource("4_p1vff")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1126113451]
+visible = false
+script = ExtResource("5_7a4s8")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1366228951]
+visible = false
+material = SubResource("ShaderMaterial_ysobb")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.8900982, 0, 0.07699553, 1)
+script = ExtResource("7_v7hhm")
+
+[node name="CanvasTimer" type="CanvasLayer" parent="." unique_id=1849451051]
+
+[node name="Label" type="Label" parent="CanvasTimer" unique_id=1683552807]
+offset_left = 898.0
+offset_top = 215.0
+offset_right = 1113.0
+offset_bottom = 283.0
+theme_override_fonts/font = ExtResource("8_fvxgd")
+theme_override_font_sizes/font_size = 68
+text = "N/A"
+horizontal_alignment = 1
+
+[node name="KeyDropChance" type="Label" parent="CanvasTimer" unique_id=975888102]
+offset_left = 191.0
+offset_top = 500.0
+offset_right = 599.0
+offset_bottom = 568.0
+theme_override_fonts/font = ExtResource("8_fvxgd")
+theme_override_font_sizes/font_size = 35
+text = "Chance to Drop key: 0%"
+horizontal_alignment = 1
+
+[node name="normal press" type="AudioStreamPlayer" parent="." unique_id=934232229]
+stream = ExtResource("10_hjxlb")
+
+[node name="backspace press" type="AudioStreamPlayer" parent="." unique_id=1430858225]
+stream = ExtResource("11_vlhc3")
+
+[node name="Startup" type="AudioStreamPlayer" parent="." unique_id=737846912]
+stream = ExtResource("12_j5uy5")
+autoplay = true
+
+[node name="Wrong Input" type="AudioStreamPlayer" parent="." unique_id=726268909]
+stream = ExtResource("13_jyurp")
+volume_db = -20.62
+
+[node name="Input not registered" type="AudioStreamPlayer" parent="." unique_id=441186533]
+stream = ExtResource("14_8tthm")
+volume_db = -6.476
+
+[node name="alarm overlay" type="CanvasLayer" parent="." unique_id=269115034]
+
+[node name="RedGlow" type="TextureRect" parent="alarm overlay" unique_id=1648302740]
+modulate = Color(0.81, 0.16199999, 0.16199999, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_73g8m")
+metadata/_edit_lock_ = true

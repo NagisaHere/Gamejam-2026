@@ -9,5 +9,5 @@ do VideoManager.play_video("res://Tutorial/fourth.ogv")
 4/6: For every lost finger you add a 5% chance to drop a key space represented by a [color=9901efff]Purple[/color] key, that means when you type you have a [b][i]fingers_lost*5%[/i][/b] chance for your keystroke to not register.
 5/6: You must finish within the timer will at least [b][u]1[/u][/b] finger remaining.
 6/6: Your score on the leaderboard will depend on mainly the number of [b][u]fingers[/u][/b] you have remaining, then [b][u]time[/u][/b] will be taken into account.
-do get_tree().change_scene_to_file("res://World/Scenes/WorldAnimation.tscn")
+do get_tree().change_scene_to_file("res://Tutorial/TrialPart.tscn")
 => END
