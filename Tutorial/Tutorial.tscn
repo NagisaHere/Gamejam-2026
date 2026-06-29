@@ -101,6 +101,14 @@ _data = {
 &"progress": SubResource("Animation_qkmqt")
 }
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yhiv6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3oavh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l41xm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hgldx"]
+
 [node name="ExampleBalloon" type="CanvasLayer" unique_id=1434168376]
 layer = 100
 script = ExtResource("1_yhiv6")
@@ -213,6 +221,21 @@ response_template = NodePath("ResponseExample")
 layout_mode = 2
 text = "Response example"
 
+[node name="skip_button" type="Button" parent="Balloon" unique_id=417724651]
+z_index = 5
+layout_mode = 0
+offset_left = 945.0
+offset_top = 554.0
+offset_right = 1143.0
+offset_bottom = 630.0
+theme_override_colors/font_color = Color(0.69, 0.69, 0.69, 1)
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yhiv6")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_3oavh")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_l41xm")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hgldx")
+text = "Skip>>>"
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1116280512]
 unique_name_in_owner = true
 
@@ -220,3 +243,4 @@ unique_name_in_owner = true
 
 [connection signal="gui_input" from="Balloon" to="." method="_on_balloon_gui_input"]
 [connection signal="response_selected" from="Balloon/ResponsesMenu" to="." method="_on_responses_menu_response_selected"]
+[connection signal="pressed" from="Balloon/skip_button" to="." method="_on_skip_button_pressed"]
