@@ -4,9 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://43tltcd7ygvn" path="res://Scenes/type.tscn" id="2_ar1gl"]
 [ext_resource type="PackedScene" uid="uid://ch2db7q0k0rwi" path="res://World/Scenes/typing_hand.tscn" id="3_qcwpo"]
 [ext_resource type="Texture2D" uid="uid://dsw7gnjfaql5m" path="res://Assets/interface (20260510071510).png" id="4_p1vff"]
-[ext_resource type="Script" path="res://World/Scenes/canvas_layer.gd" id="5_7a4s8"]
+[ext_resource type="Script" uid="uid://buvbchte83rch" path="res://World/Scenes/canvas_layer.gd" id="5_7a4s8"]
 [ext_resource type="Shader" uid="uid://dmm08vcn5k064" path="res://World/Scenes/computer.gdshader" id="6_3rfbp"]
-[ext_resource type="Script" path="res://World/Scripts/color_rect.gd" id="7_v7hhm"]
+[ext_resource type="Script" uid="uid://bi6bwgu5ike4v" path="res://World/Scripts/color_rect.gd" id="7_v7hhm"]
 [ext_resource type="FontFile" uid="uid://dc1f2eykeohyp" path="res://Assets/fonts/abduction2002.ttf" id="8_fvxgd"]
 [ext_resource type="AudioStream" uid="uid://iikwx34gh0a3" path="res://Gus additions/SoundAssets/Quiet keyboard press.ogg" id="10_hjxlb"]
 [ext_resource type="AudioStream" uid="uid://bnw6np7ly67jq" path="res://Gus additions/SoundAssets/computer startup.wav" id="11_g2f8q"]
@@ -43,6 +43,10 @@ func _on_startup_finished() -> void:
 
 func _on_computer_ambience_finished() -> void:
 	$\"computer ambience\".play()
+
+
+func _on_tutorial_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://Tutorial/Tutorial.tscn\")
 "
 
 [sub_resource type="GDScript" id="GDScript_g2f8q"]
@@ -176,8 +180,14 @@ func _unhandled_input(event: InputEvent) -> void:
 						_determine_esp32_message()
 					backspace_is_held = true
 					$\"../backspace press\".play()
+					
 					var chance = (10 - fingers_remaining) * 2.5
-					$\"../CanvasTimer/KeyDropChance\".text = \"Chance to drop key: %.1f%%\" % chance
+					if fingers_remaining == 0:
+						$\"../CanvasTimer/KeyDropChance\".text = \"Chance to drop key: [color=red]\" + str(chance) + \"%[/color] (max)\"
+					elif fingers_remaining > 0:
+						$\"../CanvasTimer/KeyDropChance\".text = \"Chance to drop key: [color=purple]\" + str(chance) + \"%[/color]\"
+						await get_tree().create_timer(0.1).timeout
+						$\"../CanvasTimer/KeyDropChance\".text = \"Chance to drop key: \" + str(chance) + \"%\"
 
 					if fingers_remaining == 0:
 						_game_over()
@@ -194,6 +204,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			else:
 				backspace_is_held = false
 				return
+
+
+
 
 		if not event.is_pressed() or event.is_echo():
 			return
@@ -435,13 +448,14 @@ theme_override_font_sizes/font_size = 68
 text = "N/A"
 horizontal_alignment = 1
 
-[node name="KeyDropChance" type="Label" parent="CanvasTimer" unique_id=975888102]
-offset_left = 209.0
-offset_top = 526.0
-offset_right = 717.0
-offset_bottom = 594.0
-theme_override_fonts/font = ExtResource("8_fvxgd")
-theme_override_font_sizes/font_size = 35
+[node name="KeyDropChance" type="RichTextLabel" parent="CanvasTimer" unique_id=1453999273]
+offset_left = 52.0
+offset_top = 517.0
+offset_right = 842.0
+offset_bottom = 585.0
+theme_override_fonts/normal_font = ExtResource("8_fvxgd")
+theme_override_font_sizes/normal_font_size = 35
+bbcode_enabled = true
 text = "Chance to Drop key: 0.0%"
 horizontal_alignment = 1
 
@@ -482,12 +496,12 @@ metadata/_edit_lock_ = true
 
 [node name="skip_button" type="Button" parent="." unique_id=1327825595]
 z_index = 5
-offset_left = 943.0
-offset_top = 576.0
-offset_right = 1141.0
-offset_bottom = 652.0
+offset_left = 945.0
+offset_top = 585.0
+offset_right = 1143.0
+offset_bottom = 661.0
 theme_override_colors/font_color = Color(0.69, 0.69, 0.69, 1)
-theme_override_font_sizes/font_size = 45
+theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxEmpty_16q2i")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_g2f8q")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ar1gl")
@@ -496,19 +510,34 @@ text = "Skip>>>"
 
 [node name="reload_button" type="Button" parent="." unique_id=1727089982]
 z_index = 5
-offset_left = 941.0
-offset_top = 4.0
-offset_right = 1139.0
-offset_bottom = 80.0
+offset_left = 937.0
+offset_top = -10.0
+offset_right = 1135.0
+offset_bottom = 66.0
 theme_override_colors/font_color = Color(0.69, 0.69, 0.69, 1)
-theme_override_font_sizes/font_size = 45
+theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxEmpty_16q2i")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_g2f8q")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ar1gl")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_qcwpo")
 text = "Reload⟳"
 
+[node name="Tutorial" type="Button" parent="." unique_id=1878573411]
+z_index = 5
+offset_left = -10.0
+offset_top = -15.0
+offset_right = 76.0
+offset_bottom = 87.0
+theme_override_colors/font_color = Color(0.69, 0.69, 0.69, 1)
+theme_override_font_sizes/font_size = 74
+theme_override_styles/normal = SubResource("StyleBoxEmpty_16q2i")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_g2f8q")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ar1gl")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qcwpo")
+text = "ⓘ"
+
 [connection signal="finished" from="Startup" to="." method="_on_startup_finished"]
 [connection signal="finished" from="computer ambience" to="." method="_on_computer_ambience_finished"]
 [connection signal="pressed" from="skip_button" to="." method="_on_skip_button_pressed"]
 [connection signal="pressed" from="reload_button" to="." method="_on_reload_button_pressed"]
+[connection signal="pressed" from="Tutorial" to="." method="_on_tutorial_pressed"]

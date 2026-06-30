@@ -82,8 +82,15 @@ func find_new_active_enemy(typed_character: String):
 	return
 
 func _game_over() -> void:
-	get_tree().change_scene_to_file("res://Gus additions/BadEnding/BadEnding_.tscn")
+	$"../Death/DeathGlow".modulate.a = 20 #fade is in computer
+	$"../Fadeout/Fade Transition".show()
+	$"../Fadeout/Fade Transition/Fade_Timer".start()
+	$"../Fadeout/Fade Transition/AnimationPlayer".play("Fade_out")
 	
+
+func _on_fade_timer_timeout() -> void:
+	get_tree().change_scene_to_file("res://Gus additions/BadEnding/BadEnding_.tscn")
+
 func show_warning_message():
 	warning_label.text = "Key Stroke Dropped"
 	warning_label.visible = true
@@ -128,7 +135,9 @@ func _unhandled_input(event: InputEvent) -> void:
 						_determine_esp32_message()
 					backspace_is_held = true
 					$"../backspace press".play()
-
+					$"../Hurt/Bleed".modulate.a = 1 #fade is in computer script
+					
+					
 					if fingers_remaining == 0:
 						_game_over()
 

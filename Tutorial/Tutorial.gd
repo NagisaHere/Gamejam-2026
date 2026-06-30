@@ -97,7 +97,11 @@ func _unhandled_input(_event: InputEvent) -> void:
 	# Only the balloon is allowed to handle input while it's showing
 	if will_block_other_input:
 		get_viewport().set_input_as_handled()
-
+	if Input.is_action_pressed("practice"):
+		if dialogue_line and "Press F to go to PRACTICE" in dialogue_line.text:
+			if VideoManager:
+				VideoManager.stop_video()
+			get_tree().change_scene_to_file("res://Tutorial/TrialPart.tscn")
 
 func _notification(what: int) -> void:
 	## Detect a change of locale and update the current dialogue line to show the new language
@@ -218,4 +222,6 @@ func _on_responses_menu_response_selected(response: DialogueResponse) -> void:
 
 
 func _on_skip_button_pressed() -> void:
+	if VideoManager:
+				VideoManager.stop_video()
 	get_tree().change_scene_to_file("res://Tutorial/TrialPart.tscn")

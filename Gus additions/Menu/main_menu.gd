@@ -35,8 +35,8 @@ func _on_fade_timer_timeout() -> void:
 	if button_type == "start":
 		$Start.play()
 		menu_fade = create_tween()
-		menu_fade.tween_property($AudioStreamPlayer, "volume_db", -80.0, 1.5)
-		menu_fade.finished.connect($AudioStreamPlayer.stop)
+		menu_fade.tween_property($"Howling wind audio", "volume_db", -80.0, 1.5)
+		menu_fade.finished.connect($"Howling wind audio".stop)
 		await menu_fade.finished
 		#get_tree().change_scene_to_file("res://World/Scenes/WorldAnimation.tscn")
 		get_tree().change_scene_to_file("res://Tutorial/Tutorial.tscn")
