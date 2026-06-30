@@ -13,6 +13,7 @@ var sentences_to_win := 3
 @onready var enemy_container = $EnemyContainer
 @onready var fingers_label = $"CanvasLayer/VBoxContainer/BottomRow/fingers-value"
 @onready var warning_label = $Label
+@onready var dropkey_rate = 0.025
 var current_mistakes: String = ""
 var killed_fingers: Array[int] = []
 
@@ -170,11 +171,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			var special_chars = "!@#$%^&*"
 			key_typed = special_chars[randi() % special_chars.length()]
 		
-		if next_character != " " and randf() < (10 - fingers_remaining) * 0.025:
+		if next_character != " " and randf() < (10 - fingers_remaining) * dropkey_rate:
 			active_enemy.set_next_character(current_letter_index, current_mistakes, true)
 			show_warning_message()
 			#Sound of faulty key, like fallout one
 			$"../Input not registered".play()
+			$EnemyContainer/Enemy.trigger_dropkey_shake(current_letter_index)
 			return
 
 		if active_enemy == null:
@@ -312,3 +314,24 @@ func _on_characteristic_written(char_uuid: String):
 	print("Data successfully written to characteristic: ", char_uuid)
 	# Optional: Disconnect after sending if you only need a single burst
 	# connected_device.disconnect()
+	
+	
+var shake_tween: Tween
+@onready var target = $EnemyContainer/Enemy/RichTextLabel
+@onready var original_x = target.position.x
+
+
+func trigger_dropkey_shake2() -> void:
+	if shake_tween:
+		shake_tween.kill()
+	target.position.x  = original_x
+	shake_tween = create_tween()
+	var duration = 0.04
+	var displacement = 12.0
+	shake_tween.tween_property(target, "position:x", original_x - displacement, duration)
+	shake_tween.tween_property(target, "position:x", original_x + displacement, duration)
+	shake_tween.tween_property(target, "position:x", original_x - (displacement * 0.6), duration)
+	shake_tween.tween_property(target, "position:x", original_x + (displacement * 0.3), duration)
+
+	shake_tween.tween_property(target, "position:x", original_x, duration)
+	
