@@ -70,6 +70,8 @@ var mutation_cooldown: Timer = Timer.new()
 ## Indicator to show that player can progress dialogue.
 @onready var progress: Polygon2D = %Progress
 
+var is_clicking_choice: bool = false #making the click of next/back discrete
+
 
 func _ready() -> void:
 	balloon.hide()
@@ -103,6 +105,7 @@ func _unhandled_input(_event: InputEvent) -> void:
 				VideoManager.stop_video()
 			get_tree().change_scene_to_file("res://Tutorial/TrialPart.tscn")
 
+		
 func _notification(what: int) -> void:
 	## Detect a change of locale and update the current dialogue line to show the new language
 	if what == NOTIFICATION_TRANSLATION_CHANGED and _locale != TranslationServer.get_locale() and is_instance_valid(dialogue_label):
@@ -142,7 +145,7 @@ func apply_dialogue_line() -> void:
 
 	responses_menu.hide()
 	responses_menu.responses = dialogue_line.responses
-
+				
 	# Show our balloon
 	balloon.show()
 	will_hide_balloon = false
@@ -225,3 +228,10 @@ func _on_skip_button_pressed() -> void:
 	if VideoManager:
 				VideoManager.stop_video()
 	get_tree().change_scene_to_file("res://Tutorial/TrialPart.tscn")
+	
+func BackClickSound():
+	$"Button clicks/BackClick".play()
+	print("backsound")
+	
+func NextClickSound():
+	$"Button clicks/NextClick".play()
