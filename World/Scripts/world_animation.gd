@@ -34,6 +34,3 @@ func _on_button_2_pressed() -> void:
 	$CanvasLayer/Button.show()
 	$CanvasLayer/Button2.hide()
 	
-func _unhandled_input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("GoMainMenu"):
-		get_tree().change_scene_to_file("res://Gus additions/Menu/main_menu.tscn")

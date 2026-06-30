@@ -25,6 +25,7 @@ SaveManager="*uid://bxavgeq022cqr"
 Leaderboard="*uid://8h7t5poo6krj"
 DialogueManager="*uid://c3rodes2l3gxb"
 VideoManager="*uid://bcuulk7ptu4tf"
+GlobalCommands="*uid://cm8icq51qa5v1"
 
 [dialogue_manager]
 
