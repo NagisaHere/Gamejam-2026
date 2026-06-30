@@ -292,16 +292,14 @@ libraries/ = SubResource("AnimationLibrary_jix8l")
 
 [node name="Fade_Timer" type="Timer" parent="Fade Transition" unique_id=2133124560]
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=142192016]
-stream = ExtResource("9_hjsem")
-volume_db = 1.629
-autoplay = true
-parameters/looping = false
-
 [node name="Start" type="AudioStreamPlayer" parent="." unique_id=693200722]
 stream = ExtResource("10_spm0g")
 
 [node name="ButtonMovement" type="AnimationPlayer" parent="." unique_id=795434495]
+
+[node name="Howling wind audio" type="AudioStreamPlayer2D" parent="." unique_id=1381162145]
+stream = ExtResource("9_hjsem")
+autoplay = true
 
 [connection signal="pressed" from="Button Manager/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Button Manager/Options" to="." method="_on_options_pressed"]

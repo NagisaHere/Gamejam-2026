@@ -26,10 +26,10 @@ text = "Name"
 
 [node name="TimeLeft" type="RichTextLabel" parent="." unique_id=3427469]
 layout_mode = 0
-offset_left = 269.0
-offset_top = 16.0
-offset_right = 360.0
-offset_bottom = 56.0
+offset_left = 242.0
+offset_top = 14.0
+offset_right = 400.0
+offset_bottom = 54.0
 theme_override_font_sizes/normal_font_size = 25
 text = "00:00"
 
