@@ -163,6 +163,40 @@ limit_bottom = 350
 script = ExtResource("4_5rygh")
 target = NodePath("../Player")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D" unique_id=1163983021]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Camera2D/CanvasLayer" unique_id=1046051779]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = 22.0
+offset_right = 25.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/bold_font_size = 19
+bbcode_enabled = true
+text = "[b][color=aqua]WASD[/color] to move"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Camera2D/CanvasLayer" unique_id=118880814]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 26.0
+offset_top = 54.0
+offset_right = 26.0
+offset_bottom = 54.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/bold_font_size = 19
+bbcode_enabled = true
+text = "[b][color=aqua]ESC[/color] to return to Main Menu[/b]"
+
 [node name="RightWall" type="StaticBody2D" parent="." unique_id=1725339628]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=1441825532]
