@@ -270,6 +270,20 @@ expand_mode = 1
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
+[node name="PhaseCounter" type="CanvasLayer" parent="." unique_id=1693220609]
+
+[node name="Phase" type="Label" parent="PhaseCounter" unique_id=1517690952]
+offset_left = -7.0
+offset_top = 8.0
+offset_right = 208.00006
+offset_bottom = 76.0
+theme_override_fonts/font = ExtResource("10_y05vg")
+theme_override_font_sizes/font_size = 45
+text = "Phase:1"
+horizontal_alignment = 1
+script = ExtResource("10_udr8r")
+metadata/_edit_use_anchors_ = true
+
 [connection signal="finished" from="Startup" to="." method="_on_startup_finished"]
 [connection signal="finished" from="alarm" to="." method="_on_alarm_finished"]
 [connection signal="finished" from="computer ambience" to="." method="_on_computer_ambience_finished"]

@@ -25,7 +25,11 @@ func set_next_character(next_character_index: int, mistakes: String = "", highli
 
 	var next_text = ""
 	if mistakes.length() == 0:
-		next_text = color_wrap.call(prompt_text.substr(next_character_index, 1), next_color)
+		if next_color == orange:
+			next_text = color_wrap.call(prompt_text.substr(next_character_index, 1), next_color)
+			next_text = "[shake rate=15.0 level=20 connected=0]" + next_text + "[/shake]"
+		else:
+			next_text = color_wrap.call(prompt_text.substr(next_character_index, 1), next_color)
 
 	var remaining_start = next_character_index + (1 if mistakes.length() == 0 else 0)
 	var red_text = prompt_text.substr(remaining_start)

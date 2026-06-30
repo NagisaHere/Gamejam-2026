@@ -67,6 +67,8 @@ func load_phrases():
 func _check_win(prompt: String) -> void:
 	if current_letter_index == prompt.length() and current_mistakes.length() == 0:
 		sentences_completed += 1
+		var phase = sentences_completed + 1
+		$"../PhaseCounter/Phase".text = "Phase:" + str(phase)
 		print("done sentences:", sentences_completed)
 
 		if sentences_completed >= sentences_to_win:
