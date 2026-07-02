@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="3_3oavh"]
 [ext_resource type="Script" uid="uid://bb52rsfwhkxbn" path="res://addons/dialogue_manager/dialogue_responses_menu.gd" id="4_l41xm"]
 [ext_resource type="Script" uid="uid://bcuulk7ptu4tf" path="res://Tutorial/video_manager.gd" id="5_3oavh"]
+[ext_resource type="AudioStream" uid="uid://bn56sk8ive5yn" path="res://Gus additions/SoundAssets/clickNext.wav" id="6_l41xm"]
+[ext_resource type="AudioStream" uid="uid://cst1pnrpl6yhy" path="res://Gus additions/SoundAssets/clickBack.wav" id="7_hgldx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spyqn"]
 bg_color = Color(0, 0, 0, 1)
@@ -154,7 +156,7 @@ corner_radius_bottom_left = 4
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hgldx"]
 
 [node name="ExampleBalloon" type="CanvasLayer" unique_id=1434168376]
-layer = 100
+layer = 93
 script = ExtResource("1_yhiv6")
 dialogue_resource = ExtResource("2_yhiv6")
 auto_start = true
@@ -289,6 +291,18 @@ text = "Skip>>>"
 unique_name_in_owner = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1692810819]
+
+[node name="Button clicks" type="Node" parent="." unique_id=846799722]
+
+[node name="NextClick" type="AudioStreamPlayer" parent="Button clicks" unique_id=452940705]
+stream = ExtResource("7_hgldx")
+volume_db = -8.966
+pitch_scale = 0.76
+
+[node name="BackClick" type="AudioStreamPlayer" parent="Button clicks" unique_id=885916834]
+stream = ExtResource("6_l41xm")
+volume_db = -8.069
+pitch_scale = 0.6
 
 [connection signal="gui_input" from="Balloon" to="." method="_on_balloon_gui_input"]
 [connection signal="response_selected" from="Balloon/ResponsesMenu" to="." method="_on_responses_menu_response_selected"]

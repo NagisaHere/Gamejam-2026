@@ -496,10 +496,10 @@ metadata/_edit_lock_ = true
 
 [node name="skip_button" type="Button" parent="." unique_id=1327825595]
 z_index = 5
-offset_left = 945.0
-offset_top = 585.0
-offset_right = 1143.0
-offset_bottom = 661.0
+offset_left = 948.0
+offset_top = -11.0
+offset_right = 1146.0
+offset_bottom = 65.0
 theme_override_colors/font_color = Color(0.69, 0.69, 0.69, 1)
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxEmpty_16q2i")
@@ -510,10 +510,10 @@ text = "Skip>>>"
 
 [node name="reload_button" type="Button" parent="." unique_id=1727089982]
 z_index = 5
-offset_left = 937.0
-offset_top = -10.0
-offset_right = 1135.0
-offset_bottom = 66.0
+offset_left = 943.0
+offset_top = 582.0
+offset_right = 1141.0
+offset_bottom = 658.0
 theme_override_colors/font_color = Color(0.69, 0.69, 0.69, 1)
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxEmpty_16q2i")

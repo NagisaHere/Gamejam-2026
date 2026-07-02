@@ -33,3 +33,4 @@ func _on_button_2_pressed() -> void:
 	$tutorial.stop()
 	$CanvasLayer/Button.show()
 	$CanvasLayer/Button2.hide()
+	
