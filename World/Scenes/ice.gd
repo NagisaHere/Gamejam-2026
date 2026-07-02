@@ -13,4 +13,4 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func start_ice_freeze():
 	var tween = create_tween()
-	tween.tween_property(self, "scale", max_ice_scale, freeze_duration).set_trans(Tween.TRANS_LINEAR).from(Vector2(2.0, 2.0))
+	tween.tween_property(self, "scale", max_ice_scale, freeze_duration).set_trans(Tween.TRANS_LINEAR).from(Vector2(1.3, 1.3))

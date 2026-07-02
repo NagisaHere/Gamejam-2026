@@ -299,7 +299,7 @@ mouse_filter = 2
 texture = ExtResource("18_73g8m")
 expand_mode = 3
 script = ExtResource("19_wjrsh")
-freeze_duration = 5.0
+freeze_duration = 30.0
 max_ice_scale = Vector2(1, 1)
 
 [connection signal="finished" from="Startup" to="." method="_on_startup_finished"]
