@@ -26,6 +26,7 @@ do VideoManager.play_video("res://Tutorial/fourth.ogv")
 
 ~ fifth
 5/6: You must finish within the timer will at least [b][u]1[/u][/b] finger remaining.
+
 - next
 - back 
 	=> fourth

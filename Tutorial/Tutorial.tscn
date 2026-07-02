@@ -5,6 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="3_3oavh"]
 [ext_resource type="Script" uid="uid://bb52rsfwhkxbn" path="res://addons/dialogue_manager/dialogue_responses_menu.gd" id="4_l41xm"]
 [ext_resource type="Script" uid="uid://bcuulk7ptu4tf" path="res://Tutorial/video_manager.gd" id="5_3oavh"]
+[ext_resource type="StyleBox" uid="uid://boga50d6txby1" path="res://Assets/button hover.tres" id="6_hgldx"]
+[ext_resource type="StyleBox" uid="uid://dvbc6qn5dlarc" path="res://Assets/normal.tres" id="6_jm7vr"]
+[ext_resource type="StyleBox" uid="uid://ckflthru75txk" path="res://Assets/flat.tres" id="7_jm7vr"]
+[ext_resource type="StyleBox" uid="uid://be2w6rflc1ass" path="res://Assets/focus.tres" id="8_x3xat"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spyqn"]
 bg_color = Color(0, 0, 0, 1)
@@ -101,19 +105,8 @@ _data = {
 &"progress": SubResource("Animation_qkmqt")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3oavh"]
-bg_color = Color(0, 0, 0, 0.22745098)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yhiv6"]
-bg_color = Color(0, 0, 0, 0.22745098)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p46jp"]
+bg_color = Color(0.07058824, 0.07058824, 0.07058824, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -122,36 +115,6 @@ corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hgldx"]
-bg_color = Color(0, 0, 0, 0.22745098)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l41xm"]
-bg_color = Color(0, 0, 0, 0.22745098)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yhiv6"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3oavh"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l41xm"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hgldx"]
 
 [node name="ExampleBalloon" type="CanvasLayer" unique_id=1434168376]
 layer = 100
@@ -198,6 +161,8 @@ mouse_filter = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Balloon/MarginContainer/PanelContainer" unique_id=1030936092]
 layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 23
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Balloon/MarginContainer/PanelContainer/MarginContainer" unique_id=1428277592]
 layout_mode = 2
@@ -205,12 +170,14 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="Balloon/MarginContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=1624289611]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 4
 
 [node name="CharacterLabel" type="RichTextLabel" parent="Balloon/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=507199029]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0.501961)
 layout_mode = 2
 mouse_filter = 1
+theme_override_font_sizes/normal_font_size = 17
 bbcode_enabled = true
 text = "Character"
 fit_content = true
@@ -250,10 +217,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -280.0
-offset_top = -56.0
-offset_right = -34.0
-offset_bottom = -20.0
+offset_left = -287.0
+offset_top = -61.0
+offset_right = -41.0
+offset_bottom = -25.0
 grow_horizontal = 0
 grow_vertical = 0
 size_flags_vertical = 8
@@ -264,25 +231,26 @@ response_template = NodePath("ResponseExample")
 
 [node name="ResponseExample" type="Button" parent="Balloon/ResponsesMenu" unique_id=914537232]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_3oavh")
-theme_override_styles/hover = SubResource("StyleBoxFlat_yhiv6")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_hgldx")
-theme_override_styles/focus = SubResource("StyleBoxFlat_l41xm")
+theme_override_styles/normal = ExtResource("6_jm7vr")
+theme_override_styles/hover = ExtResource("6_hgldx")
+theme_override_styles/disabled = ExtResource("7_jm7vr")
+theme_override_styles/focus = ExtResource("8_x3xat")
 text = "Response example"
 
-[node name="skip_button" type="Button" parent="Balloon" unique_id=417724651]
+[node name="skip_button" type="Button" parent="." unique_id=417724651]
 z_index = 5
-layout_mode = 0
-offset_left = 959.0
-offset_top = -12.0
-offset_right = 1157.0
-offset_bottom = 64.0
+offset_left = 1053.0
+offset_top = 7.0
+offset_right = 1143.0
+offset_bottom = 42.0
 theme_override_colors/font_color = Color(0.69, 0.69, 0.69, 1)
-theme_override_font_sizes/font_size = 45
-theme_override_styles/normal = SubResource("StyleBoxEmpty_yhiv6")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_3oavh")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_l41xm")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_hgldx")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_p46jp")
+theme_override_styles/normal_mirrored = ExtResource("6_jm7vr")
+theme_override_styles/pressed = ExtResource("6_hgldx")
+theme_override_styles/hover = ExtResource("6_hgldx")
+theme_override_styles/disabled = ExtResource("7_jm7vr")
+theme_override_styles/focus = ExtResource("8_x3xat")
 text = "Skip>>>"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1116280512]
@@ -292,4 +260,4 @@ unique_name_in_owner = true
 
 [connection signal="gui_input" from="Balloon" to="." method="_on_balloon_gui_input"]
 [connection signal="response_selected" from="Balloon/ResponsesMenu" to="." method="_on_responses_menu_response_selected"]
-[connection signal="pressed" from="Balloon/skip_button" to="." method="_on_skip_button_pressed"]
+[connection signal="pressed" from="skip_button" to="." method="_on_skip_button_pressed"]

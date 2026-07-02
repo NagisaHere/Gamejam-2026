@@ -2,10 +2,14 @@
 
 [ext_resource type="Texture2D" uid="uid://d0f7fyndmi306" path="res://Assets/interface (20260510063538).png" id="1_g2f8q"]
 [ext_resource type="PackedScene" uid="uid://43tltcd7ygvn" path="res://Scenes/type.tscn" id="2_ar1gl"]
+[ext_resource type="StyleBox" uid="uid://dvbc6qn5dlarc" path="res://Assets/normal.tres" id="3_7a4s8"]
 [ext_resource type="PackedScene" uid="uid://ch2db7q0k0rwi" path="res://World/Scenes/typing_hand.tscn" id="3_qcwpo"]
+[ext_resource type="StyleBox" uid="uid://boga50d6txby1" path="res://Assets/button hover.tres" id="4_3rfbp"]
 [ext_resource type="Texture2D" uid="uid://dsw7gnjfaql5m" path="res://Assets/interface (20260510071510).png" id="4_p1vff"]
 [ext_resource type="Script" uid="uid://buvbchte83rch" path="res://World/Scenes/canvas_layer.gd" id="5_7a4s8"]
+[ext_resource type="StyleBox" uid="uid://ckflthru75txk" path="res://Assets/flat.tres" id="5_v7hhm"]
 [ext_resource type="Shader" uid="uid://dmm08vcn5k064" path="res://World/Scenes/computer.gdshader" id="6_3rfbp"]
+[ext_resource type="StyleBox" uid="uid://be2w6rflc1ass" path="res://Assets/focus.tres" id="6_fvxgd"]
 [ext_resource type="Script" uid="uid://bi6bwgu5ike4v" path="res://World/Scripts/color_rect.gd" id="7_v7hhm"]
 [ext_resource type="FontFile" uid="uid://dc1f2eykeohyp" path="res://Assets/fonts/abduction2002.ttf" id="8_fvxgd"]
 [ext_resource type="AudioStream" uid="uid://iikwx34gh0a3" path="res://Gus additions/SoundAssets/Quiet keyboard press.ogg" id="10_hjxlb"]
@@ -386,6 +390,17 @@ fill_to = Vector2(1, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qcwpo"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3yjl5"]
+bg_color = Color(0.07058824, 0.07058824, 0.07058824, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [node name="Trial Part" type="Node2D" unique_id=1815070021]
 script = SubResource("GDScript_jphvt")
 metadata/_edit_vertical_guides_ = [1136.0]
@@ -494,26 +509,12 @@ mouse_filter = 2
 texture = SubResource("GradientTexture2D_73g8m")
 metadata/_edit_lock_ = true
 
-[node name="skip_button" type="Button" parent="." unique_id=1327825595]
-z_index = 5
-offset_left = 945.0
-offset_top = 585.0
-offset_right = 1143.0
-offset_bottom = 661.0
-theme_override_colors/font_color = Color(0.69, 0.69, 0.69, 1)
-theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxEmpty_16q2i")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_g2f8q")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_ar1gl")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_qcwpo")
-text = "Skip>>>"
-
 [node name="reload_button" type="Button" parent="." unique_id=1727089982]
 z_index = 5
-offset_left = 937.0
-offset_top = -10.0
-offset_right = 1135.0
-offset_bottom = 66.0
+offset_left = 931.0
+offset_top = 566.0
+offset_right = 1129.0
+offset_bottom = 642.0
 theme_override_colors/font_color = Color(0.69, 0.69, 0.69, 1)
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxEmpty_16q2i")
@@ -534,10 +535,27 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_16q2i")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_g2f8q")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ar1gl")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_qcwpo")
-text = "ⓘ"
+text = "Back"
+
+[node name="skip_button" type="Button" parent="Tutorial" unique_id=1954621718]
+z_index = 5
+layout_mode = 0
+offset_left = 1059.0
+offset_top = 32.0
+offset_right = 1149.0
+offset_bottom = 67.0
+theme_override_colors/font_color = Color(0.69, 0.69, 0.69, 1)
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_3yjl5")
+theme_override_styles/normal_mirrored = ExtResource("3_7a4s8")
+theme_override_styles/pressed = ExtResource("4_3rfbp")
+theme_override_styles/hover = ExtResource("4_3rfbp")
+theme_override_styles/disabled = ExtResource("5_v7hhm")
+theme_override_styles/focus = ExtResource("6_fvxgd")
+text = "Skip>>>"
 
 [connection signal="finished" from="Startup" to="." method="_on_startup_finished"]
 [connection signal="finished" from="computer ambience" to="." method="_on_computer_ambience_finished"]
-[connection signal="pressed" from="skip_button" to="." method="_on_skip_button_pressed"]
 [connection signal="pressed" from="reload_button" to="." method="_on_reload_button_pressed"]
 [connection signal="pressed" from="Tutorial" to="." method="_on_tutorial_pressed"]
+[connection signal="pressed" from="Tutorial/skip_button" to="." method="_on_skip_button_pressed"]
