@@ -1,0 +1,138 @@
+[gd_scene format=3 uid="uid://cpg1sbfb2aeds"]
+
+[ext_resource type="Script" path="res://Gus additions/Settings/pause_menu.gd" id="1_j0r1d"]
+[ext_resource type="Shader" path="res://Gus additions/Settings/PauseMenu.gdshader" id="1_ue8hy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j0r1d"]
+shader = ExtResource("1_ue8hy")
+shader_parameter/lod = 0.0
+
+[sub_resource type="Animation" id="Animation_btfaa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/lod")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PanelContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ue8hy"]
+resource_name = "blur"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/lod")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.800000038]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PanelContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(0.9882353, 0.9882353, 0.9882353, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j0r1d"]
+_data = {
+&"RESET": SubResource("Animation_btfaa"),
+&"blur": SubResource("Animation_ue8hy")
+}
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1953993678]
+layer = 100
+
+[node name="PauseMenu" type="Control" parent="." unique_id=1955173684]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j0r1d")
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu" unique_id=632135163]
+material = SubResource("ShaderMaterial_j0r1d")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PauseMenu" unique_id=1554380365]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -234.0
+offset_top = -238.0
+offset_right = 234.0
+offset_bottom = 238.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/PanelContainer" unique_id=1839548255]
+custom_minimum_size = Vector2(180, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 73
+
+[node name="Resume" type="Button" parent="PauseMenu/PanelContainer/VBoxContainer" unique_id=817516889]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Resume"
+
+[node name="Restart" type="Button" parent="PauseMenu/PanelContainer/VBoxContainer" unique_id=1634564082]
+layout_mode = 2
+text = "Restart"
+
+[node name="Tutorial" type="Button" parent="PauseMenu/PanelContainer/VBoxContainer" unique_id=1906890783]
+layout_mode = 2
+text = "Tutorial"
+
+[node name="MainMenu" type="Button" parent="PauseMenu/PanelContainer/VBoxContainer" unique_id=2127101308]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PauseMenu" unique_id=2040124625]
+libraries/ = SubResource("AnimationLibrary_j0r1d")
+
+[connection signal="pressed" from="PauseMenu/PanelContainer/VBoxContainer/Resume" to="PauseMenu" method="_on_resume_pressed"]
+[connection signal="pressed" from="PauseMenu/PanelContainer/VBoxContainer/Restart" to="PauseMenu" method="_on_restart_pressed"]
+[connection signal="pressed" from="PauseMenu/PanelContainer/VBoxContainer/Tutorial" to="PauseMenu" method="_on_tutorial_pressed"]
+[connection signal="pressed" from="PauseMenu/PanelContainer/VBoxContainer/MainMenu" to="PauseMenu" method="_on_main_menu_pressed"]

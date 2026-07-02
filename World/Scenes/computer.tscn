@@ -16,7 +16,9 @@
 [ext_resource type="AudioStream" uid="uid://bnw6np7ly67jq" path="res://Gus additions/SoundAssets/computer startup.wav" id="14_73g8m"]
 [ext_resource type="AudioStream" uid="uid://dxkneow34sox5" path="res://Gus additions/SoundAssets/722375__qubodup__error-1.wav" id="15_21suy"]
 [ext_resource type="AudioStream" uid="uid://bmiw6bnte8l3e" path="res://Gus additions/SoundAssets/327738__distillerystudio__error_01.wav" id="16_lio8n"]
+[ext_resource type="Texture2D" uid="uid://c2jkgjx6eobme" path="res://World/AssetsWorld/Ice Step 1.png" id="18_73g8m"]
 [ext_resource type="AudioStream" uid="uid://mqj6e1171o6h" path="res://Gus additions/SoundAssets/computer ambience.wav" id="18_wjrsh"]
+[ext_resource type="Script" uid="uid://bvfvr5dpjpjjq" path="res://World/Scenes/ice.gd" id="19_wjrsh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ysobb"]
 shader = ExtResource("5_kic7h")
@@ -283,6 +285,22 @@ text = "Phase:1"
 horizontal_alignment = 1
 script = ExtResource("10_udr8r")
 metadata/_edit_use_anchors_ = true
+
+[node name="IceOverlay" type="CanvasLayer" parent="." unique_id=80216856]
+
+[node name="Ice" type="TextureRect" parent="IceOverlay" unique_id=408706708]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(576, 324)
+mouse_filter = 2
+texture = ExtResource("18_73g8m")
+expand_mode = 3
+script = ExtResource("19_wjrsh")
+freeze_duration = 5.0
+max_ice_scale = Vector2(1, 1)
 
 [connection signal="finished" from="Startup" to="." method="_on_startup_finished"]
 [connection signal="finished" from="alarm" to="." method="_on_alarm_finished"]
