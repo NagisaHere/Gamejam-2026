@@ -94,7 +94,6 @@ func _process(delta: float) -> void:
 	if is_instance_valid(dialogue_line):
 		progress.visible = not dialogue_label.is_typing and dialogue_line.responses.size() == 0 and not dialogue_line.has_tag("voice")
 
-
 func _unhandled_input(_event: InputEvent) -> void:
 	# Only the balloon is allowed to handle input while it's showing
 	if will_block_other_input:
@@ -105,6 +104,28 @@ func _unhandled_input(_event: InputEvent) -> void:
 				VideoManager.stop_video()
 			get_tree().change_scene_to_file("res://Tutorial/TrialPart.tscn")
 
+#Gemini did this
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("TutorialNext"):
+		if dialogue_line and dialogue_line.responses.size() > 0:
+			# Look through the visible choice options on screen
+			for response in dialogue_line.responses:
+				if "next" in response.text.to_lower() or "->" in response.text:
+					next(response.next_id) # Chooses this route and fires your 'do' sounds
+					get_viewport().set_input_as_handled()
+					return
+			
+	# GO BACKWARD (Left Arrow / TutorialBack)
+	elif event.is_action_pressed("TutorialBack"):
+		if dialogue_line and dialogue_line.responses.size() > 0:
+			# Look through the visible choice options on screen
+			for response in dialogue_line.responses:
+				if "back" in response.text.to_lower() or "<-" in response.text:
+					next(response.next_id) # Chooses this route and fires your 'do' sounds
+					#each reponse has a next_id as to the next destination/jump route
+					#code for that response is handled by next()
+					get_viewport().set_input_as_handled()
+					return
 		
 func _notification(what: int) -> void:
 	## Detect a change of locale and update the current dialogue line to show the new language
@@ -231,7 +252,6 @@ func _on_skip_button_pressed() -> void:
 	
 func BackClickSound():
 	$"Button clicks/BackClick".play()
-	print("backsound")
 	
 func NextClickSound():
 	$"Button clicks/NextClick".play()
