@@ -12,6 +12,11 @@
 [ext_resource type="AudioStream" uid="uid://q87attx503bw" path="res://Gus additions/SoundAssets/Quiet Snow Walk Finished.wav" id="10_h5lna"]
 [ext_resource type="AudioStream" uid="uid://egqur4hgwim1" path="res://Gus additions/SoundAssets/black_hole_soundridemusic.mp3" id="11_nxq72"]
 [ext_resource type="AudioStream" uid="uid://6gsghsnq6ac1" path="res://Gus additions/SoundAssets/tutorial4.wav" id="12_kt7v7"]
+[ext_resource type="Texture2D" uid="uid://bon0mik1vts51" path="res://Assets/transparent-triangle-icon-background-png.webp" id="13_gvt1n"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_gvt1n"]
+cull_mode = 2
+polygon = PackedVector2Array(33.887062, 1.9778645, 33.9177, 2.0460668, 33.7316, 2.114269, 33.48919, 2.1415498, 33.323086, 2.0733476, 33.072872, 1.9505837, 32.66081, 1.84146, 32.705772, 1.6641343, 32.3208, 1.5550108, 31.826046, 1.4186063, 31.601501, 1.2685614, 31.402634, 1.0912356, 31.212276, 1.0775952, 30.96206, 0.9548311, 31.109007, 0.6547413, 31.258083, 0.39557314, 31.358648, 0.24552822, 31.626734, 0.19096613, 31.981064, 0.23188782, 32.199223, 0.25916862, 32.517235, 0.12276411, 32.790997, 0.17732573, 32.9849, 0.25916862, 32.93568, 0.35465145, 32.751, 0.45013475, 32.755966, 0.54561806, 32.817245, 0.6820221, 32.7937, 0.7502246, 32.952, 0.6683817, 33.061787, 0.6956625, 33.066044, 0.7775054, 32.850014, 0.7911458, 32.55129, 0.7775054, 32.171997, 0.7775054, 31.898943, 0.7365842, 31.866884, 0.6411009, 31.887592, 0.5183368, 31.906172, 0.35465145, 31.714396, 0.31373024, 31.449148, 0.42285395, 31.403477, 0.58653927, 31.44192, 0.8047862, 31.584476, 0.9411907, 32.01866, 0.9548311, 32.42434, 0.9411907, 32.830017, 0.9275503, 33.02179, 0.9684715, 33.17867, 0.8593478, 33.173702, 0.763865, 32.64179, 0.9548311, 32.72803, 1.0503144, 33.032433, 1.1730781, 33.337543, 1.3094828, 33.50577, 1.4186063, 33.457973, 1.5413704, 33.301094, 1.6504939, 33.44152, 1.7459769, 33.58479, 1.8960218, 33.723797, 1.9642241)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xychh"]
 distance = 684.0
@@ -130,13 +135,23 @@ _data = {
 &"RESET": SubResource("Animation_44u0j")
 }
 
+[sub_resource type="Gradient" id="Gradient_kt7v7"]
+offsets = PackedFloat32Array(0.1865285, 0.7512953)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gvt1n"]
+gradient = SubResource("Gradient_kt7v7")
+fill = 1
+fill_from = Vector2(0.5017301, 0.46712804)
+fill_to = Vector2(0, 0)
+
 [node name="IntroWorld" type="Node2D" unique_id=27276651]
 script = ExtResource("1_y18wd")
 metadata/_edit_horizontal_guides_ = [233.0, -398.0, 352.0]
 metadata/_edit_vertical_guides_ = [-1917.0]
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1732421221]
-position = Vector2(-627, -22)
+position = Vector2(-630, 12)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_5rygh")
 
@@ -152,6 +167,13 @@ position = Vector2(-1832, -56)
 [node name="Player" parent="." unique_id=98430758 instance=ExtResource("3_hjaft")]
 position = Vector2(161, -301)
 scale = Vector2(0.8, 0.8)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Player" unique_id=1246616402]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(-1493.7498, -102.5)
+scale = Vector2(46.13844, 91.67066)
+skew = 0.02617991
+occluder = SubResource("OccluderPolygon2D_gvt1n")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1072134139 node_paths=PackedStringArray("target")]
 scale = Vector2(1.5, 1.5)
@@ -213,7 +235,33 @@ volume_db = -9.862
 [node name="tutorial" type="AudioStreamPlayer" parent="." unique_id=1664916101]
 stream = ExtResource("12_kt7v7")
 
-[node name="threatening ambience" type="AudioStreamPlayer2D" parent="." unique_id=65759607]
+[node name="threatening ambience" type="AudioStreamPlayer" parent="." unique_id=719258376]
 stream = ExtResource("11_nxq72")
+
+[node name="Overall Shadow" type="DirectionalLight2D" parent="." unique_id=1054277354]
+color = Color(0.18602306, 0.18602306, 0.18602306, 1)
+energy = 0.64
+blend_mode = 2
+
+[node name="Terminal light" type="PointLight2D" parent="." unique_id=1757911532]
+light_mask = 3
+position = Vector2(-1711.9999, 25)
+scale = Vector2(9.122335, 5.0548315)
+color = Color(0.2627451, 1, 1, 1)
+energy = 1.24
+texture = SubResource("GradientTexture2D_gvt1n")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1595764102]
+light_mask = 3
+position = Vector2(82.00006, -1702)
+scale = Vector2(36.910755, 95.14843)
+skew = 0.02617994
+energy = 1.85
+blend_mode = 2
+shadow_enabled = true
+shadow_color = Color(0.66, 0.66, 0.66, 0.07058824)
+texture = ExtResource("13_gvt1n")
+offset = Vector2(-0.45576096, 13.3206005)
+texture_scale = 0.01
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
