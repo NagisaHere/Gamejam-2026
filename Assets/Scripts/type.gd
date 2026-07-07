@@ -29,11 +29,10 @@ func _ready() -> void:
 		bluetooth_manager.scan_stopped.connect(_on_scan_stopped)
 		
 		bluetooth_manager.initialize()
-	#start_game()
+
 	# set time and level count from settings
 	sentences_to_win = SaveManager.sentences_needed
 	$"../Timer".wait_time = SaveManager.time_limit
-	
 	randomize()
 	load_phrases()
 	spawn_phrase()
@@ -63,11 +62,12 @@ func load_phrases():
 	passphrases = text.split("\n")
 	if (not passphrases.is_empty()): # last is empty string, not good practice but filter doesnt work idk
 		passphrases.remove_at(passphrases.size() - 1)
-	
+
+#Run to check if win conditions are now fufilled
 func _check_win(prompt: String) -> void:
 	if current_letter_index == prompt.length() and current_mistakes.length() == 0:
 		sentences_completed += 1
-		print("done sentences:", sentences_completed)
+		#print("done sentences:", sentences_completed)
 
 		if sentences_completed >= sentences_to_win:
 			_win_game()
@@ -85,15 +85,20 @@ func find_new_active_enemy(typed_character: String):
 			active_enemy.set_next_character(current_letter_index)
 	return
 
+#game over transition
 func _game_over() -> void:
+	#Death time effects
 	$"../Death/DeathGlow".modulate.a = 20 #fade is in computer
+	
+	#gameover transition
 	$"../Fadeout/Fade Transition".show()
 	$"../Fadeout/Fade Transition/Fade_Timer".start()
 	$"../Fadeout/Fade Transition/AnimationPlayer".play("Fade_out")
-	
 
+#change scene once gameover transition has finished
 func _on_fade_timer_timeout() -> void:
 	get_tree().change_scene_to_file("res://Gus additions/BadEnding/BadEnding_.tscn")
+
 
 func show_warning_message():
 	warning_label.text = "Key Stroke Dropped"
@@ -103,11 +108,12 @@ func show_warning_message():
 
 	warning_label.visible = false
 
-# determine what fingers have not been killed
+# determine what fingers have not been killed 
+#Kill a remaining finger.
 func _determine_esp32_message():
 #  If all fingers are dead, return immediately
 	if killed_fingers.size() >= 5:
-		print("All fingers are dead. Cannot select a new one.")
+		#print("All fingers are dead. Cannot select a new one.")
 		return
 
 	var available_fingers: Array[int] = []
@@ -115,7 +121,8 @@ func _determine_esp32_message():
 	for i in range(5):
 		if not killed_fingers.has(i):
 			available_fingers.append(i)
-
+	
+	#kill a random finger
 	var selected_finger = available_fingers.pick_random()
 	_kill_finger(selected_finger)
 
@@ -129,19 +136,26 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 		var prompt = active_enemy.get_prompt()
 		var next_character = prompt.substr(current_letter_index, 1)
+		
+		#Events for pressing backspace/finger-loss
 		if event.keycode == KEY_BACKSPACE:
 			if event.is_pressed():
 				
 				if not backspace_is_held:
+					#update fingers
 					fingers_remaining -= 1
 					fingers_changed.emit(fingers_remaining)
+					
+					#call kill finger
 					if not OS.has_feature("web"):
 						_determine_esp32_message()
+					
 					backspace_is_held = true
+					
+					#Finger loss vfx
 					$"../backspace press".play()
 					$"../Hurt/Bleed".modulate.a = 1 #fade is in computer script
-					
-					
+				
 					if fingers_remaining == 0:
 						_game_over()
 
@@ -155,6 +169,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 				return
 			else:
+				
 				backspace_is_held = false
 				return
 

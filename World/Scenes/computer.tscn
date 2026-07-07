@@ -16,7 +16,13 @@
 [ext_resource type="AudioStream" uid="uid://bnw6np7ly67jq" path="res://Gus additions/SoundAssets/computer startup.wav" id="14_73g8m"]
 [ext_resource type="AudioStream" uid="uid://dxkneow34sox5" path="res://Gus additions/SoundAssets/722375__qubodup__error-1.wav" id="15_21suy"]
 [ext_resource type="AudioStream" uid="uid://bmiw6bnte8l3e" path="res://Gus additions/SoundAssets/327738__distillerystudio__error_01.wav" id="16_lio8n"]
+[ext_resource type="Script" uid="uid://bsy50ptcwy13a" path="res://addons/onscreenkeyboard/onscreen_keyboard.gd" id="18_73g8m"]
 [ext_resource type="AudioStream" uid="uid://mqj6e1171o6h" path="res://Gus additions/SoundAssets/computer ambience.wav" id="18_wjrsh"]
+[ext_resource type="StyleBox" path="res://addons/onscreenkeyboard/customize/styles/defaultBackgroundStyle.tres" id="19_3p10d"]
+[ext_resource type="StyleBox" path="res://addons/onscreenkeyboard/customize/styles/defaultNormalStyle.tres" id="20_5lv0h"]
+[ext_resource type="StyleBox" path="res://addons/onscreenkeyboard/customize/styles/defaultHoverStlyle.tres" id="21_mi3mj"]
+[ext_resource type="StyleBox" uid="uid://cdknrqx1mktev" path="res://addons/onscreenkeyboard/customize/styles/defaultPressedStyle.tres" id="22_8clv2"]
+[ext_resource type="StyleBox" path="res://addons/onscreenkeyboard/customize/styles/defaultNormalSpecialKeysStyle.tres" id="23_g3sb8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ysobb"]
 shader = ExtResource("5_kic7h")
@@ -129,6 +135,20 @@ color = Color(0.7058824, 0.95686275, 0.91764706, 1)
 [node name="typing" parent="." unique_id=1467136492 instance=ExtResource("3_p2dj2")]
 position = Vector2(107, 99)
 scale = Vector2(0.875, 0.875)
+
+[node name="OnscreenKeyboard" type="PanelContainer" parent="." unique_id=991846768]
+offset_left = 897.0
+offset_top = 424.0
+offset_right = 1121.0
+offset_bottom = 568.0
+script = ExtResource("18_73g8m")
+auto_show = true
+background = ExtResource("19_3p10d")
+normal = ExtResource("20_5lv0h")
+hover = ExtResource("21_mi3mj")
+pressed = ExtResource("22_8clv2")
+special_keys = ExtResource("23_g3sb8")
+metadata/_custom_type_script = "uid://bsy50ptcwy13a"
 
 [node name="TypingHand" parent="." unique_id=832879252 instance=ExtResource("3_vdqhu")]
 position = Vector2(1008, 522)
