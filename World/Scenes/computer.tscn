@@ -24,6 +24,30 @@
 [ext_resource type="StyleBox" uid="uid://cdknrqx1mktev" path="res://addons/onscreenkeyboard/customize/styles/defaultPressedStyle.tres" id="22_8clv2"]
 [ext_resource type="StyleBox" path="res://addons/onscreenkeyboard/customize/styles/defaultNormalSpecialKeysStyle.tres" id="23_g3sb8"]
 
+[sub_resource type="Gradient" id="Gradient_73g8m"]
+offsets = PackedFloat32Array(0, 0.8854167, 1)
+colors = PackedColorArray(1, 1, 1, 0.003921569, 1, 1, 1, 0.8666667, 0.37840822, 0.103841275, 0.103841275, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wjrsh"]
+gradient = SubResource("Gradient_73g8m")
+width = 1024
+height = 1024
+fill = 1
+fill_from = Vector2(0.48958334, 0.48958334)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_lio8n"]
+offsets = PackedFloat32Array(0, 0.8854167, 1)
+colors = PackedColorArray(1, 1, 1, 0.003921569, 1, 1, 1, 0.38431373, 1, 0.089999974, 0.089999974, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_73g8m"]
+gradient = SubResource("Gradient_lio8n")
+width = 1024
+height = 1024
+fill = 1
+fill_from = Vector2(0.48958334, 0.48958334)
+fill_to = Vector2(1, 1)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ysobb"]
 shader = ExtResource("5_kic7h")
 shader_parameter/border_size = 0.12
@@ -87,30 +111,6 @@ _data = {
 &"RESET": SubResource("Animation_fu7sn")
 }
 
-[sub_resource type="Gradient" id="Gradient_lio8n"]
-offsets = PackedFloat32Array(0, 0.8854167, 1)
-colors = PackedColorArray(1, 1, 1, 0.003921569, 1, 1, 1, 0.38431373, 1, 0.089999974, 0.089999974, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_73g8m"]
-gradient = SubResource("Gradient_lio8n")
-width = 1024
-height = 1024
-fill = 1
-fill_from = Vector2(0.48958334, 0.48958334)
-fill_to = Vector2(1, 1)
-
-[sub_resource type="Gradient" id="Gradient_73g8m"]
-offsets = PackedFloat32Array(0, 0.8854167, 1)
-colors = PackedColorArray(1, 1, 1, 0.003921569, 1, 1, 1, 0.8666667, 0.37840822, 0.103841275, 0.103841275, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_wjrsh"]
-gradient = SubResource("Gradient_73g8m")
-width = 1024
-height = 1024
-fill = 1
-fill_from = Vector2(0.48958334, 0.48958334)
-fill_to = Vector2(1, 1)
-
 [node name="Computer" type="Node2D" unique_id=1815070021]
 script = ExtResource("1_pepux")
 metadata/_edit_vertical_guides_ = [1136.0]
@@ -141,6 +141,7 @@ offset_left = 897.0
 offset_top = 424.0
 offset_right = 1121.0
 offset_bottom = 568.0
+theme_override_styles/panel = ExtResource("19_3p10d")
 script = ExtResource("18_73g8m")
 auto_show = true
 background = ExtResource("19_3p10d")
@@ -154,7 +155,49 @@ metadata/_custom_type_script = "uid://bsy50ptcwy13a"
 position = Vector2(1008, 522)
 scale = Vector2(0.475, 0.475)
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1405274404]
+[node name="Hurt" type="CanvasLayer" parent="." unique_id=1860926591]
+
+[node name="Bleed" type="TextureRect" parent="Hurt" unique_id=1002929400]
+modulate = Color(0.81, 0.16199999, 0.16199999, 1)
+anchors_preset = -1
+anchor_left = 0.76600003
+anchor_top = 0.6327408
+anchor_right = 0.977
+anchor_bottom = 0.9170001
+offset_left = -0.43200684
+offset_top = -0.016021729
+offset_right = -0.5040283
+offset_bottom = -0.21606445
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_wjrsh")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="alarm overlay" type="CanvasLayer" parent="." unique_id=269115034]
+
+[node name="RedGlow" type="TextureRect" parent="alarm overlay" unique_id=1648302740]
+modulate = Color(0.81, 0.16199999, 0.16199999, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 884.0
+offset_top = 61.0
+offset_right = -34.0
+offset_bottom = -263.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_73g8m")
+expand_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=1434055582]
+layer = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer2" unique_id=1405274404]
 position = Vector2(575, 330.00003)
 scale = Vector2(0.44628382, 0.43537498)
 texture = ExtResource("5_ds0at")
@@ -237,24 +280,6 @@ libraries/ = SubResource("AnimationLibrary_73g8m")
 [node name="Fade_Timer" type="Timer" parent="Fadeout/Fade Transition" unique_id=97573006]
 wait_time = 4.0
 
-[node name="alarm overlay" type="CanvasLayer" parent="." unique_id=269115034]
-
-[node name="RedGlow" type="TextureRect" parent="alarm overlay" unique_id=1648302740]
-modulate = Color(0.81, 0.16199999, 0.16199999, 1)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 884.0
-offset_top = 61.0
-offset_right = -34.0
-offset_bottom = -263.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = SubResource("GradientTexture2D_73g8m")
-expand_mode = 1
-metadata/_edit_lock_ = true
-
 [node name="Death" type="CanvasLayer" parent="." unique_id=949643482]
 layer = 6
 
@@ -267,27 +292,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_73g8m")
-metadata/_edit_lock_ = true
-
-[node name="Hurt" type="CanvasLayer" parent="." unique_id=1860926591]
-
-[node name="Bleed" type="TextureRect" parent="Hurt" unique_id=1002929400]
-modulate = Color(0.81, 0.16199999, 0.16199999, 1)
-anchors_preset = -1
-anchor_left = 0.76600003
-anchor_top = 0.6327408
-anchor_right = 0.977
-anchor_bottom = 0.9170001
-offset_left = -0.43200684
-offset_top = -0.016021729
-offset_right = -0.5040283
-offset_bottom = -0.21606445
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = SubResource("GradientTexture2D_wjrsh")
-expand_mode = 1
-metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
 [connection signal="finished" from="Startup" to="." method="_on_startup_finished"]

@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://bgec11wol74je"]
+
+[ext_resource type="Script" uid="uid://b824awgdfolv1" path="res://World/Scenes/slider.gd" id="1_660oy"]
+[ext_resource type="Texture2D" uid="uid://d0f7fyndmi306" path="res://Assets/interface (20260510063538).png" id="1_atlde"]
+[ext_resource type="Texture2D" uid="uid://dsw7gnjfaql5m" path="res://Assets/interface (20260510071510).png" id="2_660oy"]
+[ext_resource type="Script" uid="uid://2e0a3t6tbbhp" path="res://World/Scenes/progress_bar.gd" id="4_o78fl"]
+
+[node name="Slider" type="Node2D" unique_id=23336200]
+script = ExtResource("1_660oy")
+
+[node name="Sprite2D4" type="Sprite2D" parent="." unique_id=1911006271]
+position = Vector2(575.29663, 325.9041)
+scale = Vector2(0.44628382, 0.43537498)
+texture = ExtResource("1_atlde")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=872259112]
+position = Vector2(575, 330.00003)
+scale = Vector2(0.44628382, 0.43537498)
+texture = ExtResource("2_660oy")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1809114881]
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer" unique_id=615276280]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 258.0
+offset_top = 213.0
+offset_right = -457.0
+offset_bottom = -243.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_o78fl")
+
+[node name="Timer" type="Timer" parent="CanvasLayer/ProgressBar" unique_id=1633599628]
+wait_time = 0.4
+one_shot = true
+
+[connection signal="bar_is_full" from="CanvasLayer/ProgressBar" to="." method="_on_progress_bar_bar_is_full"]
+[connection signal="changed" from="CanvasLayer/ProgressBar" to="CanvasLayer/ProgressBar" method="_on_changed"]
+[connection signal="timeout" from="CanvasLayer/ProgressBar/Timer" to="." method="_on_timer_timeout"]
