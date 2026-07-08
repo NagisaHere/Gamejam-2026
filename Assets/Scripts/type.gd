@@ -16,6 +16,10 @@ var sentences_to_win := 3
 var current_mistakes: String = ""
 var killed_fingers: Array[int] = []
 
+var no_left := false
+var no_right := false
+
+
 func _ready() -> void:
 	# 1. Instantiate the BluetoothManager and add it to the scene tree
 	if not OS.has_feature("web"):
@@ -36,6 +40,22 @@ func _ready() -> void:
 	randomize()
 	load_phrases()
 	spawn_phrase()
+	
+	#challenge mode setups
+	if no_left == true:
+		kill_left()
+	
+	if no_right == true:
+		kill_right()
+			
+func kill_left():
+	for fingers_toKill in [0,1,2,3,4]:
+			_kill_finger(fingers_toKill)
+		
+#TODO replace with indices for left hand
+func kill_right():
+	for fingers_toKill in [0,1,2,3,4]:
+			_kill_finger(fingers_toKill)
 
 func _win_game() -> void:
 	SaveManager.temp_time = $"../Timer".time_left

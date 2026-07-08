@@ -41,8 +41,13 @@ func _process(delta):
 	redGlow.modulate.a = lerp(redGlow.modulate.a, 0.0, delta * 1.0)
 	$Death/DeathGlow.modulate.a = lerp($Death/DeathGlow.modulate.a, 0.0, delta * 1.0)
 	$Hurt/Bleed.modulate.a = lerp($Hurt/Bleed.modulate.a, 0.0, delta * 1.0)
-	
+
+
 func _on_timer_timeout() -> void:
+	#time has runout, all fingers frozen effect
+	$typing.kill_left()
+	$typing.kill_right()
+	#add ice cracking sound of all fingers freezing over
 	
 	$typing._game_over()
 	
