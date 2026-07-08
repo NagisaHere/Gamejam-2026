@@ -47,7 +47,7 @@ movie_writer/movie_file="res://Tutorial/example_tutorial.ogv"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://addons/onscreenkeyboard/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://addons/light_shape_2d/plugin.cfg", "res://addons/onscreenkeyboard/plugin.cfg")
 
 [input]
 

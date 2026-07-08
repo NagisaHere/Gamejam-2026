@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://d37lwv1o4vmk0" path="res://player-03 (20260510062443).png" id="5_6itm1"]
 [ext_resource type="Texture2D" uid="uid://m32phjf6jrhh" path="res://player-04 (20260510062618).png" id="7_b4o5b"]
 [ext_resource type="Texture2D" uid="uid://bi5km7cg5nu6k" path="res://player-05 (20260510062640).png" id="8_d0sea"]
+[ext_resource type="AudioStream" uid="uid://q87attx503bw" path="res://Gus additions/SoundAssets/Quiet Snow Walk Finished.wav" id="9_6itm1"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_e8w14"]
 animations = [{
@@ -68,3 +69,7 @@ frame_progress = 0.02692951
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1589559054]
 position = Vector2(2, -2)
 shape = SubResource("CapsuleShape2D_5a4g4")
+
+[node name="Walk" type="AudioStreamPlayer" parent="." unique_id=1338443211]
+stream = ExtResource("9_6itm1")
+volume_db = -9.862

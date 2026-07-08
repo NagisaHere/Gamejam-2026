@@ -9,7 +9,6 @@
 [ext_resource type="Script" uid="uid://l7bb0d65ceqy" path="res://World/Scripts/animation_player.gd" id="5_w3uqr"]
 [ext_resource type="Texture2D" uid="uid://d3igx6iek8sdd" path="res://Assets/fonts/foreground (20260510092505).png" id="8_nxq72"]
 [ext_resource type="AudioStream" uid="uid://lwh6b1r6cvs4" path="res://Gus additions/SoundAssets/ropefinished2.wav" id="9_w3uqr"]
-[ext_resource type="AudioStream" uid="uid://q87attx503bw" path="res://Gus additions/SoundAssets/Quiet Snow Walk Finished.wav" id="10_h5lna"]
 [ext_resource type="AudioStream" uid="uid://egqur4hgwim1" path="res://Gus additions/SoundAssets/black_hole_soundridemusic.mp3" id="11_nxq72"]
 [ext_resource type="AudioStream" uid="uid://6gsghsnq6ac1" path="res://Gus additions/SoundAssets/tutorial4.wav" id="12_kt7v7"]
 
@@ -239,10 +238,6 @@ color = Color(0, 0, 0, 1)
 [node name="Rope" type="AudioStreamPlayer" parent="." unique_id=1286349645]
 stream = ExtResource("9_w3uqr")
 volume_db = -9.861
-
-[node name="Walk" type="AudioStreamPlayer" parent="." unique_id=1519677303]
-stream = ExtResource("10_h5lna")
-volume_db = -9.862
 
 [node name="tutorial" type="AudioStreamPlayer" parent="." unique_id=1664916101]
 stream = ExtResource("12_kt7v7")
