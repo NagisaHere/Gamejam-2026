@@ -16,8 +16,8 @@ var walk_fade: Tween
 
 var cutscene_mode := false
 
-var min_pos := Vector2(0,0)
-var max_pos := Vector2(1200, 650)
+var min_pos := Vector2(0,340)
+var max_pos := Vector2(1200, 630)
 
 func _physics_process(delta):
 	if cutscene_mode:
@@ -35,7 +35,7 @@ func _physics_process(delta):
 	velocity = input_vector * speed
 	move_and_slide()
 
-	global_position.x = clamp(global_position.x, min_pos.x, max_pos.x)
+	#lobal_position.x = clamp(global_position.x, min_pos.x, max_pos.x)
 	global_position.y = clamp(global_position.y, min_pos.y, max_pos.y)
 	
 	#Animation
@@ -73,17 +73,31 @@ func _physics_process(delta):
 "
 
 [sub_resource type="Gradient" id="Gradient_kw8pa"]
-offsets = PackedFloat32Array(0, 0.46474358)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+offsets = PackedFloat32Array(0, 0.68125)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_0jnsk"]
 gradient = SubResource("Gradient_kw8pa")
 fill = 1
 fill_from = Vector2(0.52421653, 0.45584047)
 
+[sub_resource type="Gradient" id="Gradient_0jnsk"]
+offsets = PackedFloat32Array(0, 0.13650794, 0.21269841, 0.7079365)
+colors = PackedColorArray(1, 0, 0.4392157, 1, 1, 0.38431373, 0.14117648, 1, 1, 0.30980393, 0.34117648, 1, 0, 0, 0, 0.11764706)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_aikdw"]
+gradient = SubResource("Gradient_0jnsk")
+fill = 1
+fill_from = Vector2(0.4985755, 0.5156695)
+fill_to = Vector2(1, 0.01994302)
+
 [node name="IceLandscape" type="Node2D" unique_id=1423992512]
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1129161114]
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=32495735]
+repeat_size = Vector2(1164, 0)
+repeat_times = 100
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1129161114]
 scale = Vector2(1.9019607, 1.5735294)
 texture = ExtResource("1_ocgrb")
 centered = false
@@ -98,10 +112,13 @@ speed = 150.0
 position = Vector2(-9.999756, 16.66687)
 scale = Vector2(3.3333333, 3.3333333)
 zoom = Vector2(2, 2)
+limit_top = 0
+limit_bottom = 642
 
 [node name="PointLightShape2D" type="PointLight2D" parent="Player" unique_id=1328190274]
 position = Vector2(15.000307, -19.999695)
 scale = Vector2(4.33736, 3.1814232)
+blend_mode = 2
 texture = ExtResource("3_0jnsk")
 texture_scale = 1.36
 script = ExtResource("3_kw8pa")
@@ -116,5 +133,11 @@ scale = Vector2(4.771874, 5.150301)
 texture = SubResource("GradientTexture2D_0jnsk")
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=508698386]
-energy = 0.9
-blend_mode = 1
+color = Color(0, 0, 0, 1)
+energy = 0.95
+blend_mode = 2
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=426910338]
+position = Vector2(417, 293)
+energy = 3.9
+texture = SubResource("GradientTexture2D_aikdw")
