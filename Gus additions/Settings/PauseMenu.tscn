@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://cum122o4rcvqj"]
+[gd_scene format=3 uid="uid://b26oi7kyn86te"]
 
 [ext_resource type="Script" uid="uid://ca1asgk8qr50o" path="res://Gus additions/Settings/pause_menu.gd" id="1_j0r1d"]
-[ext_resource type="Shader" uid="uid://cce055uwkr7kh" path="res://Gus additions/Settings/PauseMenu.gdshader" id="1_ue8hy"]
+[ext_resource type="Shader" path="res://Gus additions/Settings/PauseMenu.gdshader" id="1_ue8hy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j0r1d"]
 shader = ExtResource("1_ue8hy")
@@ -110,7 +110,7 @@ custom_minimum_size = Vector2(180, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/separation = 73
+theme_override_constants/separation = 60
 
 [node name="Resume" type="Button" parent="PauseMenu/PanelContainer/VBoxContainer" unique_id=817516889]
 layout_mode = 2
@@ -129,6 +129,10 @@ text = "Tutorial"
 layout_mode = 2
 text = "Main Menu"
 
+[node name="Quit" type="Button" parent="PauseMenu/PanelContainer/VBoxContainer" unique_id=798335645]
+layout_mode = 2
+text = "Quit"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="PauseMenu" unique_id=2040124625]
 libraries/ = SubResource("AnimationLibrary_j0r1d")
 
@@ -136,3 +140,4 @@ libraries/ = SubResource("AnimationLibrary_j0r1d")
 [connection signal="pressed" from="PauseMenu/PanelContainer/VBoxContainer/Restart" to="PauseMenu" method="_on_restart_pressed"]
 [connection signal="pressed" from="PauseMenu/PanelContainer/VBoxContainer/Tutorial" to="PauseMenu" method="_on_tutorial_pressed"]
 [connection signal="pressed" from="PauseMenu/PanelContainer/VBoxContainer/MainMenu" to="PauseMenu" method="_on_main_menu_pressed"]
+[connection signal="pressed" from="PauseMenu/PanelContainer/VBoxContainer/Quit" to="PauseMenu" method="_on_quit_pressed"]
