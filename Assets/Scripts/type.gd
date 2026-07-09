@@ -16,8 +16,10 @@ var sentences_to_win := 3
 var current_mistakes: String = ""
 var killed_fingers: Array[int] = []
 
+#Hand modifiers
 var no_left := false
 var no_right := false
+var restrict_modifier := false
 
 
 func _ready() -> void:
@@ -47,6 +49,9 @@ func _ready() -> void:
 	
 	if no_right == true:
 		kill_right()
+	
+	if restrict_modifier == true:
+		restrict_fingers([0,1,2,3,4], 90)
 			
 func kill_left():
 	for fingers_toKill in [0,1,2,3,4]:
@@ -56,6 +61,13 @@ func kill_left():
 func kill_right():
 	for fingers_toKill in [0,1,2,3,4]:
 			_kill_finger(fingers_toKill)
+
+#pass a list of the fingers you want to restrict and the angle from (restrict)0->180(relax)
+func restrict_fingers(fingers:Array, restriction_angle:int) -> void:
+	for finger in fingers:
+		#only restrict fingers that are alive
+		if not killed_fingers.has(finger):
+			_move_finger_to_angle(finger, restriction_angle)
 
 func _win_game() -> void:
 	SaveManager.temp_time = $"../Timer".time_left
