@@ -173,55 +173,57 @@ pinkie - ???
 
 class MyCallbacks: public BLECharacteristicCallbacks {
     void onWrite(BLECharacteristic *pCharacteristic) {
-      String rxValue = pCharacteristic->getValue();
-
+      String rxValue = pCharacteristic->getValue().c_str(); // Explicitly read as a string
+      
       if (rxValue.length() > 0) {
-        Serial.print("Received from Python: ");
+        Serial.print("Received from Godot: ");
+        Serial.println(rxValue);
         
-        for (int i = 0; i < rxValue.length(); i++) {
-          char cmd = rxValue[i];
-          Serial.print(cmd);
-          
-          switch (cmd) {
-            case CMD_THUMB:
-              writeServo(servoPins[0], SERVO_MIN);
-              break;
-              
-            case CMD_INDEX:
-              writeServo(servoPins[1], SERVO_MIN);
-              digitalWrite(vibratePins[1], HIGH);
-              break;
-              
-            case CMD_MIDDLE:
-              writeServo(servoPins[2], SERVO_MIN);
-              digitalWrite(vibratePins[2], HIGH);
-              break;
-              
-            case CMD_RING:
-              writeServo(servoPins[3], SERVO_MIN);
-              break;
-              
-            case CMD_PINKY:
-              writeServo(servoPins[4], SERVO_MIN);
-              break;
-              
-            case CMD_STOP_ALL:
-              // Reset all servos to minimum (0 deg)
-              for(int s = 0; s < NUM_SERVOS; s++) {
-                  writeServo(servoPins[s], SERVO_MAX);
-              }
-              break;
-            case CMD_START:
-              startupSweep();
-              initial_servo_state();
-              break;
-              
-            default:
-              // Ignore any unexpected characters (like newline characters)
-              break;
+        // Handle global fallback commands ('S' or '5')
+        if (rxValue.length() == 1) {
+          char cmd = rxValue[0];
+          if (cmd == CMD_START) {
+            startupSweep();
+            initial_servo_state();
+            return;
+            
+          } else if (cmd == CMD_STOP_ALL) {
+            for(int s = 0; s < NUM_SERVOS; s++) {
+                writeServo(servoPins[s], SERVO_MAX);
+                digitalWrite(vibratePins[s], LOW); // Turn off all vibration motors
+            }
+            return;
           }
         }
-        Serial.println(); // Add a newline in the serial monitor
+
+        // Look for our string separator ':'
+        int colonIndex = rxValue.indexOf(':');
+        
+        if (colonIndex != -1) {
+          // Split into finger index and target servo angle
+          String fingerStr = rxValue.substring(0, colonIndex);
+          String angleStr = rxValue.substring(colonIndex + 1);
+          
+          int fingerID = fingerStr.toInt();
+          int targetAngle = angleStr.toInt();
+          
+          // Guard against safe array boundaries and mechanical limits
+          fingerID = constrain(fingerID, 0, NUM_SERVOS - 1);
+          targetAngle = constrain(targetAngle, SERVO_MIN, SERVO_MAX);
+          
+          // Move the specific finger to the requested angle
+          writeServo(servoPins[fingerID], targetAngle);
+          
+          // If the finger is relaxed (at or near SERVO_MAX), kill its vibration motor
+          if (targetAngle >= (SERVO_MAX - 10)) {
+            digitalWrite(vibratePins[fingerID], LOW);
+          }
+          
+          Serial.print("Servo Pin ");
+          Serial.print(servoPins[fingerID]);
+          Serial.print(" set to Angle: ");
+          Serial.println(targetAngle);
+        }
       }
     }
 };

@@ -315,33 +315,35 @@ func _on_services_discovered(services: Array):
 	connected_device.write_characteristic(SERVICE_UUID, CHAR_UUID_RX, data_to_send, false)
 
 # 0 for thumb, 1 for index, 2 for middle, 3 for ring, 4 for pinky
-func _kill_finger(finger: int):
-	killed_fingers.append(finger)
-	var command: String = ""
-
-	match finger:
-		0: # Thumb
-			command = "0"
-		1: # Index
-			command = "1"
-		2: # Middle
-			command = "2"
-		3: # Ring
-			command = "3"
-		4: # Pinky
-			command = "4"
-		_: # Default catch-all
-			print("Invalid finger index")
-			return
-	# Convert the matched string command to a byte array
-	var data_to_send = command.to_utf8_buffer()
-	if connected_device != null:
-		connected_device.write_characteristic(SERVICE_UUID, CHAR_UUID_RX, data_to_send, false)
-		print("BLE: Sent kill command '", command, "' for finger index: ", finger)
-	else:
-		print("BLE Error: No connected device to send command to.")
+func _kill_finger(finger: int) -> void:
+	if finger > 9 or finger < 0:
+		return
+		
+	if not killed_fingers.has(finger):
+		killed_fingers.append(finger)
+	_move_finger_to_angle(finger, 0) # Pulls down to 0 degrees
 
 func _on_characteristic_written(char_uuid: String):
 	print("Data successfully written to characteristic: ", char_uuid)
 	# Optional: Disconnect after sending if you only need a single burst
 	# connected_device.disconnect()
+
+func _move_finger_to_angle(finger: int, target_angle: int) -> void:
+	# Ensure the angle stays within your hardware's 0-180 limits
+	var safe_angle = clamp(target_angle, 0, 180)
+	
+	# Build the parsed string (e.g., "1:180")
+	var command: String = str(finger) + ":" + str(safe_angle)
+	var data_to_send = command.to_utf8_buffer()
+	
+	if connected_device != null:
+		connected_device.write_characteristic(SERVICE_UUID, CHAR_UUID_RX, data_to_send, false)
+		print("BLE: Sent Target Command -> ", command)
+	else:
+		print("BLE Error: No connected device to send command to.")
+
+# Convenient wrapper to free a single finger instantly
+func _unrestrict_finger(finger: int) -> void:
+	if killed_fingers.has(finger):
+		killed_fingers.erase(finger)
+	_move_finger_to_angle(finger, 180) # Relaxes completely back to 180 degrees
