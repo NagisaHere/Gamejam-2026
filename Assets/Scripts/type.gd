@@ -20,7 +20,9 @@ var killed_fingers: Array[int] = []
 var no_left := false
 var no_right := false
 var restrict_modifier := false
-
+var random_freeze_modifier := false
+var random_frozen_fingers := []
+var numberOf_random_frozen_fingers := 3
 
 func _ready() -> void:
 	# 1. Instantiate the BluetoothManager and add it to the scene tree
@@ -52,6 +54,9 @@ func _ready() -> void:
 	
 	if restrict_modifier == true:
 		restrict_fingers([0,1,2,3,4], 90)
+	
+	if random_freeze_modifier == true:
+		$"../Freeze_timer".start()
 			
 func kill_left():
 	for fingers_toKill in [0,1,2,3,4]:
@@ -68,6 +73,26 @@ func restrict_fingers(fingers:Array, restriction_angle:int) -> void:
 		#only restrict fingers that are alive
 		if not killed_fingers.has(finger):
 			_move_finger_to_angle(finger, restriction_angle)
+	
+func _on_freeze_timer_timeout() -> void:
+	#grab remaining fingers
+	var available_fingers = []
+	for finger in [1,2,3,4,5,6,7,8,9,0]:
+		if not killed_fingers.has(finger):
+			available_fingers.append(finger)
+			
+	#free all previously frozen fingers
+	for finger in random_frozen_fingers:
+		_unrestrict_finger(finger)
+	
+	#add chosen fingers to list and kill/freeze temporarily
+	for finger in range(0,numberOf_random_frozen_fingers):
+		random_frozen_fingers.append(available_fingers.pick_random())
+	for finger in random_frozen_fingers:
+		_move_finger_to_angle(finger, 0)
+	#TODO maybe make it killed so it doesn't overlap maybe
+	
+
 
 func _win_game() -> void:
 	SaveManager.temp_time = $"../Timer".time_left

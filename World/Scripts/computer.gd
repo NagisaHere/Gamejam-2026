@@ -49,6 +49,7 @@ func _on_timer_timeout() -> void:
 	$typing.kill_right()
 	#add ice cracking sound of all fingers freezing over
 	
+	
 	$typing._game_over()
 	
 

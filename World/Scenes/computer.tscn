@@ -294,8 +294,12 @@ mouse_filter = 2
 texture = SubResource("GradientTexture2D_73g8m")
 metadata/_edit_lock_ = true
 
+[node name="Freeze_timer" type="Timer" parent="." unique_id=1807517500]
+wait_time = 60.0
+
 [connection signal="finished" from="Startup" to="." method="_on_startup_finished"]
 [connection signal="finished" from="alarm" to="." method="_on_alarm_finished"]
 [connection signal="finished" from="computer ambience" to="." method="_on_computer_ambience_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Fadeout/Fade Transition/Fade_Timer" to="typing" method="_on_fade_timer_timeout"]
+[connection signal="timeout" from="Freeze_timer" to="typing" method="_on_freeze_timer_timeout"]
