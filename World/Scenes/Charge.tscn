@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://6nhv6uu8oiri"]
+
+[ext_resource type="Texture2D" uid="uid://d0f7fyndmi306" path="res://Assets/interface (20260510063538).png" id="1_nk8pr"]
+[ext_resource type="Texture2D" uid="uid://dsw7gnjfaql5m" path="res://Assets/interface (20260510071510).png" id="2_6ndo3"]
+[ext_resource type="Script" uid="uid://cbc6r3x84ejtj" path="res://addons/radial_progress/RadialProgress.gd" id="3_okod5"]
+
+[sub_resource type="GDScript" id="GDScript_so7gw"]
+script/source = "extends Node2D
+
+
+
+func _ready() -> void:
+	$Decharge.start()
+	
+# checks if the input keys follow the pattern of fullBar and updates the ProgressBar accordingly
+func _process(delta: float) -> void:
+	pass
+
+#grabs keystrokes inputted and puts them in scrollBar_Tracker
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.is_echo():
+			return
+		var current_keycode = event.keycode
+		var key_name = OS.get_keycode_string(current_keycode)
+		if event.pressed:
+			if current_keycode == KEY_SPACE:
+				$Charge.start()
+				$Decharge.stop()
+		else:
+			if current_keycode == KEY_SPACE:
+				$Charge.stop()
+				$Decharge.start()
+			return
+
+func increment_ProgressBar():
+	if $esz/RadialProgress.progress < $esz/RadialProgress.max_value:
+		$esz/RadialProgress.progress += 1
+	
+func decrement_ProgressBar():
+	if $esz/RadialProgress.progress > 0:
+		$esz/RadialProgress.progress -= 1
+
+#timer for No-input timeout
+func _on_timer_timeout() -> void:
+	increment_ProgressBar()
+	
+func _on_decharge_timeout() -> void:
+	decrement_ProgressBar()
+"
+
+[node name="Xpattern" type="Node2D" unique_id=23336200]
+script = SubResource("GDScript_so7gw")
+
+[node name="Sprite2D4" type="Sprite2D" parent="." unique_id=1911006271]
+position = Vector2(575.29663, 325.9041)
+scale = Vector2(0.44628382, 0.43537498)
+texture = ExtResource("1_nk8pr")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=872259112]
+position = Vector2(575, 330.00003)
+scale = Vector2(0.44628382, 0.43537498)
+texture = ExtResource("2_6ndo3")
+
+[node name="Decharge" type="Timer" parent="." unique_id=1690606262]
+
+[node name="Charge" type="Timer" parent="." unique_id=1633599628]
+wait_time = 0.1
+
+[node name="esz" type="CanvasLayer" parent="." unique_id=1809114881]
+
+[node name="RadialProgress" type="Control" parent="esz" unique_id=995775596]
+layout_mode = 3
+anchor_right = 0.071
+anchor_bottom = 0.157
+offset_left = 454.0
+offset_top = 308.00003
+offset_right = 431.208
+offset_bottom = 253.26404
+rotation = -0.0059947968
+scale = Vector2(-1, 1)
+script = ExtResource("3_okod5")
+bg_color = Color(0.5, 0.5, 0.5, 0.5882353)
+bar_color = Color(0.9, 0.79469997, 0.19800001, 1)
+metadata/_custom_type_script = "uid://cbc6r3x84ejtj"
+
+[connection signal="timeout" from="Decharge" to="." method="_on_decharge_timeout"]
+[connection signal="timeout" from="Charge" to="." method="_on_timer_timeout"]
