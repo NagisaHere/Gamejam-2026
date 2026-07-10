@@ -4,7 +4,6 @@
 [ext_resource type="Resource" uid="uid://bmnskkiear3p8" path="res://Tutorial/tutorial.dialogue" id="2_yhiv6"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="3_3oavh"]
 [ext_resource type="Script" uid="uid://bb52rsfwhkxbn" path="res://addons/dialogue_manager/dialogue_responses_menu.gd" id="4_l41xm"]
-[ext_resource type="Script" uid="uid://bcuulk7ptu4tf" path="res://Tutorial/video_manager.gd" id="5_3oavh"]
 [ext_resource type="AudioStream" uid="uid://bn56sk8ive5yn" path="res://Gus additions/SoundAssets/clickNext.wav" id="6_l41xm"]
 [ext_resource type="AudioStream" uid="uid://cst1pnrpl6yhy" path="res://Gus additions/SoundAssets/clickBack.wav" id="7_hgldx"]
 
@@ -156,21 +155,12 @@ corner_radius_bottom_left = 4
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hgldx"]
 
 [node name="ExampleBalloon" type="CanvasLayer" unique_id=1434168376]
-layer = 93
+layer = 99
 script = ExtResource("1_yhiv6")
 dialogue_resource = ExtResource("2_yhiv6")
 auto_start = true
+will_block_other_input = false
 metadata/_edit_vertical_guides_ = [-120.0]
-
-[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=552462366 groups=["global_video_player"]]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-expand = true
-loop = true
-script = ExtResource("5_3oavh")
 
 [node name="Balloon" type="Control" parent="." unique_id=359403728]
 unique_name_in_owner = true

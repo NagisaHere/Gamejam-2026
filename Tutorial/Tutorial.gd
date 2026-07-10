@@ -88,6 +88,8 @@ func _ready() -> void:
 		if not is_instance_valid(dialogue_resource):
 			assert(false, DMConstants.get_error_message(DMConstants.ERR_MISSING_RESOURCE_FOR_AUTOSTART))
 		start()
+		
+	
 
 
 func _process(delta: float) -> void:
@@ -100,8 +102,8 @@ func _unhandled_input(_event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 	if Input.is_action_pressed("practice"):
 		if dialogue_line and "Press F to go to PRACTICE" in dialogue_line.text:
-			if VideoManager:
-				VideoManager.stop_video()
+			if PauseMenu.get_node("VideoManager"):
+				PauseMenu.get_node("VideoManager").stop_video()
 			get_tree().change_scene_to_file("res://Tutorial/TrialPart.tscn")
 
 #Gemini did this
@@ -246,9 +248,12 @@ func _on_responses_menu_response_selected(response: DialogueResponse) -> void:
 
 
 func _on_skip_button_pressed() -> void:
-	if VideoManager:
-				VideoManager.stop_video()
-	get_tree().change_scene_to_file("res://Tutorial/TrialPart.tscn")
+	if PauseMenu.get_node("VideoManager"):
+		PauseMenu.get_node("VideoManager").stop_video()
+
+	queue_free()
+	get_tree().paused = false
+	#get_tree().change_scene_to_file("res://Tutorial/TrialPart.tscn")
 	
 func BackClickSound():
 	$"Button clicks/BackClick".play()

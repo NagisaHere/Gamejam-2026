@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://b12h1rsg24qc1"]
+
+[ext_resource type="Script" uid="uid://bcuulk7ptu4tf" path="res://Tutorial/video_manager.gd" id="1_y8i6u"]
+
+[node name="VideoManager" type="CanvasLayer" unique_id=441478820 groups=["global_video_player"]]
+layer = 50
+script = ExtResource("1_y8i6u")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=910321119 groups=["global_video_player"]]
+clip_children = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand = true
+loop = true
