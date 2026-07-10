@@ -297,6 +297,7 @@ metadata/_edit_lock_ = true
 [node name="Freeze_timer" type="Timer" parent="." unique_id=1807517500]
 wait_time = 60.0
 
+[connection signal="fingers_changed" from="typing" to="TypingHand" method="_on_typing_fingers_changed"]
 [connection signal="finished" from="Startup" to="." method="_on_startup_finished"]
 [connection signal="finished" from="alarm" to="." method="_on_alarm_finished"]
 [connection signal="finished" from="computer ambience" to="." method="_on_computer_ambience_finished"]

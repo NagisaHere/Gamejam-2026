@@ -104,8 +104,13 @@ func _unhandled_input(_event: InputEvent) -> void:
 		if dialogue_line and "Press F to go to PRACTICE" in dialogue_line.text:
 			if PauseMenu.get_node("VideoManager"):
 				PauseMenu.get_node("VideoManager").stop_video()
-			get_tree().change_scene_to_file("res://Tutorial/TrialPart.tscn")
-
+			
+			if self == get_tree().current_scene:
+				get_tree().change_scene_to_file("res://Tutorial/TrialPart.tscn")
+			else:
+				queue_free()
+				get_tree().paused = false
+		
 #Gemini did this
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("TutorialNext"):
@@ -250,13 +255,28 @@ func _on_responses_menu_response_selected(response: DialogueResponse) -> void:
 func _on_skip_button_pressed() -> void:
 	if PauseMenu.get_node("VideoManager"):
 		PauseMenu.get_node("VideoManager").stop_video()
-
-	queue_free()
-	get_tree().paused = false
-	#get_tree().change_scene_to_file("res://Tutorial/TrialPart.tscn")
-	
+		
+	#If it's not the overlay then progress
+	if self == get_tree().current_scene:
+		print("branch")
+		get_tree().change_scene_to_file("res://Tutorial/TrialPart.tscn")
+	else:
+		queue_free()
+		get_tree().paused = false
+		
 func BackClickSound():
 	$"Button clicks/BackClick".play()
 	
 func NextClickSound():
 	$"Button clicks/NextClick".play()
+
+@onready var video_player: VideoStreamPlayer = $VideoManager
+
+func play_local_video(file_path: String) -> void:
+	var stream_resource = load(file_path)
+	if stream_resource:
+		video_player.stream = stream_resource
+		video_player.expand = true
+		video_player.loop = true
+		video_player.anchors_preset = Control.PRESET_FULL_RECT
+		video_player.play()

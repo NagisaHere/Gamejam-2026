@@ -28,7 +28,7 @@ func _ready():
 	#typing_game.fingers_changed.connect(_on_fingers_changed)
 	animation_player.play("typing_loop")
 
-func _on_fingers_changed(value):
+func _on_typing_fingers_changed(value):
 	print("remaining fingers:", value)
 	show_typing_state(10 - value)
 

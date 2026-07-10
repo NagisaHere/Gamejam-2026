@@ -3,7 +3,7 @@ extends Control
 func _ready() -> void:
 	$".".hide()
 	$AnimationPlayer.play("RESET")
-	PauseMenu.get_node("VideoManager").play_video("res://Tutorial/first.ogv")
+	#PauseMenu.get_node("VideoManager").play_video("res://Tutorial/first.ogv")
 
 func resume():
 	get_tree().paused =false

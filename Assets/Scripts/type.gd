@@ -359,6 +359,7 @@ func _kill_finger(finger: int) -> void:
 	if not killed_fingers.has(finger):
 		killed_fingers.append(finger)
 	_move_finger_to_angle(finger, 0) # Pulls down to 0 degrees
+	
 
 func _on_characteristic_written(char_uuid: String):
 	print("Data successfully written to characteristic: ", char_uuid)

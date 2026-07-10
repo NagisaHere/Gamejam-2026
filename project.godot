@@ -24,7 +24,7 @@ buses/default_bus_layout="*uid://cwgmsi2grxud4"
 SaveManager="*uid://bxavgeq022cqr"
 Leaderboard="*uid://8h7t5poo6krj"
 DialogueManager="*uid://c3rodes2l3gxb"
-PauseMenu="*uid://cum122o4rcvqj"
+PauseMenu="*uid://b26oi7kyn86te"
 
 [dialogue_manager]
 
