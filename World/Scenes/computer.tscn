@@ -135,7 +135,7 @@ shader_parameter/discolor = false
 shader_parameter/warp_amount = 0.010000000475
 shader_parameter/clip_warp = true
 shader_parameter/vignette_intensity = 0.1
-shader_parameter/vignette_opacity = 0.4400000209
+shader_parameter/vignette_opacity = 0.24800001178
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8clv2"]
 shader = ExtResource("25_mi3mj")

@@ -20,6 +20,7 @@ func _on_animation_player_animation_finished(anim_name):
 		$Player.cutscene_mode = false
 		$Camera2D.global_position = $Player.global_position
 		$Camera2D.following = true
+		$WayMarker.show()
 
 
 func _on_button_pressed() -> void:
