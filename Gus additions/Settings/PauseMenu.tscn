@@ -7,6 +7,9 @@
 shader = ExtResource("1_ue8hy")
 shader_parameter/lod = 0.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j0r1d"]
+bg_color = Color(0.44, 0.44, 0.44, 1)
+
 [sub_resource type="Animation" id="Animation_btfaa"]
 length = 0.001
 tracks/0/type = "value"
@@ -32,6 +35,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PanelContainer:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.6, 0.6, 0.6, 0.94509804)]
 }
 
 [sub_resource type="Animation" id="Animation_ue8hy"]
@@ -59,7 +74,19 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(8.943864, 8.943864, 8.943864, 1)]
+"values": [Color(1, 1, 1, 0), Color(3.6180263, 3.6180263, 3.6180263, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PanelContainer:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.6, 0.6, 0.6, 0.94509804)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j0r1d"]
@@ -92,6 +119,7 @@ grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="PauseMenu" unique_id=1554380365]
 modulate = Color(1, 1, 1, 0)
+self_modulate = Color(0.6, 0.6, 0.6, 0.94509804)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -116,27 +144,32 @@ theme_override_constants/separation = 60
 self_modulate = Color(0.31, 0.31, 0.31, 1)
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_styles/hover = SubResource("StyleBoxFlat_j0r1d")
 text = "Resume"
 
 [node name="Restart" type="Button" parent="PauseMenu/PanelContainer/VBoxContainer" unique_id=1634564082]
 process_mode = 3
 self_modulate = Color(0.31, 0.31, 0.31, 1)
 layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxFlat_j0r1d")
 text = "Restart"
 
 [node name="Tutorial" type="Button" parent="PauseMenu/PanelContainer/VBoxContainer" unique_id=1906890783]
 self_modulate = Color(0.31, 0.31, 0.31, 1)
 layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxFlat_j0r1d")
 text = "Tutorial"
 
 [node name="MainMenu" type="Button" parent="PauseMenu/PanelContainer/VBoxContainer" unique_id=2127101308]
 self_modulate = Color(0.31, 0.31, 0.31, 1)
 layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxFlat_j0r1d")
 text = "Main Menu"
 
 [node name="Quit" type="Button" parent="PauseMenu/PanelContainer/VBoxContainer" unique_id=798335645]
 self_modulate = Color(0.31, 0.31, 0.31, 1)
 layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxFlat_j0r1d")
 text = "Quit"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="PauseMenu" unique_id=2040124625]

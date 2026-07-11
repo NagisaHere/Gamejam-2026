@@ -32,20 +32,24 @@ func _on_easy_pressed() -> void:
 	time_left = 180.0
 	sentences_to_win_adjusted = 2
 	display_settings()
-	
+	$Difficulty/Normal.button_pressed = false
+	$Difficulty/Hard.button_pressed = false
 	
 func _on_normal_pressed() -> void:
 	button_type = "normal"
 	time_left = 150.0
 	sentences_to_win_adjusted = 3
 	display_settings()
-	
+	$Difficulty/Easy.button_pressed = false
+	$Difficulty/Hard.button_pressed = false
 	
 func _on_hard_pressed() -> void:
 	button_type = "hard"
 	time_left = 90.0
 	sentences_to_win_adjusted = 3
 	display_settings()
+	$Difficulty/Easy.button_pressed = false
+	$Difficulty/Normal.button_pressed = false
 	
 func _on_main_menu_pressed() -> void:
 	get_tree().change_scene_to_file("res://Gus additions/Menu/main_menu.tscn")
