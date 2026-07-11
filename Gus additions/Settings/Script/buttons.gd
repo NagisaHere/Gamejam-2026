@@ -12,6 +12,7 @@ const MAX_LEVEL: int = 99;
 func _ready() -> void:
 	# if value exists?
 	display_settings();
+	$BongoCat/CheckBox.button_pressed = SaveManager.BongoCat
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.aa
@@ -106,3 +107,13 @@ func _when_button_worked() -> void:
 		_on_hard_pressed()
 		print(time_left)
 		print(sentences_to_win_adjusted)
+
+
+func _on_check_box_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		SaveManager.BongoCat = true
+		BongoCat.enable()
+	else:
+		SaveManager.BongoCat = false
+		BongoCat.disable()
+		

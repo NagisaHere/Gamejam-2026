@@ -157,7 +157,8 @@ func _update_auto_display_on_input(event):
 			elif click_on_keyboard:
 				_show_keyboard()
 			else:
-				_hide_keyboard()
+				pass
+				#_hide_keyboard()
 
 	if event is InputEventKey:
 		var focus_object = get_viewport().gui_get_focus_owner()
@@ -165,7 +166,7 @@ func _update_auto_display_on_input(event):
 			if event.keycode == KEY_ENTER:
 				if is_keyboard_focus_object_complete_on_enter(focus_object):
 					focus_object.release_focus()
-					_hide_keyboard()
+					#_hide_keyboard()
 
 
 func _hide_keyboard(key_data=null):

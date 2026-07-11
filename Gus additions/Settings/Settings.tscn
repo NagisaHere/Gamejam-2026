@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bjjii6iebxoji"]
+[gd_scene format=3 uid="uid://bm75g608a85ln"]
 
 [ext_resource type="Texture2D" uid="uid://kwvpta1siu4t" path="res://World/AssetsWorld/bg.png" id="1_a2tr8"]
 [ext_resource type="Script" uid="uid://bweju6qeo5l32" path="res://Gus additions/Settings/Script/buttons.gd" id="1_cg3lk"]
@@ -188,6 +188,16 @@ stream = ExtResource("5_nnjj0")
 [node name="LevelDownSound" type="AudioStreamPlayer" parent="Sounds" unique_id=1451162283]
 stream = ExtResource("6_pmadn")
 
+[node name="BongoCat" type="Node" parent="." unique_id=665015180]
+
+[node name="CheckBox" type="CheckBox" parent="BongoCat" unique_id=1286572758]
+offset_left = 367.0
+offset_top = 403.0
+offset_right = 470.0
+offset_bottom = 437.0
+theme_override_font_sizes/font_size = 16
+text = "BongoCat"
+
 [connection signal="pressed" from="MainMenu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="LevelControl/LevelUp" to="." method="_on_level_up_pressed"]
 [connection signal="pressed" from="LevelControl/LevelDown" to="." method="_on_level_down_pressed"]
@@ -198,3 +208,4 @@ stream = ExtResource("6_pmadn")
 [connection signal="pressed" from="Difficulty/Easy" to="." method="_on_easy_pressed"]
 [connection signal="pressed" from="Difficulty/Normal" to="." method="_on_normal_pressed"]
 [connection signal="pressed" from="Difficulty/Hard" to="." method="_on_hard_pressed"]
+[connection signal="toggled" from="BongoCat/CheckBox" to="." method="_on_check_box_toggled"]

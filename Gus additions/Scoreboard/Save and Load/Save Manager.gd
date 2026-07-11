@@ -7,6 +7,7 @@ var temp_score: int = 0
 
 var time_limit: float = 0.0
 var sentences_needed: int = 0
+var BongoCat = false
 
 func _ready():
 	load_data()
