@@ -302,7 +302,7 @@ one_shot = true
 script = ExtResource("9_ds0at")
 
 [node name="Fadeout" type="CanvasLayer" parent="." unique_id=1156973085]
-layer = 2
+layer = 4
 
 [node name="Fade Transition" type="ColorRect" parent="Fadeout" unique_id=1856320615]
 visible = false
@@ -322,7 +322,6 @@ wait_time = 4.0
 
 [node name="Death" type="CanvasLayer" parent="." unique_id=949643482]
 layer = 6
-visible = false
 
 [node name="DeathGlow" type="TextureRect" parent="Death" unique_id=1747594556]
 modulate = Color(1.0877681, 0, 0.10770416, 1)

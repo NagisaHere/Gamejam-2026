@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://b26oi7kyn86te"]
+[gd_scene format=3 uid="uid://cum122o4rcvqj"]
 
 [ext_resource type="Script" uid="uid://ca1asgk8qr50o" path="res://Gus additions/Settings/pause_menu.gd" id="1_j0r1d"]
 [ext_resource type="Shader" path="res://Gus additions/Settings/PauseMenu.gdshader" id="1_ue8hy"]
@@ -59,7 +59,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(8.064605, 8.064605, 8.064605, 1)]
+"values": [Color(1, 1, 1, 0), Color(8.943864, 8.943864, 8.943864, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j0r1d"]
@@ -113,24 +113,29 @@ size_flags_vertical = 4
 theme_override_constants/separation = 60
 
 [node name="Resume" type="Button" parent="PauseMenu/PanelContainer/VBoxContainer" unique_id=817516889]
+self_modulate = Color(0.31, 0.31, 0.31, 1)
 layout_mode = 2
 size_flags_vertical = 4
 text = "Resume"
 
 [node name="Restart" type="Button" parent="PauseMenu/PanelContainer/VBoxContainer" unique_id=1634564082]
 process_mode = 3
+self_modulate = Color(0.31, 0.31, 0.31, 1)
 layout_mode = 2
 text = "Restart"
 
 [node name="Tutorial" type="Button" parent="PauseMenu/PanelContainer/VBoxContainer" unique_id=1906890783]
+self_modulate = Color(0.31, 0.31, 0.31, 1)
 layout_mode = 2
 text = "Tutorial"
 
 [node name="MainMenu" type="Button" parent="PauseMenu/PanelContainer/VBoxContainer" unique_id=2127101308]
+self_modulate = Color(0.31, 0.31, 0.31, 1)
 layout_mode = 2
 text = "Main Menu"
 
 [node name="Quit" type="Button" parent="PauseMenu/PanelContainer/VBoxContainer" unique_id=798335645]
+self_modulate = Color(0.31, 0.31, 0.31, 1)
 layout_mode = 2
 text = "Quit"
 
