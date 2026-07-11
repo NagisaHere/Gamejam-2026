@@ -23,6 +23,8 @@
 [ext_resource type="StyleBox" path="res://addons/onscreenkeyboard/customize/styles/defaultHoverStlyle.tres" id="21_mi3mj"]
 [ext_resource type="StyleBox" uid="uid://cdknrqx1mktev" path="res://addons/onscreenkeyboard/customize/styles/defaultPressedStyle.tres" id="22_8clv2"]
 [ext_resource type="StyleBox" path="res://addons/onscreenkeyboard/customize/styles/defaultNormalSpecialKeysStyle.tres" id="23_g3sb8"]
+[ext_resource type="Shader" uid="uid://dm1fr8lwtx7u4" path="res://World/Scenes/VHS.gdshader" id="24_5lv0h"]
+[ext_resource type="Shader" uid="uid://dorb6j2n6rall" path="res://World/Scenes/AlarmShader.gdshader" id="25_mi3mj"]
 
 [sub_resource type="Gradient" id="Gradient_73g8m"]
 offsets = PackedFloat32Array(0, 0.8854167, 1)
@@ -111,6 +113,44 @@ _data = {
 &"RESET": SubResource("Animation_fu7sn")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mi3mj"]
+shader = ExtResource("24_5lv0h")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.0
+shader_parameter/scanlines_width = 0.0
+shader_parameter/grille_opacity = 0.0630000029925
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = false
+shader_parameter/roll = false
+shader_parameter/roll_speed = 0.0
+shader_parameter/roll_size = 0.0
+shader_parameter/roll_variation = 0.10000000149012
+shader_parameter/distort_intensity = 0.010000000475
+shader_parameter/noise_opacity = 0.1050000049875
+shader_parameter/noise_speed = 1.0
+shader_parameter/static_noise_intensity = 0.010000000475
+shader_parameter/aberration = 4.7499999933364734e-08
+shader_parameter/brightness = 1.2
+shader_parameter/discolor = false
+shader_parameter/warp_amount = 0.010000000475
+shader_parameter/clip_warp = true
+shader_parameter/vignette_intensity = 0.1
+shader_parameter/vignette_opacity = 0.4400000209
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8clv2"]
+shader = ExtResource("25_mi3mj")
+shader_parameter/fall_progress = 0.1490000070775
+shader_parameter/pieces_x = 6
+shader_parameter/pieces_y = 4
+shader_parameter/gravity = 2.2
+shader_parameter/scatter = 0.22
+shader_parameter/rotation_amount = 1.0
+shader_parameter/point_jitter = 0.34
+shader_parameter/delay_variation = 0.28
+shader_parameter/edge_thickness = 0.032500001543750004
+shader_parameter/edge_brightness = 0.2730000129675
+shader_parameter/alpha_fade = 0.0
+
 [node name="Computer" type="Node2D" unique_id=1815070021]
 script = ExtResource("1_pepux")
 metadata/_edit_vertical_guides_ = [1136.0]
@@ -195,7 +235,7 @@ expand_mode = 1
 metadata/_edit_lock_ = true
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=1434055582]
-layer = 2
+layer = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer2" unique_id=1405274404]
 position = Vector2(575, 330.00003)
@@ -282,6 +322,7 @@ wait_time = 4.0
 
 [node name="Death" type="CanvasLayer" parent="." unique_id=949643482]
 layer = 6
+visible = false
 
 [node name="DeathGlow" type="TextureRect" parent="Death" unique_id=1747594556]
 modulate = Color(1.0877681, 0, 0.10770416, 1)
@@ -296,6 +337,31 @@ metadata/_edit_lock_ = true
 
 [node name="Freeze_timer" type="Timer" parent="." unique_id=1807517500]
 wait_time = 60.0
+
+[node name="ScreenShader" type="CanvasLayer" parent="." unique_id=765637320]
+layer = 2
+
+[node name="ColorRect" type="ColorRect" parent="ScreenShader" unique_id=1740306651]
+material = SubResource("ShaderMaterial_mi3mj")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = 55.0
+offset_right = -285.0
+offset_bottom = -53.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AlarmShader" type="CanvasLayer" parent="." unique_id=1871877451]
+
+[node name="ColorRect" type="ColorRect" parent="AlarmShader" unique_id=581920200]
+modulate = Color(0, 0, 0, 0.49803922)
+material = SubResource("ShaderMaterial_8clv2")
+offset_left = 876.0
+offset_top = 56.0
+offset_right = 1135.0
+offset_bottom = 402.0
 
 [connection signal="fingers_changed" from="typing" to="TypingHand" method="_on_typing_fingers_changed"]
 [connection signal="finished" from="Startup" to="." method="_on_startup_finished"]
