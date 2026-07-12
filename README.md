@@ -1,5 +1,5 @@
 # Frigid Digits
-Game made for UQCS Gamejam 2026.
+Game made for UQCS Gamejam 2026. Peoples Choice.
 
 # How to Run
 You can play the game on [itch](https://nagisahere.itch.io/frigid-digits), or simply pull this repo, open up the project.godot file and press play.
