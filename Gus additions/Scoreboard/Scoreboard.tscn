@@ -73,7 +73,7 @@ offset_bottom = 144.0
 texture = SubResource("GradientTexture2D_1oo4x")
 expand_mode = 2
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="Panel/TextureRect" unique_id=1058129959]
+[node name="LeadTime" type="RichTextLabel" parent="Panel/TextureRect" unique_id=1058129959]
 layout_mode = 0
 offset_left = 230.0
 offset_top = 1.0
@@ -83,7 +83,7 @@ theme_override_font_sizes/normal_font_size = 30
 bbcode_enabled = true
 text = "Time Left"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Panel/TextureRect" unique_id=1248033906]
+[node name="LeadName" type="RichTextLabel" parent="Panel/TextureRect" unique_id=1248033906]
 layout_mode = 0
 offset_left = 14.0
 offset_top = 2.0
@@ -93,7 +93,7 @@ theme_override_font_sizes/normal_font_size = 30
 bbcode_enabled = true
 text = "Name"
 
-[node name="RichTextLabel3" type="RichTextLabel" parent="Panel/TextureRect" unique_id=420869449]
+[node name="Fingies" type="RichTextLabel" parent="Panel/TextureRect" unique_id=420869449]
 layout_mode = 0
 offset_left = 436.0
 offset_top = 1.0
@@ -114,25 +114,25 @@ theme_override_font_sizes/normal_font_size = 56
 bbcode_enabled = true
 text = "Leaderboard"
 
-[node name="RichTextLabel5" type="RichTextLabel" parent="Panel/TextureRect" unique_id=407599785]
+[node name="LeadTimeLimit" type="RichTextLabel" parent="Panel/TextureRect" unique_id=407599785]
 layout_mode = 0
-offset_left = 863.0
+offset_left = 829.0
 offset_top = 1.0
-offset_right = 966.0
-offset_bottom = 47.0
-theme_override_font_sizes/normal_font_size = 30
-bbcode_enabled = true
-text = "Levels"
-
-[node name="RichTextLabel6" type="RichTextLabel" parent="Panel/TextureRect" unique_id=1479209760]
-layout_mode = 0
-offset_left = 649.0
-offset_top = 1.0
-offset_right = 832.0
+offset_right = 994.0
 offset_bottom = 47.0
 theme_override_font_sizes/normal_font_size = 30
 bbcode_enabled = true
 text = "Time Limit"
+
+[node name="Levels" type="RichTextLabel" parent="Panel/TextureRect" unique_id=1479209760]
+layout_mode = 0
+offset_left = 665.0
+offset_top = 1.0
+offset_right = 818.0
+offset_bottom = 47.0
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "Levels"
 
 [node name="Competetive Music" type="AudioStreamPlayer" parent="." unique_id=620619298]
 stream = ExtResource("6_5ww5k")
