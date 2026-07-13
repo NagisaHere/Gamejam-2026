@@ -9,7 +9,6 @@
 [ext_resource type="Shader" uid="uid://dmm08vcn5k064" path="res://World/Scenes/computer.gdshader" id="5_kic7h"]
 [ext_resource type="Script" uid="uid://bi6bwgu5ike4v" path="res://World/Scripts/color_rect.gd" id="6_27goh"]
 [ext_resource type="Script" uid="uid://d4ftahshflju3" path="res://World/Scenes/timer.gd" id="9_ds0at"]
-[ext_resource type="Script" uid="uid://bfqb70ago7iaw" path="res://World/Scenes/label.gd" id="10_udr8r"]
 [ext_resource type="FontFile" uid="uid://dc1f2eykeohyp" path="res://Assets/fonts/abduction2002.ttf" id="10_y05vg"]
 [ext_resource type="AudioStream" uid="uid://iikwx34gh0a3" path="res://Gus additions/SoundAssets/Quiet keyboard press.ogg" id="12_c8qam"]
 [ext_resource type="AudioStream" uid="uid://dgk3ynw3xk8te" path="res://Gus additions/SoundAssets/Backspace press.wav" id="13_p2dhd"]
@@ -25,6 +24,7 @@
 [ext_resource type="StyleBox" path="res://addons/onscreenkeyboard/customize/styles/defaultNormalSpecialKeysStyle.tres" id="23_g3sb8"]
 [ext_resource type="Shader" uid="uid://dm1fr8lwtx7u4" path="res://World/Scenes/VHS.gdshader" id="24_5lv0h"]
 [ext_resource type="Shader" uid="uid://dorb6j2n6rall" path="res://World/Scenes/AlarmShader.gdshader" id="25_mi3mj"]
+[ext_resource type="Shader" uid="uid://dx8gogrtgkfrv" path="res://World/Scenes/IceCover.gdshader" id="26_8clv2"]
 
 [sub_resource type="Gradient" id="Gradient_73g8m"]
 offsets = PackedFloat32Array(0, 0.8854167, 1)
@@ -135,7 +135,7 @@ shader_parameter/discolor = false
 shader_parameter/warp_amount = 0.010000000475
 shader_parameter/clip_warp = true
 shader_parameter/vignette_intensity = 0.1
-shader_parameter/vignette_opacity = 0.24800001178
+shader_parameter/vignette_opacity = 0.306000014535
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8clv2"]
 shader = ExtResource("25_mi3mj")
@@ -147,9 +147,75 @@ shader_parameter/scatter = 0.22
 shader_parameter/rotation_amount = 1.0
 shader_parameter/point_jitter = 0.34
 shader_parameter/delay_variation = 0.28
-shader_parameter/edge_thickness = 0.032500001543750004
+shader_parameter/edge_thickness = 0.03250000154375
 shader_parameter/edge_brightness = 0.2730000129675
 shader_parameter/alpha_fade = 0.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8clv2"]
+noise_type = 3
+frequency = 0.0024
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g3sb8"]
+noise = SubResource("FastNoiseLite_8clv2")
+in_3d_space = true
+as_normal_map = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1tihe"]
+noise_type = 2
+seed = 3
+frequency = 0.0095
+fractal_type = 2
+fractal_gain = 0.51
+cellular_distance_function = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vnav7"]
+noise = SubResource("FastNoiseLite_1tihe")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_o3bxd"]
+noise_type = 2
+frequency = 0.0056
+fractal_type = 2
+fractal_octaves = 7
+fractal_lacunarity = 3.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_klkf4"]
+noise = SubResource("FastNoiseLite_o3bxd")
+as_normal_map = true
+bump_strength = 0.2
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wthtp"]
+noise_type = 0
+frequency = 0.0003
+fractal_type = 2
+fractal_octaves = 7
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3t6pv"]
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_wthtp")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_83vhw"]
+noise_type = 3
+frequency = 0.0174
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7h0en"]
+noise = SubResource("FastNoiseLite_83vhw")
+as_normal_map = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g3sb8"]
+shader = ExtResource("26_8clv2")
+shader_parameter/coverage_texture = SubResource("NoiseTexture2D_vnav7")
+shader_parameter/crack_texture = SubResource("NoiseTexture2D_3t6pv")
+shader_parameter/crack_normal = SubResource("NoiseTexture2D_klkf4")
+shader_parameter/bump_normal = SubResource("NoiseTexture2D_g3sb8")
+shader_parameter/warp_normal = SubResource("NoiseTexture2D_7h0en")
+shader_parameter/pointer = Vector2(1.01, 0)
+shader_parameter/coverage = 0.0
+shader_parameter/distort = 0.086000004085
+shader_parameter/bumpiness = 0.866000041135
+shader_parameter/crack_intensity = 0.3990000189525
+shader_parameter/diffusion = 0.8590000408025
+shader_parameter/tint_color = Color(0.86, 0.9533333, 1, 0.91764706)
+shader_parameter/tint_amount = 0.800000038
 
 [node name="Computer" type="Node2D" unique_id=1815070021]
 script = ExtResource("1_pepux")
@@ -175,12 +241,15 @@ color = Color(0.7058824, 0.95686275, 0.91764706, 1)
 [node name="typing" parent="." unique_id=1467136492 instance=ExtResource("3_p2dj2")]
 position = Vector2(107, 99)
 scale = Vector2(0.875, 0.875)
+letter_spawn_offset = Vector2(760, 530)
+origin = Vector2(168, 230)
 
 [node name="OnscreenKeyboard" type="PanelContainer" parent="." unique_id=991846768]
-offset_left = 897.0
-offset_top = 424.0
-offset_right = 1121.0
-offset_bottom = 568.0
+modulate = Color(1.4169189, 1.4169189, 1.4169189, 0.42352942)
+offset_left = 895.0
+offset_top = 425.0
+offset_right = 1110.0
+offset_bottom = 557.0
 theme_override_styles/panel = ExtResource("19_3p10d")
 script = ExtResource("18_73g8m")
 auto_show = true
@@ -268,7 +337,6 @@ theme_override_fonts/font = ExtResource("10_y05vg")
 theme_override_font_sizes/font_size = 68
 text = "06:00"
 horizontal_alignment = 1
-script = ExtResource("10_udr8r")
 metadata/_edit_use_anchors_ = true
 
 [node name="normal press" type="AudioStreamPlayer" parent="." unique_id=934232229]
@@ -297,7 +365,7 @@ volume_db = -11.205
 stream = ExtResource("18_wjrsh")
 
 [node name="Timer" type="Timer" parent="." unique_id=1206964675]
-wait_time = 65.0
+wait_time = 5.0
 one_shot = true
 script = ExtResource("9_ds0at")
 
@@ -322,6 +390,7 @@ wait_time = 4.0
 
 [node name="Death" type="CanvasLayer" parent="." unique_id=949643482]
 layer = 6
+visible = false
 
 [node name="DeathGlow" type="TextureRect" parent="Death" unique_id=1747594556]
 modulate = Color(1.0877681, 0, 0.10770416, 1)
@@ -335,7 +404,6 @@ texture = SubResource("GradientTexture2D_73g8m")
 metadata/_edit_lock_ = true
 
 [node name="Freeze_timer" type="Timer" parent="." unique_id=1807517500]
-wait_time = 60.0
 
 [node name="ScreenShader" type="CanvasLayer" parent="." unique_id=765637320]
 layer = 2
@@ -361,6 +429,17 @@ offset_left = 876.0
 offset_top = 56.0
 offset_right = 1135.0
 offset_bottom = 402.0
+
+[node name="IceCoverShader" type="CanvasLayer" parent="." unique_id=1848701576]
+
+[node name="ColorRect" type="ColorRect" parent="IceCoverShader" unique_id=496938492]
+texture_filter = 1
+material = SubResource("ShaderMaterial_g3sb8")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [connection signal="fingers_changed" from="typing" to="TypingHand" method="_on_typing_fingers_changed"]
 [connection signal="finished" from="Startup" to="." method="_on_startup_finished"]

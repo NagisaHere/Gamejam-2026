@@ -34,6 +34,7 @@ func _on_easy_pressed() -> void:
 	display_settings()
 	$Difficulty/Normal.button_pressed = false
 	$Difficulty/Hard.button_pressed = false
+	SaveManager.difficulty = "easy"
 	
 func _on_normal_pressed() -> void:
 	button_type = "normal"
@@ -42,6 +43,7 @@ func _on_normal_pressed() -> void:
 	display_settings()
 	$Difficulty/Easy.button_pressed = false
 	$Difficulty/Hard.button_pressed = false
+	SaveManager.difficulty = "normal"
 	
 func _on_hard_pressed() -> void:
 	button_type = "hard"
@@ -50,6 +52,7 @@ func _on_hard_pressed() -> void:
 	display_settings()
 	$Difficulty/Easy.button_pressed = false
 	$Difficulty/Normal.button_pressed = false
+	SaveManager.difficulty = "hard"
 	
 func _on_main_menu_pressed() -> void:
 	get_tree().change_scene_to_file("res://Gus additions/Menu/main_menu.tscn")

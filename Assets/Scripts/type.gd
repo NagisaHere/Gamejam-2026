@@ -15,6 +15,7 @@ var sentences_to_win := 3
 @onready var warning_label = $Label
 var current_mistakes: String = ""
 var killed_fingers: Array[int] = []
+@export var drop_rate = 0.025
 
 #Hand modifiers
 var no_left := false
@@ -57,6 +58,7 @@ func _ready() -> void:
 	
 	if random_freeze_modifier == true:
 		$"../Freeze_timer".start()
+		
 			
 func kill_left():
 	for fingers_toKill in [0,1,2,3,4]:
@@ -105,6 +107,8 @@ func _win_game() -> void:
 func spawn_phrase():
 	var index = randi_range(0, passphrases.size() - 1)
 	var phrase = passphrases[index].strip_edges()
+	print("passphrase")
+	print(phrase)
 	enemy.set_prompt(phrase)
 
 	active_enemy = enemy
@@ -240,11 +244,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			var special_chars = "!@#$%^&*"
 			key_typed = special_chars[randi() % special_chars.length()]
 		
-		if next_character != " " and randf() < (10 - fingers_remaining) * 0.025:
+		if next_character != " " and randf() < (10 - fingers_remaining) * drop_rate:
 			active_enemy.set_next_character(current_letter_index, current_mistakes, true)
 			show_warning_message()
 			#Sound of faulty key, like fallout one
 			$"../Input not registered".play()
+			pop_letter_off_screen(current_letter_index)
 			return
 
 		if active_enemy == null:
@@ -385,3 +390,119 @@ func _unrestrict_finger(finger: int) -> void:
 	if killed_fingers.has(finger):
 		killed_fingers.erase(finger)
 	_move_finger_to_angle(finger, 180) # Relaxes completely back to 180 degrees
+
+
+
+@export var width = 53.0 
+@export var height = 58.0
+@export var letter_spawn_offset: Vector2 = Vector2(0, 4)
+@export var origin: Vector2
+@onready var main_label = $EnemyContainer/Enemy/RichTextLabel
+
+func pop_letter_off_screen(char_index: int) -> void:
+	var full_text = $EnemyContainer/Enemy.get_prompt()
+	
+	# 1. Clean the text string
+	var clean_text = main_label.get_parsed_text()
+	
+	print("\n============= DICTIONARY LAYOUT DEBUG =============")
+	print("Raw Text (BBCode): ", full_text)
+	print("Clean Text (Visible): ", clean_text)
+	print("Target Index Requested: ", char_index)
+	
+	if char_index < 0 or char_index >= clean_text.length():
+		print("❌ ERROR: Index out of bounds!")
+		return
+		
+	var target_char = clean_text[char_index].capitalize()
+	print("Target Character: '", target_char, "'")
+	
+	# 2. Setup your exact dimensions
+	var chars_per_line = 23
+	var label_width: float = main_label.size.x
+	
+	# 3. Simulate the Word Wrap
+	var words = clean_text.split(" ")
+	var rows = []
+	var current_line = ""
+	
+	for word in words:
+		if current_line == "":
+			current_line = word
+		elif current_line.length() + 1 + word.length() <= chars_per_line:
+			current_line += " " + word
+		else:
+			rows.append(current_line)
+			current_line = word
+	if current_line != "":
+		rows.append(current_line)
+		
+	# --- CONSOLE DEBUG: Print out how our loop built the rows ---
+	print("--- Simulated Rows ---")
+	for i in range(rows.size()):
+		print("Row ", i, " [Length ", rows[i].length(), "]: \"", rows[i], "\"")
+		
+	# 4. Locate Row and Column
+	var target_row = -1
+	var target_column = -1
+	var accumulated_chars = 0
+		
+	for r in range(rows.size()):
+		var row_text = rows[r]
+		if char_index >= accumulated_chars and char_index < accumulated_chars + row_text.length():
+			target_row = r
+			target_column = char_index - accumulated_chars
+			break
+		accumulated_chars += row_text.length() + 1
+		
+	print("--- Target Matrix Location ---")
+	print("Calculated Row: ", target_row)
+	print("Calculated Column: ", target_column)
+	
+	if target_row == -1:
+		print("❌ ERROR: Failed to find target row! Index fell on a skipped space.")
+		return
+		
+	# 5. Centering and Position Math
+	var current_row_text = rows[target_row]
+	var row_pixel_width = current_row_text.length() * width
+	print(row_pixel_width)
+	var centering_offset = (label_width - row_pixel_width) / 2.0
+	
+	#centering_offset + 
+	var local_x = (target_column * width)
+	var local_y = target_row * height
+	
+	#main_label.global_position
+	#spawn_world_marker(origin) + Vector2(local_x, local_y)
+	var spawn_pos = letter_spawn_offset
+	
+	print("--- Spatial Math ---")
+	print("Label Global Pos: ", main_label.global_position)
+	print("Centering Offset for this row: ", centering_offset)
+	print("Local X: ", local_x, " | Local Y: ", local_y)
+	print("🎯 FINAL TARGET SPAWN POSITION: ", spawn_pos)
+	print("===================================================\n")
+	
+	# 6. VISUAL DEBUGGER: Spawn a flashing target box over the screen coordinates
+	var debug_box = ColorRect.new()
+	debug_box.size = Vector2(width, height)
+	debug_box.color = Color(1.0, 0.0, 0.0, 0.4) # Semi-transparent Red
+	debug_box.global_position = spawn_pos
+	add_child(debug_box)
+	
+	# Create a quick tween to make the debug box fade out over 2 seconds
+	var tween = create_tween()
+	tween.tween_property(debug_box, "modulate:a", 0.0, 2.0)
+	tween.tween_callback(debug_box.queue_free)
+	
+	# 7. Proceed with standard script execution
+	
+	var flying_letter = Label.new()
+	flying_letter.set_script(preload("res://World/Scripts/DroppingLetter.gd"))
+	add_child(flying_letter)
+	
+	flying_letter.modulate = Color(0x9901efff)
+	var font = main_label.get_theme_font("font")
+	var font_size = main_label.get_theme_font_size("font_size")
+	flying_letter.launch(spawn_pos, target_char, font, 70)

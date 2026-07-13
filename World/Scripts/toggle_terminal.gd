@@ -5,7 +5,7 @@ extends Node2D
 var player_inside := false
 
 func _ready():
-	$Label.visible = false
+	$CanvasLayer/Label.visible = false
 	$Area2D.body_entered.connect(_on_body_entered)
 	$Area2D.body_exited.connect(_on_body_exited)
 
@@ -16,9 +16,9 @@ func _process(delta):
 func _on_body_entered(body):
 	if body.name == "Player":
 		player_inside = true
-		$Label.visible = true
+		$CanvasLayer/Label.visible = true
 
 func _on_body_exited(body):
 	if body.name == "Player":
 		player_inside = false
-		$Label.visible = false
+		$CanvasLayer/Label.visible = false

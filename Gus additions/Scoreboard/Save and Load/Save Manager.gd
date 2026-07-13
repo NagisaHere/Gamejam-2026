@@ -5,10 +5,11 @@ var current_save: SaveData
 var temp_time: float = 0.0
 var temp_score: int = 0
 
-var time_limit: float = 0.0
+var time_limit: float = 60.0
 var sentences_needed: int = 0
 var BongoCat = false
 var playIntro = true
+var difficulty = "easy"
 
 func _ready():
 	load_data()
