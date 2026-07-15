@@ -30,6 +30,7 @@ func _ready():
 
 func _on_typing_fingers_changed(value):
 	print("remaining fingers:", value)
+	await get_tree().create_timer(0.20).timeout
 	show_typing_state(10 - value)
 
 

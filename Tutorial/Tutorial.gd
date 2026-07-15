@@ -110,6 +110,9 @@ func _unhandled_input(_event: InputEvent) -> void:
 			else:
 				queue_free()
 				get_tree().paused = false
+	elif Input.is_action_pressed("skip"):
+		_on_skip_button_pressed()
+		
 		
 #Gemini did this
 func _input(event: InputEvent) -> void:

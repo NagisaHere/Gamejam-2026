@@ -2,7 +2,14 @@
 Copyright Nathanael C. Fritz 2024
 License MIT
 */
+
+
 shader_type canvas_item;
+
+// The size of the clear window in the center (0.0 = none, 0.5 = large)
+uniform float safe_zone_radius : hint_range(0.0, 0.5) = 0.2;
+// Smoothness of the cutout edge (0.0 = razor sharp edge, 0.1 = soft fade)
+uniform float safe_zone_softness : hint_range(0.0, 0.2) = 0.02;
 
 // mipmap is neaded for textureLod
 uniform sampler2D screen_texture: hint_screen_texture, repeat_disable, filter_nearest_mipmap;
@@ -82,7 +89,17 @@ void fragment() {
 	// generate a threshold
 	// we can now multiply our ice effects by "effects" which is a 1.0 or 0.0
 	// disabling our effects for any pixel outside of the ice
-	float effect = step(area, coverage / 2.0);
+	// 1. Get distance from center
+	float dist_from_center = distance(UV, vec2(0.5, 0.5));
+	
+	// 2. Use your existing jagged noise to distort the perimeter of the hole
+	float hole_noise = (texture(crack_normal, uv * 2.0).r - 0.5) * 0.05;
+	
+	// 3. Create the mask incorporating the noise displacement
+	float center_mask = smoothstep(safe_zone_radius + hole_noise, safe_zone_radius + safe_zone_softness + hole_noise, dist_from_center);
+	
+	// 4. Force the center clear
+	float effect = step(area, coverage / 2.0) * center_mask;
 
 	// set a threshold where cracks can be
 	float show_crack = mix(0.0, 1.0, step(area, coverage - 0.5));

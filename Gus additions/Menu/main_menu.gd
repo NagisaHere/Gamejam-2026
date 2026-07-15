@@ -46,7 +46,7 @@ func _on_fade_timer_timeout() -> void:
 		await menu_fade.finished
 		#Only play intro if it is the first time through
 		if SaveManager.playIntro == false:
-			get_tree().change_scene_to_file("res://World/Scenes/WorldAnimation.tscn")
+			get_tree().change_scene_to_file("res://World/Scenes/computer.tscn")
 			return
 		
 		SaveManager.playIntro = false

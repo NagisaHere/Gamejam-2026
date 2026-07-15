@@ -6,14 +6,14 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$TypingHand.show_typing_state(0)
+	$hands/TypingHand.show_typing_state(0)
 	$typing.fingers_changed.connect($CanvasLayer.set_fingers_remaining)
 	$Timer.start()
 	redGlow.modulate.a = 0.0
 	$Death/DeathGlow.modulate.a = 0.0
 	$Hurt/Bleed.modulate.a = 0.0
 	previous_second = int($Timer.time_left)
-	freeze_screen(10)
+	freeze_screen($Timer.time_left)
 	
 
 
@@ -61,28 +61,51 @@ func _on_startup_finished() -> void:
 func _on_computer_ambience_finished() -> void:
 	$"computer ambience".play()
 	
+@onready var audio_player: AudioStreamPlayer = $"Freezing Screen"
+
 func freeze_screen(duration: float) -> void:
 	var tween = create_tween()
 	
-	var total_steps: int = 8 # How many distinct "cracking bursts" you want
+	var total_steps: int = 15 
 	var time_per_step: float = duration / total_steps
 	var target_max_coverage: float = 1.4
 	
+	var highest_coverage_so_far: float = 0.0
+	
 	for i in range(total_steps):
-		# 1. Calculate a base coverage milestone for this step
 		var next_coverage = lerp(0.0, target_max_coverage, float(i + 1) / total_steps)
 		
-		# 2. Add a little organic randomness so the jumps aren't perfectly uniform
 		if i < total_steps - 1:
-			next_coverage += randf_range(-0.15, 0.15)
+			next_coverage += randf_range(0, 0.15)
 		
-		# 3. STUTTER: Make the tween hold still for 75% of the step duration
+		# 1. STUTTER: Always hold still first to maintain the rhythm
 		tween.tween_interval(time_per_step * 0.75)
 		
-		# 4. BURST: Force the coverage to jump forward rapidly during the remaining 25%
-		tween.tween_property(
-			$IceCoverShader/ColorRect, 
-			"material:shader_parameter/coverage", 
-			next_coverage, 
-			time_per_step * 0.25
-		).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		# 2. CHECK FOR ACTUAL GROWTH: 
+		# Only play the sound if the random calculation pushes the ice forward!
+		if next_coverage > highest_coverage_so_far:
+			highest_coverage_so_far = next_coverage
+			
+			# Call our custom sound player function right before the burst properties animate
+			tween.tween_callback(play_crack_sfx)
+			
+			# BURST: Animate the ice growing
+			tween.tween_property(
+				$IceCoverShader/ColorRect, 
+				"material:shader_parameter/coverage", 
+				next_coverage, 
+				time_per_step * 0.25
+			).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		else:
+			# If it didn't grow, fill the remaining step time with a pause 
+			# so the overall total duration stays perfectly accurate
+			tween.tween_interval(time_per_step * 0.25)
+
+# Helper function executed by the tween timeline
+func play_crack_sfx() -> void:
+	if audio_player:
+		# GAME DEV TRICK: Slightly randomize the pitch every time it plays.
+		# This stops the sound from feeling robotic or repetitive!
+		audio_player.pitch_scale = randf_range(0.85, 1.2)
+		audio_player.play()
+		

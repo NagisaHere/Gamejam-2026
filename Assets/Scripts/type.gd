@@ -216,6 +216,11 @@ func _unhandled_input(event: InputEvent) -> void:
 					#Finger loss vfx
 					$"../backspace press".play()
 					$"../Hurt/Bleed".modulate.a = 1 #fade is in computer script
+					trigger_steam_burst()
+					trigger_ice_spike(1.3,0.7)
+					$"../Camera2D".trigger_shake()
+					$"../Freezing Finger".play()
+					
 				
 					if fingers_remaining == 0:
 						_game_over()
@@ -506,3 +511,50 @@ func pop_letter_off_screen(char_index: int) -> void:
 	var font = main_label.get_theme_font("font")
 	var font_size = main_label.get_theme_font_size("font_size")
 	flying_letter.launch(spawn_pos, target_char, font, 70)
+	
+@onready var steam_particles: GPUParticles2D = $"../SteamCoolant3/SteamParticlesMask/SteamCoolant"
+@onready var steam_particles2: GPUParticles2D = $"../SteamCoolant3/SteamParticlesMask/SteamCoolant2"
+
+func trigger_steam_burst() -> void:
+	# 1. Start shooting the steam
+	steam_particles.emitting = true
+	steam_particles2.emitting = true
+	await get_tree().create_timer(0.05).timeout
+	$"../shooting steam".play()
+	# 2. Tell the code to pause right here for exactly 0.2 seconds
+	# This creates a lightweight, one-time timer on the fly
+	await get_tree().create_timer(0.15).timeout
+	
+	# 3. Stop spawning new steam particles
+	steam_particles.emitting = false
+	steam_particles2.emitting = false
+	
+
+func trigger_ice_spike(peak_coverage: float, total_duration: float) -> void:
+	# 1. Create a fresh, clean tween instance
+	await get_tree().create_timer(0.05).timeout
+	var tween = create_tween()
+	
+	# Split our time: 30% to burst out, 70% to melt away
+	var build_up_time = total_duration * 0.1
+	var melt_down_time = total_duration * 1
+	
+	# 2. THE EXPLOSION (Rapid Increase)
+	# TRANS_CUBIC with EASE_OUT makes the ice snap forward violently at first,
+	# decelerating right as it reaches its peak.
+	tween.tween_property(
+		$"../IceCoverShader2/ColorRect", 
+		"material:shader_parameter/coverage", 
+		peak_coverage, 
+		build_up_time
+	).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	
+	# 3. THE MELT (Immediate Decrease)
+	# Because this is chained next, it starts the exact microsecond the peak is reached.
+	# TRANS_SINE with EASE_IN makes the ice pull back smoothly and progressively faster.
+	tween.tween_property(
+		$"../IceCoverShader2/ColorRect", 
+		"material:shader_parameter/coverage", 
+		0.0, # Return to completely clear screen
+		melt_down_time
+	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
