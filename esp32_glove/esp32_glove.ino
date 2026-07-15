@@ -44,6 +44,9 @@
 #define NUM_SERVOS 5
 #define NUM_VIBS 5 // Fixed missing definition
 
+#define PWM_FREQ_HZ 50
+#define PWM_RES_BITS 12
+
 int servoPins[NUM_SERVOS] = {SERVO_PIN_1, SERVO_PIN_2, SERVO_PIN_3, SERVO_PIN_4, SERVO_PIN_5};
 int vibratePins[NUM_VIBS] = {VIBRATE_PIN_1, VIBRATE_PIN_2, VIBRATE_PIN_3, VIBRATE_PIN_4, VIBRATE_PIN_5}; // Fixed missing array
 
@@ -56,11 +59,19 @@ DFRobotDFPlayerMini myDFPlayer;
 
 void setup_sound();
 
-// --- Native ESP32 v3 writeServo Helper ---
+// --- ESP32 v3 LEDC servo helpers (50 Hz / 12-bit) ---
+bool initServoPin(int pin) {
+  if (!ledcAttach(pin, PWM_FREQ_HZ, PWM_RES_BITS)) {
+    Serial.printf("LEDC attach failed on GPIO %d\n", pin);
+    return false;
+  }
+  return true;
+}
+
 void writeServo(int pin, int angle) {
   angle = constrain(angle, 0, 180);
   int dutyCycle = map(angle, 0, 180, 102, 492);
-  analogWrite(pin, dutyCycle);
+  ledcWrite(pin, dutyCycle);
 }
 
 // Server Callbacks to handle reconnecting
@@ -230,11 +241,8 @@ class MyCallbacks: public BLECharacteristicCallbacks {
 void setup() {
   Serial.begin(BAUD_RATE);
 
-  // Initialize and configure all 5 servos using native v3 API
   for (int i = 0; i < NUM_SERVOS; i++) {
-    pinMode(servoPins[i], OUTPUT);
-    analogWriteFrequency(servoPins[i], 50); 
-    analogWriteResolution(servoPins[i], 12); 
+    initServoPin(servoPins[i]);
   }
 
   // Fixed the loop logic: changed i++ to j++ and used the new vibratePins array
