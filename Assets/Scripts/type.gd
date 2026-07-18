@@ -133,6 +133,8 @@ func _check_win(prompt: String) -> void:
 		if sentences_completed >= sentences_to_win:
 			_win_game()
 		else:
+			if sentences_completed == 1:
+				open_popup()
 			spawn_phrase()
 		
 func find_new_active_enemy(typed_character: String):
@@ -558,3 +560,8 @@ func trigger_ice_spike(peak_coverage: float, total_duration: float) -> void:
 		0.0, # Return to completely clear screen
 		melt_down_time
 	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	
+@onready var popup = $"../Slider"
+func open_popup():
+	popup.visible = true
+	get_tree().paused = true

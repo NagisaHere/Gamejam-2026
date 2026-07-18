@@ -33,6 +33,7 @@ func _physics_process(delta):
 	#Animation
 	if input_vector.length() > 0:
 		anim.play("walk")
+		$SnowParticles.emitting = true
 		
 		if not $"Walk".playing:
 			$"Walk".play()
@@ -42,6 +43,7 @@ func _physics_process(delta):
 		$"Walk".volume_db = 0.0
 	else:
 		anim.play("idle")
+		$SnowParticles.emitting = false
 		
 
 		if $"Walk".playing and (walk_fade == null or not walk_fade.is_running()):

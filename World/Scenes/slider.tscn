@@ -1,41 +1,134 @@
-[gd_scene format=3 uid="uid://bgec11wol74je"]
+[gd_scene format=3 uid="uid://1fil540v7xux"]
 
 [ext_resource type="Script" uid="uid://b824awgdfolv1" path="res://World/Scenes/slider.gd" id="1_660oy"]
 [ext_resource type="Texture2D" uid="uid://d0f7fyndmi306" path="res://Assets/interface (20260510063538).png" id="1_atlde"]
 [ext_resource type="Texture2D" uid="uid://dsw7gnjfaql5m" path="res://Assets/interface (20260510071510).png" id="2_660oy"]
 [ext_resource type="Script" uid="uid://2e0a3t6tbbhp" path="res://World/Scenes/progress_bar.gd" id="4_o78fl"]
 
-[node name="Slider" type="Node2D" unique_id=23336200]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4m5aq"]
+bg_color = Color(0.91, 0.91, 0.91, 0.69803923)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o78fl"]
+content_margin_bottom = 20.0
+bg_color = Color(0.33279997, 0.5785599, 0.64, 1)
+border_width_top = 2
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_top = 8.0
+
+[node name="Slider" type="CanvasLayer" unique_id=1118713942]
+layer = 10
 script = ExtResource("1_660oy")
 
 [node name="Sprite2D4" type="Sprite2D" parent="." unique_id=1911006271]
-position = Vector2(575.29663, 325.9041)
-scale = Vector2(0.44628382, 0.43537498)
+position = Vector2(572.5399, 327.09586)
+scale = Vector2(0.3149241, 0.31526777)
 texture = ExtResource("1_atlde")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=872259112]
-position = Vector2(575, 330.00003)
-scale = Vector2(0.44628382, 0.43537498)
+position = Vector2(572.2433, 331.19177)
+scale = Vector2(0.3149241, 0.31526777)
 texture = ExtResource("2_660oy")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1809114881]
-
-[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer" unique_id=615276280]
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=615276280]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 258.0
-offset_top = 213.0
-offset_right = -457.0
-offset_bottom = -243.0
+offset_left = 260.0
+offset_top = 181.0
+offset_right = -443.0
+offset_bottom = -248.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_4m5aq")
 script = ExtResource("4_o78fl")
 
-[node name="Timer" type="Timer" parent="CanvasLayer/ProgressBar" unique_id=1633599628]
+[node name="Timer" type="Timer" parent="ProgressBar" unique_id=1633599628]
 wait_time = 0.4
 one_shot = true
 
-[connection signal="bar_is_full" from="CanvasLayer/ProgressBar" to="." method="_on_progress_bar_bar_is_full"]
-[connection signal="changed" from="CanvasLayer/ProgressBar" to="CanvasLayer/ProgressBar" method="_on_changed"]
-[connection signal="timeout" from="CanvasLayer/ProgressBar/Timer" to="." method="_on_timer_timeout"]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1932981986]
+offset_left = 267.0
+offset_top = 410.0
+offset_right = 699.0
+offset_bottom = 450.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="A" type="Button" parent="HBoxContainer" unique_id=1388127495]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/pressed = SubResource("StyleBoxFlat_o78fl")
+toggle_mode = true
+text = "A"
+
+[node name="S" type="Button" parent="HBoxContainer" unique_id=1162077519]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/pressed = SubResource("StyleBoxFlat_o78fl")
+toggle_mode = true
+text = "S"
+
+[node name="D" type="Button" parent="HBoxContainer" unique_id=677905582]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/pressed = SubResource("StyleBoxFlat_o78fl")
+toggle_mode = true
+text = "D"
+
+[node name="F" type="Button" parent="HBoxContainer" unique_id=1709520503]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/pressed = SubResource("StyleBoxFlat_o78fl")
+toggle_mode = true
+text = "F"
+
+[node name="G" type="Button" parent="HBoxContainer" unique_id=827353061]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/pressed = SubResource("StyleBoxFlat_o78fl")
+toggle_mode = true
+text = "G"
+
+[node name="H" type="Button" parent="HBoxContainer" unique_id=1154013506]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/pressed = SubResource("StyleBoxFlat_o78fl")
+toggle_mode = true
+text = "H"
+
+[node name="J" type="Button" parent="HBoxContainer" unique_id=1744709724]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/pressed = SubResource("StyleBoxFlat_o78fl")
+toggle_mode = true
+text = "J"
+
+[node name="K" type="Button" parent="HBoxContainer" unique_id=774424550]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/pressed = SubResource("StyleBoxFlat_o78fl")
+toggle_mode = true
+text = "K"
+
+[node name="L" type="Button" parent="HBoxContainer" unique_id=193232174]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/pressed = SubResource("StyleBoxFlat_o78fl")
+toggle_mode = true
+text = "L"
+
+[node name=";" type="Button" parent="HBoxContainer" unique_id=1117279748]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/pressed = SubResource("StyleBoxFlat_o78fl")
+toggle_mode = true
+text = ";"
+
+[connection signal="bar_is_full" from="ProgressBar" to="." method="_on_progress_bar_bar_is_full"]
+[connection signal="changed" from="ProgressBar" to="ProgressBar" method="_on_changed"]
+[connection signal="timeout" from="ProgressBar/Timer" to="." method="_on_timer_timeout"]

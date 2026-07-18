@@ -109,3 +109,6 @@ func play_crack_sfx() -> void:
 		audio_player.pitch_scale = randf_range(0.85, 1.2)
 		audio_player.play()
 		
+
+
+		

@@ -29,7 +29,8 @@
 [ext_resource type="AudioStream" uid="uid://bvhbs176buw7l" path="res://Gus additions/SoundAssets/Freezing fingers3.wav" id="26_vnav7"]
 [ext_resource type="AudioStream" uid="uid://5t6e80kk5gwq" path="res://Gus additions/SoundAssets/396447__hz37__freezing-hza.wav" id="27_1tihe"]
 [ext_resource type="AudioStream" uid="uid://odo2kxguumlj" path="res://Gus additions/SoundAssets/shooting steam.wav" id="28_vnav7"]
-[ext_resource type="Texture2D" uid="uid://58sy58dfj5d6" path="res://Assets/Icons/simple-white-circle-and-drop-shadow-png.webp" id="29_o3bxd"]
+[ext_resource type="Texture2D" uid="uid://bpfxck3crnfpk" path="res://Assets/alpha/smoke_01_a.png" id="30_klkf4"]
+[ext_resource type="PackedScene" uid="uid://1fil540v7xux" path="res://World/Scenes/slider.tscn" id="31_klkf4"]
 
 [sub_resource type="Gradient" id="Gradient_73g8m"]
 offsets = PackedFloat32Array(0, 0.8854167, 1)
@@ -248,6 +249,13 @@ shader_parameter/diffusion = 0.8590000408025
 shader_parameter/tint_color = Color(0.86, 0.9533333, 1, 0.09019608)
 shader_parameter/tint_amount = 0.800000038
 
+[sub_resource type="Curve" id="Curve_klkf4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.91449815, 0.5081737), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_wthtp"]
+curve = SubResource("Curve_klkf4")
+
 [sub_resource type="Gradient" id="Gradient_klkf4"]
 offsets = PackedFloat32Array(0, 0.41450778, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.43529412, 0, 0, 0, 0)
@@ -273,8 +281,20 @@ gravity = Vector3(0, 98, 0)
 damping_min = 800.00006
 damping_max = 1000.00006
 scale_curve = SubResource("CurveTexture_83vhw")
+color = Color(1.1291975, 1.1291975, 1.1291975, 1)
 color_ramp = SubResource("GradientTexture1D_wthtp")
+alpha_curve = SubResource("CurveTexture_wthtp")
 turbulence_noise_scale = 3.03
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.19
+
+[sub_resource type="Curve" id="Curve_83vhw"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.9107806, 0.5081737), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_7h0en"]
+curve = SubResource("Curve_83vhw")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vnav7"]
 particle_flag_disable_z = true
@@ -286,8 +306,16 @@ gravity = Vector3(0, 98, 0)
 damping_min = 800.00006
 damping_max = 1000.00006
 scale_curve = SubResource("CurveTexture_83vhw")
+color = Color(1.1291975, 1.1291975, 1.1291975, 1)
 color_ramp = SubResource("GradientTexture1D_wthtp")
+alpha_curve = SubResource("CurveTexture_7h0en")
 turbulence_noise_scale = 3.03
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.19
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_klkf4"]
+polygon = PackedVector2Array(0, -1, 1, 0, 0, 0)
 
 [node name="Computer" type="Node2D" unique_id=1815070021]
 script = ExtResource("1_pepux")
@@ -329,7 +357,7 @@ metadata/_custom_type_script = "uid://bsy50ptcwy13a"
 layer = 6
 
 [node name="TypingHand" parent="hands" unique_id=832879252 instance=ExtResource("3_vdqhu")]
-position = Vector2(999, 539.00006)
+position = Vector2(1004, 539)
 scale = Vector2(0.475, 0.475)
 
 [node name="Hurt" type="CanvasLayer" parent="." unique_id=1860926591]
@@ -573,20 +601,30 @@ offset_bottom = 600.0
 metadata/_edit_lock_ = true
 
 [node name="SteamCoolant" type="GPUParticles2D" parent="SteamCoolant3/SteamParticlesMask" unique_id=469010415]
-position = Vector2(2, 53)
+position = Vector2(6, 52)
 emitting = false
 amount = 200
-texture = ExtResource("29_o3bxd")
+texture = ExtResource("30_klkf4")
 lifetime = 0.6
+collision_base_size = 0.1
 process_material = SubResource("ParticleProcessMaterial_7h0en")
 
 [node name="SteamCoolant2" type="GPUParticles2D" parent="SteamCoolant3/SteamParticlesMask" unique_id=1889598889]
-position = Vector2(1, 138)
+position = Vector2(4, 135)
 emitting = false
 amount = 200
-texture = ExtResource("29_o3bxd")
+texture = ExtResource("30_klkf4")
 lifetime = 0.6
+collision_base_size = 0.1
 process_material = SubResource("ParticleProcessMaterial_vnav7")
+
+[node name="Slider" parent="." unique_id=23336200 instance=ExtResource("31_klkf4")]
+process_mode = 2
+visible = false
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=956029370]
+position = Vector2(1006, 510)
+occluder = SubResource("OccluderPolygon2D_klkf4")
 
 [connection signal="fingers_changed" from="typing" to="hands/TypingHand" method="_on_typing_fingers_changed"]
 [connection signal="finished" from="Startup" to="." method="_on_startup_finished"]

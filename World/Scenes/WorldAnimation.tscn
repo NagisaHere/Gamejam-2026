@@ -8,12 +8,45 @@
 [ext_resource type="Script" uid="uid://cyp33mx6hxdx3" path="res://World/Scripts/camera_2d.gd" id="4_5rygh"]
 [ext_resource type="PackedScene" uid="uid://cb6htri0766h" path="res://World/Scenes/toggle_terminal.tscn" id="4_w3uqr"]
 [ext_resource type="Script" uid="uid://l7bb0d65ceqy" path="res://World/Scripts/animation_player.gd" id="5_w3uqr"]
+[ext_resource type="Texture2D" uid="uid://bum3fp60g6yh1" path="res://Assets/alpha/smoke_08_a.png" id="7_k4ol7"]
 [ext_resource type="Texture2D" uid="uid://d3igx6iek8sdd" path="res://Assets/fonts/foreground (20260510092505).png" id="8_nxq72"]
 [ext_resource type="AudioStream" uid="uid://lwh6b1r6cvs4" path="res://Gus additions/SoundAssets/ropefinished2.wav" id="9_w3uqr"]
 [ext_resource type="AudioStream" uid="uid://egqur4hgwim1" path="res://Gus additions/SoundAssets/black_hole_soundridemusic.mp3" id="11_nxq72"]
 [ext_resource type="AudioStream" uid="uid://6gsghsnq6ac1" path="res://Gus additions/SoundAssets/tutorial4.wav" id="12_kt7v7"]
 [ext_resource type="Script" uid="uid://6axbjxwunv6" path="res://addons/light_shape_2d/point_light_shape_2d.gd" id="13_gvt1n"]
 [ext_resource type="PackedScene" uid="uid://dhbtg87w48ono" path="res://Gus additions/Menu/Fade transition.tscn" id="14_ecxkg"]
+[ext_resource type="Script" uid="uid://jgjoas3fpyow" path="res://addons/flickering_light/flickering_point_light_2d.gd" id="14_w1rrh"]
+[ext_resource type="Texture2D" uid="uid://c8rdalskbcuhk" path="res://Assets/alpha/circle_05_a.png" id="17_coq7l"]
+
+[sub_resource type="Curve" id="Curve_k4ol7"]
+_data = [Vector2(0, 0.8182454), 0.0, 0.13215178, 0, 0, Vector2(0.48997134, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_coq7l"]
+curve = SubResource("Curve_k4ol7")
+
+[sub_resource type="Curve" id="Curve_p0veq"]
+_data = [Vector2(0, 0.37749034), 0.0, 0.0, 0, 0, Vector2(0.39541548, 0.59105206), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ljo1n"]
+curve = SubResource("Curve_p0veq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_coq7l"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, 110, 0)
+emission_shape = 3
+emission_box_extents = Vector3(30, 1, 1)
+direction = Vector3(0.5, -1, 0)
+initial_velocity_min = 51.05
+initial_velocity_max = 72.01
+gravity = Vector3(0, 80, 0)
+damping_min = 100.00001
+damping_max = 100.00001
+scale_min = 0.099999994
+scale_max = 0.099999994
+scale_curve = SubResource("CurveTexture_ljo1n")
+alpha_curve = SubResource("CurveTexture_coq7l")
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xychh"]
 distance = 684.0
@@ -153,6 +186,39 @@ gradient = SubResource("Gradient_gvt1n")
 fill = 2
 fill_from = Vector2(0.38622755, 0.56287426)
 
+[sub_resource type="Curve" id="Curve_ljo1n"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.882353, 0.63870966), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_bgb5l"]
+curve = SubResource("Curve_ljo1n")
+
+[sub_resource type="Gradient" id="Gradient_p0veq"]
+offsets = PackedFloat32Array(0.45092025, 0.5644172)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ljo1n"]
+gradient = SubResource("Gradient_p0veq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eoibt"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(130, 1, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(-0.5, 1, 0)
+initial_velocity_min = 87.72
+initial_velocity_max = 426.84998
+gravity = Vector3(-45, 98, 0)
+scale_min = 0.02
+scale_max = 0.07
+color = Color(0.7930628, 0.7930628, 0.7930628, 1)
+color_initial_ramp = SubResource("GradientTexture1D_ljo1n")
+alpha_curve = SubResource("CurveTexture_bgb5l")
+turbulence_enabled = true
+turbulence_noise_strength = 7.01
+turbulence_noise_speed_random = 0.36
+
 [node name="IntroWorld" type="Node2D" unique_id=27276651]
 script = ExtResource("1_y18wd")
 metadata/_edit_horizontal_guides_ = [233.0, -398.0, 352.0]
@@ -183,6 +249,16 @@ position = Vector2(-1832, -56)
 position = Vector2(161, -301)
 scale = Vector2(0.8, 0.8)
 
+[node name="SnowParticles" type="GPUParticles2D" parent="Player" unique_id=337377530]
+position = Vector2(0, 3.75)
+emitting = false
+amount = 12
+texture = ExtResource("7_k4ol7")
+lifetime = 0.5
+one_shot = true
+randomness = 0.46
+process_material = SubResource("ParticleProcessMaterial_coq7l")
+
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1072134139 node_paths=PackedStringArray("target")]
 scale = Vector2(1.5, 1.5)
 zoom = Vector2(0.9, 0.9)
@@ -190,6 +266,10 @@ limit_left = -1916
 limit_top = -398
 limit_right = 662
 limit_bottom = 350
+position_smoothing_enabled = true
+position_smoothing_speed = 1.5
+rotation_smoothing_enabled = true
+rotation_smoothing_speed = 1.5
 script = ExtResource("4_5rygh")
 target = NodePath("../Player")
 
@@ -302,7 +382,7 @@ arc_degrees = 56.712
 save_path = "res://addons/light_shape_2d/baked_lights/light_129993443241871.res"
 metadata/_custom_type_script = "uid://6axbjxwunv6"
 
-[node name="terminal light" type="PointLight2D" parent="lights" unique_id=1260389699]
+[node name="terminal light" type="PointLight2D" parent="lights" unique_id=1802213408]
 position = Vector2(-1629, -59.000015)
 rotation = -0.11334433
 scale = Vector2(4.9275694, 3.6754663)
@@ -310,10 +390,26 @@ color = Color(0.65999997, 0.98300004, 1, 1)
 energy = 0.9
 texture = SubResource("GradientTexture2D_ecxkg")
 texture_scale = 2.0
+script = ExtResource("14_w1rrh")
+pattern = "mmmmammmmmmmmmamaaamammma"
+speed = 8.0
+phase = 0.319
+metadata/_custom_type_script = "uid://jgjoas3fpyow"
 metadata/_edit_lock_ = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1118518697]
 
 [node name="ColorRect" parent="CanvasLayer" unique_id=824606287 instance=ExtResource("14_ecxkg")]
+color = Color(0, 0, 0, 0)
+
+[node name="Blizzard" type="GPUParticles2D" parent="." unique_id=1496128521]
+position = Vector2(73, -431)
+amount = 400
+texture = ExtResource("17_coq7l")
+lifetime = 7.0
+preprocess = 30.0
+randomness = 0.7
+collision_base_size = 0.0
+process_material = SubResource("ParticleProcessMaterial_eoibt")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
