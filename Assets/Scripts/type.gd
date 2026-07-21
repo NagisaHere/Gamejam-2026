@@ -257,6 +257,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			#Sound of faulty key, like fallout one
 			$"../Input not registered".play()
 			pop_letter_off_screen(current_letter_index)
+			terminal_spark()
 			return
 
 		if active_enemy == null:
@@ -565,3 +566,12 @@ func trigger_ice_spike(peak_coverage: float, total_duration: float) -> void:
 func open_popup():
 	popup.visible = true
 	get_tree().paused = true
+
+@onready var sparks_sound = $"../TerminalMalfunction/AudioStreamPlayer"
+@onready var sparks = $"../TerminalMalfunction/GPUParticles2D"
+func terminal_spark():
+	sparks.emitting = true
+	sparks_sound.play()
+	await get_tree().create_timer(0.3).timeout
+	sparks.emitting = false
+	

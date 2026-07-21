@@ -31,6 +31,8 @@
 [ext_resource type="AudioStream" uid="uid://odo2kxguumlj" path="res://Gus additions/SoundAssets/shooting steam.wav" id="28_vnav7"]
 [ext_resource type="Texture2D" uid="uid://bpfxck3crnfpk" path="res://Assets/alpha/smoke_01_a.png" id="30_klkf4"]
 [ext_resource type="PackedScene" uid="uid://1fil540v7xux" path="res://World/Scenes/slider.tscn" id="31_klkf4"]
+[ext_resource type="Texture2D" uid="uid://cjelip1jgm0i8" path="res://Assets/alpha/spotlight_05_a.png" id="32_wthtp"]
+[ext_resource type="AudioStream" uid="uid://c6gbdigehtxbx" path="res://Gus additions/SoundAssets/sparks.wav" id="33_3t6pv"]
 
 [sub_resource type="Gradient" id="Gradient_73g8m"]
 offsets = PackedFloat32Array(0, 0.8854167, 1)
@@ -316,6 +318,37 @@ collision_bounce = 0.19
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_klkf4"]
 polygon = PackedVector2Array(0, -1, 1, 0, 0, 0)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wthtp"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_3t6pv"]
+offsets = PackedFloat32Array(0, 0.6020761, 1)
+colors = PackedColorArray(1, 0.6666667, 0, 1, 0.97533333, 1, 0.26, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_83vhw"]
+gradient = SubResource("Gradient_3t6pv")
+
+[sub_resource type="Curve" id="Curve_7h0en"]
+_data = [Vector2(0, 0.05383849), 0.0, 0.0, 0, 0, Vector2(0.6544343, 0.121291876), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_spop5"]
+curve = SubResource("Curve_7h0en")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tucmc"]
+lifetime_randomness = 0.71
+particle_flag_align_y = true
+particle_flag_disable_z = true
+direction = Vector3(1, -1, 0)
+spread = 32.223
+initial_velocity_min = 209.56999
+initial_velocity_max = 209.56999
+gravity = Vector3(0, 200, 0)
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_spop5")
+color = Color(1, 0.8000001, 0, 1)
+color_ramp = SubResource("GradientTexture1D_83vhw")
 
 [node name="Computer" type="Node2D" unique_id=1815070021]
 script = ExtResource("1_pepux")
@@ -625,6 +658,22 @@ visible = false
 [node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=956029370]
 position = Vector2(1006, 510)
 occluder = SubResource("OccluderPolygon2D_klkf4")
+
+[node name="TerminalMalfunction" type="CanvasLayer" parent="." unique_id=712902333]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="TerminalMalfunction" unique_id=413929115]
+material = SubResource("CanvasItemMaterial_wthtp")
+position = Vector2(51, 564)
+emitting = false
+amount = 50
+texture = ExtResource("32_wthtp")
+lifetime = 1.17
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_tucmc")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="TerminalMalfunction" unique_id=1068345386]
+stream = ExtResource("33_3t6pv")
+volume_db = -1.778
 
 [connection signal="fingers_changed" from="typing" to="hands/TypingHand" method="_on_typing_fingers_changed"]
 [connection signal="finished" from="Startup" to="." method="_on_startup_finished"]

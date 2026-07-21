@@ -4,6 +4,8 @@
 [ext_resource type="Resource" uid="uid://bmnskkiear3p8" path="res://Tutorial/tutorial.dialogue" id="2_yhiv6"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="3_3oavh"]
 [ext_resource type="Script" uid="uid://bb52rsfwhkxbn" path="res://addons/dialogue_manager/dialogue_responses_menu.gd" id="4_l41xm"]
+[ext_resource type="StyleBox" uid="uid://2kgx3wrhqhxa" path="res://addons/onscreenkeyboard/customize/styles/default_button_normal.tres" id="5_hgldx"]
+[ext_resource type="StyleBox" uid="uid://bq2fa6y28ke53" path="res://addons/onscreenkeyboard/customize/styles/default_button_hover.tres" id="6_jm7vr"]
 [ext_resource type="AudioStream" uid="uid://bn56sk8ive5yn" path="res://Gus additions/SoundAssets/clickNext.wav" id="6_l41xm"]
 [ext_resource type="AudioStream" uid="uid://cst1pnrpl6yhy" path="res://Gus additions/SoundAssets/clickBack.wav" id="7_hgldx"]
 
@@ -146,11 +148,7 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yhiv6"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3oavh"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l41xm"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hgldx"]
 
@@ -269,15 +267,15 @@ text = "Response example"
 [node name="skip_button" type="Button" parent="Balloon" unique_id=417724651]
 z_index = 5
 layout_mode = 0
-offset_left = 959.0
-offset_top = -12.0
-offset_right = 1157.0
-offset_bottom = 64.0
+offset_left = 1025.0
+offset_top = 5.0
+offset_right = 1148.0
+offset_bottom = 57.0
 theme_override_colors/font_color = Color(0.69, 0.69, 0.69, 1)
-theme_override_font_sizes/font_size = 45
-theme_override_styles/normal = SubResource("StyleBoxEmpty_yhiv6")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("5_hgldx")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_3oavh")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_l41xm")
+theme_override_styles/hover = ExtResource("6_jm7vr")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_hgldx")
 text = "Skip>>>"
 

@@ -68,7 +68,7 @@ func _on_progress_bar_bar_is_full() -> void:
 		
 	var Progress_stylebox = $ProgressBar.get_theme_stylebox("fill")
 	Progress_stylebox.bg_color = Color("c7cc2d")
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(0.5).timeout
 	close_popup()
 	
 @onready var popup = $"."
