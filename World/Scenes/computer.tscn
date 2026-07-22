@@ -350,6 +350,20 @@ scale_curve = SubResource("CurveTexture_spop5")
 color = Color(1, 0.8000001, 0, 1)
 color_ramp = SubResource("GradientTexture1D_83vhw")
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_83vhw"]
+lifetime_randomness = 0.71
+particle_flag_align_y = true
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 180.0
+initial_velocity_min = 149.9
+initial_velocity_max = 149.9
+gravity = Vector3(0, 200, 0)
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_spop5")
+color = Color(1, 0.8000001, 0, 1)
+color_ramp = SubResource("GradientTexture1D_83vhw")
+
 [node name="Computer" type="Node2D" unique_id=1815070021]
 script = ExtResource("1_pepux")
 metadata/_edit_vertical_guides_ = [1136.0]
@@ -367,6 +381,7 @@ script = ExtResource("3_o3bxd")
 [node name="typing" parent="." unique_id=1467136492 instance=ExtResource("3_p2dj2")]
 position = Vector2(107, 99)
 scale = Vector2(0.875, 0.875)
+drop_rate = 0.5
 letter_spawn_offset = Vector2(760, 530)
 origin = Vector2(168, 230)
 
@@ -670,6 +685,16 @@ texture = ExtResource("32_wthtp")
 lifetime = 1.17
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_tucmc")
+
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="TerminalMalfunction" unique_id=882745141]
+material = SubResource("CanvasItemMaterial_wthtp")
+position = Vector2(82, 456)
+emitting = false
+amount = 10
+texture = ExtResource("32_wthtp")
+lifetime = 1.17
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_83vhw")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="TerminalMalfunction" unique_id=1068345386]
 stream = ExtResource("33_3t6pv")

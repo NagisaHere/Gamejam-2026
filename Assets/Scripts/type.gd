@@ -569,9 +569,14 @@ func open_popup():
 
 @onready var sparks_sound = $"../TerminalMalfunction/AudioStreamPlayer"
 @onready var sparks = $"../TerminalMalfunction/GPUParticles2D"
+@onready var sparks3 = $"../TerminalMalfunction/GPUParticles2D3"
 func terminal_spark():
 	sparks.emitting = true
+
+	sparks3.emitting = true
 	sparks_sound.play()
 	await get_tree().create_timer(0.3).timeout
 	sparks.emitting = false
+
+	sparks3.emitting = false
 	

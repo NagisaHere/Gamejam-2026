@@ -8,16 +8,21 @@ var sentences_to_win_adjusted: int = 3
 const MAX_TIME: float = 5940.0;
 const MAX_LEVEL: int = 99;
 
+@onready var DifficultyChange_Sound = $Sounds/ChangeDifficultySound
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$"Transition/Fade Transition".show()
+	$"Transition/Fade Transition/AnimationPlayer".play("Fade_in")
+	await $"Transition/Fade Transition/AnimationPlayer".animation_finished
+	$"Transition/Fade Transition".hide()
+	
 	# if value exists?
 	display_settings();
 	$BongoCat/CheckBox.button_pressed = SaveManager.BongoCat
+	
+	
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.aa
-#func _process(delta: float) -> void:
-#	pass
 
 func display_settings() -> void:
 	$LevelControl/LevelCount.text = str(sentences_to_win_adjusted)
@@ -28,6 +33,9 @@ func display_settings() -> void:
 	return
 
 func _on_easy_pressed() -> void:
+	DifficultyChange_Sound.play()
+	await get_tree().create_timer(0.6).timeout
+	
 	button_type = "easy"
 	time_left = 180.0
 	sentences_to_win_adjusted = 2
@@ -36,7 +44,11 @@ func _on_easy_pressed() -> void:
 	$Difficulty/Hard.button_pressed = false
 	SaveManager.difficulty = "easy"
 	
+	
 func _on_normal_pressed() -> void:
+	DifficultyChange_Sound.play()
+	await get_tree().create_timer(0.6).timeout
+	
 	button_type = "normal"
 	time_left = 150.0
 	sentences_to_win_adjusted = 3
@@ -45,7 +57,11 @@ func _on_normal_pressed() -> void:
 	$Difficulty/Hard.button_pressed = false
 	SaveManager.difficulty = "normal"
 	
+	
 func _on_hard_pressed() -> void:
+	DifficultyChange_Sound.play()
+	await get_tree().create_timer(0.6).timeout
+	
 	button_type = "hard"
 	time_left = 90.0
 	sentences_to_win_adjusted = 3
@@ -54,10 +70,16 @@ func _on_hard_pressed() -> void:
 	$Difficulty/Normal.button_pressed = false
 	SaveManager.difficulty = "hard"
 	
+	
 func _on_main_menu_pressed() -> void:
+	$"Transition/Fade Transition".show()
+	$"Transition/Fade Transition/AnimationPlayer".play("Fade_out")
+	await $"Transition/Fade Transition/AnimationPlayer".animation_finished
 	get_tree().change_scene_to_file("res://Gus additions/Menu/main_menu.tscn")
+	
 
 func _on_min_up_pressed() -> void:
+	$Sounds/MinuteTickUp.play()
 	time_left += 60.0;
 	if (time_left >= MAX_TIME):
 		time_left = MAX_TIME;
@@ -65,6 +87,7 @@ func _on_min_up_pressed() -> void:
 	return
 
 func _on_min_down_pressed() -> void:
+	$Sounds/MinuteTickDown.play()
 	time_left -= 60.0;
 	if (time_left <= 0):
 		time_left = 0;
@@ -72,6 +95,7 @@ func _on_min_down_pressed() -> void:
 	return
 
 func _on_sec_up_pressed() -> void:
+	$Sounds/SecTickUp.play()
 	time_left += 1.0;
 	if (time_left >= MAX_TIME):
 		time_left = MAX_TIME;
@@ -79,6 +103,7 @@ func _on_sec_up_pressed() -> void:
 	return
 
 func _on_sec_down_pressed() -> void:
+	$Sounds/SecTickDown.play()
 	time_left -= 1.0;
 	if (time_left <= 0):
 		time_left = 0;
