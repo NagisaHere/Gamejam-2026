@@ -137,6 +137,15 @@ texture_normal = ExtResource("4_dlqf6")
 ignore_texture_size = true
 stretch_mode = 4
 
+[node name="TimeUpSec" type="TextureButton" parent="TimeControl/TimeUpSec" unique_id=1285835902]
+layout_mode = 0
+offset_top = -53.0
+offset_right = 25.0
+offset_bottom = -27.0
+texture_normal = ExtResource("4_dlqf6")
+ignore_texture_size = true
+stretch_mode = 4
+
 [node name="TimeDownSec" type="TextureButton" parent="TimeControl" unique_id=347567558]
 offset_left = 805.0
 offset_top = 363.0
@@ -147,12 +156,30 @@ texture_normal = ExtResource("4_dlqf6")
 ignore_texture_size = true
 stretch_mode = 4
 
+[node name="TimeDownSec" type="TextureButton" parent="TimeControl/TimeDownSec" unique_id=1720523473]
+layout_mode = 0
+offset_left = 2.0000017
+offset_top = -49.0
+offset_right = 27.000002
+offset_bottom = -23.0
+texture_normal = ExtResource("4_dlqf6")
+ignore_texture_size = true
+stretch_mode = 4
+
 [node name="TimeSecond" type="RichTextLabel" parent="TimeControl" unique_id=1084956054]
 offset_left = 770.0
 offset_top = 304.0
 offset_right = 816.0
 offset_bottom = 329.0
 text = "0"
+horizontal_alignment = 1
+
+[node name="-1Label" type="RichTextLabel" parent="TimeControl" unique_id=2103408596]
+offset_left = 817.0
+offset_top = 338.0
+offset_right = 863.0
+offset_bottom = 363.0
+text = "-1"
 horizontal_alignment = 1
 
 [node name="Difficulty" type="Node" parent="." unique_id=207337893]

@@ -53,9 +53,9 @@ text = "0"
 
 [node name="TimeLimit" type="RichTextLabel" parent="." unique_id=2112958173]
 layout_mode = 0
-offset_left = 905.0
+offset_left = 855.0
 offset_top = 15.0
-offset_right = 1024.0
+offset_right = 974.0
 offset_bottom = 55.0
 theme_override_font_sizes/normal_font_size = 25
 text = "0"
