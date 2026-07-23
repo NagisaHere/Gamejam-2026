@@ -10,11 +10,13 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 	hide()
 	
 	# Create the save data using the typed name and data
-
+	# no
 	var new_user = {
 		"name": new_text, 
 		"time": SaveManager.temp_time, 
-		"score": SaveManager.temp_score 
+		"score": SaveManager.temp_score,
+		"levels": SaveManager.sentences_needed,
+		"time_limit": SaveManager.time_limit
 	}
 	SaveManager.current_save.test_data.append(new_user)
 	
