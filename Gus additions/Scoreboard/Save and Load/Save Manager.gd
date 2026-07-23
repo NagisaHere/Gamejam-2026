@@ -10,6 +10,7 @@ var sentences_needed: int = 3
 var BongoCat = false
 var playIntro = true
 var difficulty = "easy"
+var dropkey_level: float = 2.5
 
 func _ready():
 	load_data()

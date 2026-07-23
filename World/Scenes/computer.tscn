@@ -671,7 +671,6 @@ process_mode = 2
 visible = false
 
 [node name="TwisterFingers" parent="." unique_id=450052298 instance=ExtResource("32_83vhw")]
-process_mode = 2
 visible = false
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=956029370]

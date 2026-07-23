@@ -4,9 +4,11 @@ var button_type: String = ""
 
 var time_left: float = 150.0
 var sentences_to_win_adjusted: int = 3
+var dropkey_rate: float = 2.5
 
 const MAX_TIME: float = 5940.0;
 const MAX_LEVEL: int = 99;
+const MAX_DROPKEY: float = 100;
 
 @onready var DifficultyChange_Sound = $Sounds/ChangeDifficultySound
 
@@ -28,8 +30,10 @@ func display_settings() -> void:
 	$LevelControl/LevelCount.text = str(sentences_to_win_adjusted)
 	$TimeControl/TimeCount.text = str(int(time_left/60)) # I hope you do floor div by default mins
 	$TimeControl/TimeSecond.text = str(int(time_left) % 60)
+	$DropKeyControl/DropKeyCount.text = str(dropkey_rate) + "%"
 	SaveManager.time_limit = time_left
 	SaveManager.sentences_needed = sentences_to_win_adjusted
+	SaveManager.dropkey_level = dropkey_rate
 	return
 
 func _on_easy_pressed() -> void:
@@ -149,3 +153,51 @@ func _on_check_box_toggled(toggled_on: bool) -> void:
 		SaveManager.BongoCat = false
 		BongoCat.disable()
 		
+
+var is_holding_dropkeyUP = false
+var is_holding_dropkeyDOWN = false
+
+func increment_dropkey():
+	$Sounds/MinuteTickUp.play()
+	dropkey_rate += 0.5;
+	if (dropkey_rate >= MAX_DROPKEY):
+		dropkey_rate = MAX_DROPKEY;
+	display_settings();
+	return
+	
+func decrement_dropkey():
+	$Sounds/MinuteTickDown.play()
+	dropkey_rate -= 0.5;
+	if (dropkey_rate<= 0):
+		dropkey_rate = 0;
+	display_settings();
+	return
+
+func _on_drop_key_up_button_down() -> void:
+	is_holding_dropkeyUP = true
+	increment_dropkey()
+	await get_tree().create_timer(0.4).timeout
+	
+	# Loop while the button remains held down
+	while is_holding_dropkeyUP:
+		increment_dropkey()
+		await get_tree().create_timer(0.05).timeout
+
+
+func _on_drop_key_up_button_up() -> void:
+	is_holding_dropkeyUP = false
+
+
+func _on_drop_key_down_button_down() -> void:
+	is_holding_dropkeyDOWN = true
+	decrement_dropkey()
+	await get_tree().create_timer(0.4).timeout
+	
+	# Loop while the button remains held down
+	while is_holding_dropkeyDOWN:
+		decrement_dropkey()
+		await get_tree().create_timer(0.05).timeout
+
+
+func _on_drop_key_down_button_up() -> void:
+	is_holding_dropkeyDOWN = false

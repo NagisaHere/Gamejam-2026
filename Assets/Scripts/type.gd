@@ -15,7 +15,7 @@ var sentences_to_win := 3
 @onready var warning_label = $Label
 var current_mistakes: String = ""
 var killed_fingers: Array[int] = []
-@export var drop_rate = 0.025
+var drop_rate = SaveManager.dropkey_level/float(100)
 
 #Hand modifiers
 var no_left := false

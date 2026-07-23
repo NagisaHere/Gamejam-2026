@@ -377,6 +377,7 @@ energy = 0.75
 blend_mode = 2
 
 [node name="PointLightShape2D" type="PointLight2D" parent="lights" unique_id=1314416921]
+visible = false
 position = Vector2(45.950043, -1028.9177)
 rotation = 1.5712794
 scale = Vector2(11.20338, 4.612999)
@@ -405,7 +406,6 @@ metadata/_custom_type_script = "uid://jgjoas3fpyow"
 metadata/_edit_lock_ = true
 
 [node name="PointLight2D" type="PointLight2D" parent="lights" unique_id=64261584]
-visible = false
 position = Vector2(-2.1565425, -243.37785)
 rotation = 3.1387138
 scale = Vector2(1.6129124, 2.0411804)
@@ -418,7 +418,7 @@ texture = ExtResource("16_ljo1n")
 color = Color(0, 0, 0, 0)
 
 [node name="Blizzard" type="GPUParticles2D" parent="." unique_id=1496128521]
-position = Vector2(73, -431)
+position = Vector2(66, -425)
 amount = 400
 texture = ExtResource("17_coq7l")
 lifetime = 7.0
