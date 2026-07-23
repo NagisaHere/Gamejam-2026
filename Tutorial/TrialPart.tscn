@@ -14,6 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://dxkneow34sox5" path="res://Gus additions/SoundAssets/722375__qubodup__error-1.wav" id="13_jyurp"]
 [ext_resource type="AudioStream" uid="uid://bmiw6bnte8l3e" path="res://Gus additions/SoundAssets/327738__distillerystudio__error_01.wav" id="14_8tthm"]
 [ext_resource type="AudioStream" uid="uid://mqj6e1171o6h" path="res://Gus additions/SoundAssets/computer ambience.wav" id="14_ar1gl"]
+[ext_resource type="FontFile" uid="uid://cd6nkp8lq4sk8" path="res://Assets/fonts/Alien-Encounters-Solid-Regular.ttf" id="15_p1vff"]
 [ext_resource type="StyleBox" uid="uid://2kgx3wrhqhxa" path="res://addons/onscreenkeyboard/customize/styles/default_button_normal.tres" id="15_qcwpo"]
 [ext_resource type="StyleBox" uid="uid://bq2fa6y28ke53" path="res://addons/onscreenkeyboard/customize/styles/default_button_hover.tres" id="16_p1vff"]
 
@@ -496,12 +497,13 @@ metadata/_edit_lock_ = true
 
 [node name="skip_button" type="Button" parent="." unique_id=1327825595]
 z_index = 5
-offset_left = 998.0
-offset_top = 10.0
-offset_right = 1134.0
-offset_bottom = 56.0
+offset_left = 997.0
+offset_top = 11.0
+offset_right = 1133.0
+offset_bottom = 57.0
 theme_override_colors/font_color = Color(0.69, 0.69, 0.69, 1)
-theme_override_font_sizes/font_size = 30
+theme_override_fonts/font = ExtResource("15_p1vff")
+theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = ExtResource("15_qcwpo")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_g2f8q")
 theme_override_styles/hover = ExtResource("16_p1vff")
@@ -510,12 +512,13 @@ text = "Skip>>>"
 
 [node name="reload_button" type="Button" parent="." unique_id=1727089982]
 z_index = 5
-offset_left = 972.0
-offset_top = 590.0
-offset_right = 1131.0
-offset_bottom = 653.0
+offset_left = 973.0
+offset_top = 589.0
+offset_right = 1132.0
+offset_bottom = 652.0
 theme_override_colors/font_color = Color(0.69, 0.69, 0.69, 1)
-theme_override_font_sizes/font_size = 35
+theme_override_fonts/font = ExtResource("15_p1vff")
+theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("15_qcwpo")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_g2f8q")
 theme_override_styles/hover = ExtResource("16_p1vff")

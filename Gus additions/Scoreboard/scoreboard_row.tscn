@@ -4,14 +4,14 @@
 
 [sub_resource type="Gradient" id="Gradient_1oo4x"]
 interpolation_mode = 1
-offsets = PackedFloat32Array(0.0125, 0.13829787, 0.55625, 0.7745098)
-colors = PackedColorArray(0.88, 0.7773334, 0.264, 1, 0.08449999, 0.65, 0.63115, 1, 0.1274, 0.49, 0.47791335, 1, 0.014699998, 0.06170501, 0.07, 1)
+offsets = PackedFloat32Array(0.058252428, 0.13592233, 0.5566343, 0.7799353)
+colors = PackedColorArray(0.8784314, 0.7764706, 0.2627451, 1, 0.50249994, 0.6922501, 0.75, 1, 0.539, 0.6382833, 0.7, 1, 0.0315, 0.053316668, 0.07, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_0ya6e"]
 gradient = SubResource("Gradient_1oo4x")
 
 [node name="TextureRect" type="TextureRect" unique_id=1231977485]
-self_modulate = Color(1, 1, 1, 0.7254902)
+self_modulate = Color(1, 1, 1, 0.77254903)
 offset_right = 736.0
 offset_bottom = 64.0
 texture = SubResource("GradientTexture2D_0ya6e")
@@ -40,7 +40,7 @@ horizontal_alignment = 1
 layout_mode = 0
 offset_left = 424.0
 offset_top = 14.0
-offset_right = 537.0
+offset_right = 538.0
 offset_bottom = 54.0
 theme_override_font_sizes/normal_font_size = 25
 text = "00:00.00"

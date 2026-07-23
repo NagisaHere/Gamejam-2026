@@ -4,9 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://duq2aie5xo0dt" path="res://Gus additions/Scoreboard/scoreboard_row.tscn" id="2_0v5ew"]
 [ext_resource type="Texture2D" uid="uid://vox5ym6df8uk" path="res://Gus additions/Scoreboard/concept_art (20260422122241).png" id="3_0v5ew"]
 [ext_resource type="Script" uid="uid://8y5qy2yt1iu3" path="res://Gus additions/Scoreboard/scoreboard_scroller.gd" id="3_rukjy"]
-[ext_resource type="FontFile" uid="uid://dd82rwkhe8alc" path="res://Assets/fonts/Alien-Encounters-Italic.ttf" id="5_ls7ig"]
+[ext_resource type="FontFile" uid="uid://cd6nkp8lq4sk8" path="res://Assets/fonts/Alien-Encounters-Solid-Regular.ttf" id="5_ls7ig"]
 [ext_resource type="AudioStream" uid="uid://dm8ajxbt71obn" path="res://Gus additions/SoundAssets/Competetive music.wav" id="6_5ww5k"]
-[ext_resource type="FontFile" uid="uid://cy20ni1pqq46h" path="res://Gus additions/Scoreboard/Aquire-BW0ox.otf" id="7_v53b6"]
+[ext_resource type="FontFile" uid="uid://6phg4vtpxiph" path="res://Assets/fonts/Alien-Encounters-Bold-Italic.ttf" id="6_ls7ig"]
 [ext_resource type="StyleBox" uid="uid://2kgx3wrhqhxa" path="res://addons/onscreenkeyboard/customize/styles/default_button_normal.tres" id="8_ls7ig"]
 [ext_resource type="StyleBox" uid="uid://bq2fa6y28ke53" path="res://addons/onscreenkeyboard/customize/styles/default_button_hover.tres" id="9_g3pyu"]
 
@@ -115,53 +115,57 @@ stretch_mode = 2
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="Panel/TextureRect" unique_id=1058129959]
 layout_mode = 0
-offset_left = 313.0
-offset_top = 1.0
-offset_right = 477.0
-offset_bottom = 48.0
-theme_override_font_sizes/normal_font_size = 30
+offset_left = 309.0
+offset_top = 17.0
+offset_right = 498.0
+offset_bottom = 64.0
+theme_override_fonts/normal_font = ExtResource("5_ls7ig")
+theme_override_font_sizes/normal_font_size = 28
 bbcode_enabled = true
 text = "Time Left"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Panel/TextureRect" unique_id=1248033906]
 layout_mode = 0
-offset_left = 14.0
-offset_top = 2.0
-offset_right = 117.0
-offset_bottom = 50.0
-theme_override_font_sizes/normal_font_size = 30
+offset_left = 16.0
+offset_top = 18.0
+offset_right = 119.0
+offset_bottom = 66.0
+theme_override_fonts/normal_font = ExtResource("5_ls7ig")
+theme_override_font_sizes/normal_font_size = 28
 bbcode_enabled = true
 text = "Name"
 
 [node name="RichTextLabel5" type="RichTextLabel" parent="Panel/TextureRect" unique_id=1695684541]
 layout_mode = 0
-offset_left = -101.0
-offset_top = 2.0
-offset_right = 2.0
-offset_bottom = 50.0
-theme_override_font_sizes/normal_font_size = 30
+offset_left = -98.0
+offset_top = 18.0
+offset_right = 21.0
+offset_bottom = 66.0
+theme_override_fonts/normal_font = ExtResource("5_ls7ig")
+theme_override_font_sizes/normal_font_size = 28
 bbcode_enabled = true
 text = "Place
 "
 
 [node name="RichTextLabel3" type="RichTextLabel" parent="Panel/TextureRect" unique_id=420869449]
 layout_mode = 0
-offset_left = 465.0
-offset_top = 1.0
-offset_right = 648.0
-offset_bottom = 47.0
-theme_override_font_sizes/normal_font_size = 30
+offset_left = 474.0
+offset_top = 17.0
+offset_right = 708.0
+offset_bottom = 63.0
+theme_override_fonts/normal_font = ExtResource("5_ls7ig")
+theme_override_font_sizes/normal_font_size = 28
 bbcode_enabled = true
 text = "Fingers Left"
 
 [node name="RichTextLabel4" type="RichTextLabel" parent="Panel/TextureRect" unique_id=1036136634]
 layout_mode = 0
-offset_left = 59.0
-offset_top = -57.0
-offset_right = 487.0
-offset_bottom = 15.0
-theme_override_fonts/normal_font = ExtResource("5_ls7ig")
-theme_override_font_sizes/normal_font_size = 56
+offset_left = 77.0
+offset_top = -56.0
+offset_right = 505.0
+offset_bottom = 16.0
+theme_override_fonts/normal_font = ExtResource("6_ls7ig")
+theme_override_font_sizes/normal_font_size = 50
 bbcode_enabled = true
 text = "Leaderboard"
 
@@ -171,12 +175,12 @@ volume_db = -20.645
 autoplay = true
 
 [node name="Button" type="Button" parent="." unique_id=1942617716]
-offset_left = 931.0
+offset_left = 925.0
 offset_top = 15.0
 offset_right = 1144.0
 offset_bottom = 80.0
-theme_override_fonts/font = ExtResource("7_v53b6")
-theme_override_font_sizes/font_size = 37
+theme_override_fonts/font = ExtResource("5_ls7ig")
+theme_override_font_sizes/font_size = 36
 theme_override_styles/normal = ExtResource("8_ls7ig")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_v53b6")
 theme_override_styles/hover = ExtResource("9_g3pyu")

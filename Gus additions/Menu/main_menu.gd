@@ -50,7 +50,7 @@ func _on_fade_timer_timeout() -> void:
 			return
 		
 		SaveManager.playIntro = false
-		get_tree().change_scene_to_file("res://Tutorial/Tutorial.tscn")
+		get_tree().change_scene_to_file("res://Gus additions/Cutscene/Opening_CutScene.tscn")
 
 	elif button_type == "quit":
 		get_tree().change_scene_to_file("res://placeholder_game_scene.tscn")

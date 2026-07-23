@@ -381,7 +381,6 @@ script = ExtResource("3_o3bxd")
 [node name="typing" parent="." unique_id=1467136492 instance=ExtResource("3_p2dj2")]
 position = Vector2(107, 99)
 scale = Vector2(0.875, 0.875)
-drop_rate = 0.5
 letter_spawn_offset = Vector2(760, 530)
 origin = Vector2(168, 230)
 

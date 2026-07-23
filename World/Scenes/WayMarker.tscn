@@ -7,6 +7,7 @@
 script = ExtResource("1_5yo06")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1236431054]
+self_modulate = Color(0.72, 0.72, 0.72, 1)
 position = Vector2(433.5, 334.5)
 scale = Vector2(0.017290615, 0.01849677)
 texture = ExtResource("2_ulfkp")

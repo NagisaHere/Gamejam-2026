@@ -299,7 +299,6 @@ theme_override_font_sizes/bold_font_size = 19
 bbcode_enabled = true
 text = "[b][color=aqua]WASD[/color] to move"
 metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="Camera2D/CanvasLayer" unique_id=118880814]
 anchors_preset = 15
@@ -316,7 +315,6 @@ theme_override_font_sizes/normal_font_size = 20
 theme_override_font_sizes/bold_font_size = 19
 bbcode_enabled = true
 text = "[b][color=aqua]ESC[/color] to open Pause Menu[/b]"
-metadata/_edit_lock_ = true
 
 [node name="RightWall" type="StaticBody2D" parent="." unique_id=1725339628]
 

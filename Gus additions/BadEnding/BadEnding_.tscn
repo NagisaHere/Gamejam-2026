@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://0mvxfm5g4xjp" path="res://Gus additions/SoundAssets/master_of_dreams_male_screams_1_473.mp3" id="8_gkj27"]
 [ext_resource type="Texture2D" uid="uid://ppq6rcp430gu" path="res://Gus additions/BadEnding/handRi05 (20260509074058).png" id="11_vo478"]
 [ext_resource type="AudioStream" uid="uid://cyh23aeievc11" path="res://Gus additions/SoundAssets/345815__vendarro__alarm-no.mp3" id="12_t15vw"]
+[ext_resource type="FontFile" uid="uid://cd6nkp8lq4sk8" path="res://Assets/fonts/Alien-Encounters-Solid-Regular.ttf" id="14_5ke0k"]
 [ext_resource type="StyleBox" uid="uid://2kgx3wrhqhxa" path="res://addons/onscreenkeyboard/customize/styles/default_button_normal.tres" id="14_m540l"]
 [ext_resource type="StyleBox" uid="uid://bq2fa6y28ke53" path="res://addons/onscreenkeyboard/customize/styles/default_button_hover.tres" id="15_5ke0k"]
 
@@ -359,7 +360,8 @@ offset_top = 14.0
 offset_right = 1145.0
 offset_bottom = 65.0
 theme_override_colors/font_color = Color(0.69, 0.69, 0.69, 1)
-theme_override_font_sizes/font_size = 30
+theme_override_fonts/font = ExtResource("14_5ke0k")
+theme_override_font_sizes/font_size = 26
 theme_override_styles/normal = ExtResource("14_m540l")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_t15vw")
 theme_override_styles/hover = ExtResource("15_5ke0k")
