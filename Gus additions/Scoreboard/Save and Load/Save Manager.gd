@@ -5,7 +5,7 @@ var current_save: SaveData
 var temp_time: float = 0.0
 var temp_score: int = 0
 
-var time_limit: float = 60.0
+var time_limit: float = 120.0
 var sentences_needed: int = 3
 var BongoCat = false
 var playIntro = true

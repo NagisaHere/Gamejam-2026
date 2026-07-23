@@ -16,6 +16,7 @@
 [ext_resource type="FontFile" uid="uid://cd6nkp8lq4sk8" path="res://Assets/fonts/Alien-Encounters-Solid-Regular.ttf" id="14_5ke0k"]
 [ext_resource type="StyleBox" uid="uid://2kgx3wrhqhxa" path="res://addons/onscreenkeyboard/customize/styles/default_button_normal.tres" id="14_m540l"]
 [ext_resource type="StyleBox" uid="uid://bq2fa6y28ke53" path="res://addons/onscreenkeyboard/customize/styles/default_button_hover.tres" id="15_5ke0k"]
+[ext_resource type="StyleBox" uid="uid://cwgkcfxja7708" path="res://addons/onscreenkeyboard/customize/styles/default_button_pressed.tres" id="16_32kcm"]
 
 [sub_resource type="Animation" id="Animation_gkj27"]
 resource_name = "BadEnding"
@@ -295,8 +296,6 @@ _data = {
 &"RESET": SubResource("Animation_ochfi")
 }
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t15vw"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o74jn"]
 
 [node name="Node2D" type="Node2D" unique_id=196682845]
@@ -363,7 +362,7 @@ theme_override_colors/font_color = Color(0.69, 0.69, 0.69, 1)
 theme_override_fonts/font = ExtResource("14_5ke0k")
 theme_override_font_sizes/font_size = 26
 theme_override_styles/normal = ExtResource("14_m540l")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_t15vw")
+theme_override_styles/pressed = ExtResource("16_32kcm")
 theme_override_styles/hover = ExtResource("15_5ke0k")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_o74jn")
 text = "Skip>>>"

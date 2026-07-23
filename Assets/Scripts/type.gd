@@ -133,8 +133,12 @@ func _check_win(prompt: String) -> void:
 		if sentences_completed >= sentences_to_win:
 			_win_game()
 		else:
-			if sentences_completed == 1:
-				open_popup()
+			match (sentences_completed):
+				1:
+					open_popup1()
+				2:
+					open_popup2()
+			
 			spawn_phrase()
 		
 func find_new_active_enemy(typed_character: String):
@@ -562,9 +566,14 @@ func trigger_ice_spike(peak_coverage: float, total_duration: float) -> void:
 		melt_down_time
 	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	
-@onready var popup = $"../Slider"
-func open_popup():
-	popup.visible = true
+@onready var popup1 = $"../Slider"
+func open_popup1():
+	popup1.visible = true
+	get_tree().paused = true
+	
+@onready var popup2 = $"../TwisterFingers"
+func open_popup2():
+	popup2.visible = true
 	get_tree().paused = true
 
 @onready var sparks_sound = $"../TerminalMalfunction/AudioStreamPlayer"

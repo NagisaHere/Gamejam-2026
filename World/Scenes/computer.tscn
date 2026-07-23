@@ -31,6 +31,7 @@
 [ext_resource type="AudioStream" uid="uid://odo2kxguumlj" path="res://Gus additions/SoundAssets/shooting steam.wav" id="28_vnav7"]
 [ext_resource type="Texture2D" uid="uid://bpfxck3crnfpk" path="res://Assets/alpha/smoke_01_a.png" id="30_klkf4"]
 [ext_resource type="PackedScene" uid="uid://1fil540v7xux" path="res://World/Scenes/slider.tscn" id="31_klkf4"]
+[ext_resource type="PackedScene" uid="uid://befg1xbu40ts5" path="res://World/Scenes/TwisterFingers.tscn" id="32_83vhw"]
 [ext_resource type="Texture2D" uid="uid://cjelip1jgm0i8" path="res://Assets/alpha/spotlight_05_a.png" id="32_wthtp"]
 [ext_resource type="AudioStream" uid="uid://c6gbdigehtxbx" path="res://Gus additions/SoundAssets/sparks.wav" id="33_3t6pv"]
 
@@ -666,6 +667,10 @@ collision_base_size = 0.1
 process_material = SubResource("ParticleProcessMaterial_vnav7")
 
 [node name="Slider" parent="." unique_id=23336200 instance=ExtResource("31_klkf4")]
+process_mode = 2
+visible = false
+
+[node name="TwisterFingers" parent="." unique_id=450052298 instance=ExtResource("32_83vhw")]
 process_mode = 2
 visible = false
 

@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://befg1xbu40ts5"]
+
+[ext_resource type="Texture2D" uid="uid://d0f7fyndmi306" path="res://Assets/interface (20260510063538).png" id="1_0bpt5"]
+[ext_resource type="Script" uid="uid://d2j6l6cdwmx7o" path="res://World/Scenes/twister_fingers.gd" id="1_tfe0v"]
+[ext_resource type="Texture2D" uid="uid://dsw7gnjfaql5m" path="res://Assets/interface (20260510071510).png" id="2_tfe0v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tfe0v"]
+bg_color = Color(0.6, 0.52000004, 0, 1)
+
+[node name="TwisterFingers" type="CanvasLayer" unique_id=450052298]
+process_mode = 2
+script = ExtResource("1_tfe0v")
+
+[node name="Sprite2D4" type="Sprite2D" parent="." unique_id=2051385308]
+position = Vector2(572.5399, 327.09586)
+scale = Vector2(0.3149241, 0.31526777)
+texture = ExtResource("1_0bpt5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1514912899]
+position = Vector2(572.2433, 331.19177)
+scale = Vector2(0.3149241, 0.31526777)
+texture = ExtResource("2_tfe0v")
+
+[node name="Buttons" type="Control" parent="." unique_id=1084544526]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Button" type="Button" parent="Buttons" unique_id=861426069]
+layout_mode = 0
+offset_left = 331.5545
+offset_top = 214.61307
+offset_right = 490.03946
+offset_bottom = 352.86896
+scale = Vector2(0.9935759, 0.98212403)
+pivot_offset = Vector2(692, -314)
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tfe0v")
+toggle_mode = true
+text = "Shift"
+clip_text = true
+
+[node name="Button2" type="Button" parent="Buttons" unique_id=1686074780]
+layout_mode = 0
+offset_left = 495.5481
+offset_top = 216.80197
+offset_right = 627.7097
+offset_bottom = 323.8855
+scale = Vector2(0.99302655, 0.98158103)
+pivot_offset = Vector2(604, -315)
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tfe0v")
+toggle_mode = true
+text = "R"
+clip_text = true
+
+[node name="Button3" type="Button" parent="Buttons" unique_id=675922876]
+layout_mode = 0
+offset_left = 333.5481
+offset_top = 355.61307
+offset_right = 489.02005
+offset_bottom = 415.97922
+scale = Vector2(0.9935759, 0.98212403)
+pivot_offset = Vector2(693, -386)
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tfe0v")
+toggle_mode = true
+text = "G"
+clip_text = true
+
+[node name="Button4" type="Button" parent="Buttons" unique_id=370575963]
+layout_mode = 0
+offset_left = 494.5481
+offset_top = 327.61307
+offset_right = 628.977
+offset_bottom = 416.99744
+scale = Vector2(0.9935759, 0.98212403)
+pivot_offset = Vector2(605, -358)
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tfe0v")
+toggle_mode = true
+text = "6"
+clip_text = true

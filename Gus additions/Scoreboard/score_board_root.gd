@@ -21,7 +21,7 @@ func create_scoreboard(data):
 	for entry in data:
 		var new_row = row_scene.instantiate()
 		list_container.add_child(new_row)
-		new_row.setup(position ,entry["name"], entry["time"], entry["score"])
+		new_row.setup(position ,entry["name"], entry["time"], entry["score"], entry["levels"], entry["time_limit"])
 		position += 1
 		
 

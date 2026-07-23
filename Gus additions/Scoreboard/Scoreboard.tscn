@@ -8,11 +8,10 @@
 [ext_resource type="AudioStream" uid="uid://dm8ajxbt71obn" path="res://Gus additions/SoundAssets/Competetive music.wav" id="6_5ww5k"]
 [ext_resource type="FontFile" uid="uid://6phg4vtpxiph" path="res://Assets/fonts/Alien-Encounters-Bold-Italic.ttf" id="6_ls7ig"]
 [ext_resource type="StyleBox" uid="uid://2kgx3wrhqhxa" path="res://addons/onscreenkeyboard/customize/styles/default_button_normal.tres" id="8_ls7ig"]
+[ext_resource type="StyleBox" uid="uid://cwgkcfxja7708" path="res://addons/onscreenkeyboard/customize/styles/default_button_pressed.tres" id="9_5mlwh"]
 [ext_resource type="StyleBox" uid="uid://bq2fa6y28ke53" path="res://addons/onscreenkeyboard/customize/styles/default_button_hover.tres" id="9_g3pyu"]
 
 [sub_resource type="Theme" id="Theme_1oo4x"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v53b6"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ls7ig"]
 
@@ -95,7 +94,7 @@ offset_bottom = 686.0
 layout_mode = 0
 offset_left = 176.0
 offset_top = 132.0
-offset_right = 912.0
+offset_right = 996.0
 offset_bottom = 562.0
 theme = SubResource("Theme_1oo4x")
 
@@ -115,46 +114,68 @@ stretch_mode = 2
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="Panel/TextureRect" unique_id=1058129959]
 layout_mode = 0
-offset_left = 309.0
-offset_top = 17.0
-offset_right = 498.0
-offset_bottom = 64.0
+offset_left = 464.0
+offset_top = 22.0
+offset_right = 653.0
+offset_bottom = 69.0
 theme_override_fonts/normal_font = ExtResource("5_ls7ig")
-theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/normal_font_size = 26
 bbcode_enabled = true
 text = "Time Left"
 
+[node name="RichTextLabel6" type="RichTextLabel" parent="Panel/TextureRect" unique_id=1606360392]
+layout_mode = 0
+offset_left = 348.0
+offset_top = 22.0
+offset_right = 537.0
+offset_bottom = 69.0
+theme_override_fonts/normal_font = ExtResource("5_ls7ig")
+theme_override_font_sizes/normal_font_size = 26
+bbcode_enabled = true
+text = "Levels"
+
+[node name="RichTextLabel7" type="RichTextLabel" parent="Panel/TextureRect" unique_id=2127250143]
+layout_mode = 0
+offset_left = 204.0
+offset_top = 22.0
+offset_right = 393.0
+offset_bottom = 69.0
+theme_override_fonts/normal_font = ExtResource("5_ls7ig")
+theme_override_font_sizes/normal_font_size = 26
+bbcode_enabled = true
+text = "Time Limit"
+
 [node name="RichTextLabel" type="RichTextLabel" parent="Panel/TextureRect" unique_id=1248033906]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 18.0
-offset_right = 119.0
-offset_bottom = 66.0
+offset_left = -7.0
+offset_top = 25.0
+offset_right = 96.0
+offset_bottom = 73.0
 theme_override_fonts/normal_font = ExtResource("5_ls7ig")
-theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/normal_font_size = 26
 bbcode_enabled = true
 text = "Name"
 
 [node name="RichTextLabel5" type="RichTextLabel" parent="Panel/TextureRect" unique_id=1695684541]
 layout_mode = 0
-offset_left = -98.0
-offset_top = 18.0
-offset_right = 21.0
-offset_bottom = 66.0
+offset_left = -108.0
+offset_top = 25.0
+offset_right = 11.0
+offset_bottom = 73.0
 theme_override_fonts/normal_font = ExtResource("5_ls7ig")
-theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/normal_font_size = 26
 bbcode_enabled = true
 text = "Place
 "
 
 [node name="RichTextLabel3" type="RichTextLabel" parent="Panel/TextureRect" unique_id=420869449]
 layout_mode = 0
-offset_left = 474.0
-offset_top = 17.0
-offset_right = 708.0
-offset_bottom = 63.0
+offset_left = 613.0
+offset_top = 21.0
+offset_right = 847.0
+offset_bottom = 67.0
 theme_override_fonts/normal_font = ExtResource("5_ls7ig")
-theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/normal_font_size = 27
 bbcode_enabled = true
 text = "Fingers Left"
 
@@ -182,7 +203,7 @@ offset_bottom = 80.0
 theme_override_fonts/font = ExtResource("5_ls7ig")
 theme_override_font_sizes/font_size = 36
 theme_override_styles/normal = ExtResource("8_ls7ig")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_v53b6")
+theme_override_styles/pressed = ExtResource("9_5mlwh")
 theme_override_styles/hover = ExtResource("9_g3pyu")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ls7ig")
 text = "Main Menu"
