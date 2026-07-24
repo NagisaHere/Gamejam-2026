@@ -1,9 +1,92 @@
 [gd_scene format=3 uid="uid://c2hnbb3cuqkls"]
 
-[ext_resource type="Script" path="res://canvas_layer.gd" id="1_cpmfc"]
+[ext_resource type="Script" uid="uid://l1mkq8vfgjue" path="res://canvas_layer.gd" id="1_cpmfc"]
 [ext_resource type="Texture2D" uid="uid://b0lrrqe3f2yx3" path="res://Assets/happyhappyhappy (20260510094541).png" id="2_kwlve"]
+[ext_resource type="AudioStream" uid="uid://ck8capvdn4l53" path="res://Gus additions/SoundAssets/573179__trp__ocean-waves-white-noisy-bahamas-180520.wav" id="3_t2cxm"]
+[ext_resource type="AudioStream" uid="uid://dq44bwas1ubrh" path="res://Gus additions/SoundAssets/836444__silverillusionist__outro-jingle-happy-go-lucky-2.wav" id="4_63twf"]
 
-[node name="CanvasLayer" type="CanvasLayer" unique_id=1817764815]
+[sub_resource type="Animation" id="Animation_t2cxm"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D/Camera2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/Camera2D:zoom:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(2.5, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D/Camera2D:zoom:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(2.5, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_63twf"]
+resource_name = "Zoom_Out"
+length = 8.0
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D/Camera2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(0.51487213, 0, 0, 1.3333334, -0.085812025, 0, -1.3333334, 0, 0, 0),
+"times": PackedFloat32Array(0, 3.44)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/Camera2D:zoom:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(2.5, -0.25, 0, 0.25, 0, 1, -0.63617134, 0.26099336, 0.013828675, -0.005673303, 1.05, -0.6200619, 0.26666668, 0, 0, 1, -0.17892334, -0.016666671, 0, 0),
+"times": PackedFloat32Array(0, 3.3733335, 3.9416666, 4.1666665)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D/Camera2D:zoom:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(2.5, -0.25, 0, 0.25, 0, 1, -0.63617134, 0.26099336, 0.013828675, -0.005673303, 1.05, -0.6200619, 0.26666668, 0, 0, 1, -0.17892334, -0.016666671, 0, 0),
+"times": PackedFloat32Array(0, 3.3733335, 3.9416666, 4.1666665)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kr725"]
+_data = {
+&"RESET": SubResource("Animation_t2cxm"),
+&"Zoom_Out": SubResource("Animation_63twf")
+}
+
+[node name="CanvasLayer" type="Control" unique_id=1889174270]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_cpmfc")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2005838692]
@@ -12,3 +95,21 @@ scale = Vector2(0.6157407, 0.6157407)
 texture = ExtResource("2_kwlve")
 
 [node name="Camera2D" type="Camera2D" parent="Sprite2D" unique_id=1852006942]
+scale = Vector2(0.99999994, 0.99999994)
+ignore_rotation = false
+zoom = Vector2(2.5, 2.5)
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1109193587]
+stream = ExtResource("3_t2cxm")
+volume_db = -5.379
+autoplay = true
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="." unique_id=882342127]
+stream = ExtResource("4_63twf")
+autoplay = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=830826012]
+libraries/ = SubResource("AnimationLibrary_kr725")
+autoplay = &"Zoom_Out"

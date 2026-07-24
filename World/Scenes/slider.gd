@@ -1,12 +1,37 @@
 extends CanvasLayer
 
 var scrollBar_tracker = []
-var fullBar = ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Semicolon"]
+var fullBar = []
+
+var Bar1 = ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Semicolon"]
+var Bar2 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"]
+var Bar3 = ["Z", "X", "C", "V", "B", "N", "M", "Comma", "Period", "Slash"]
+var Bars = [Bar1,Bar2,Bar3]
+
 @onready var Box = $HBoxContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_UNPAUSED and visible:
+		fullBar = Bars.pick_random()
+		for button_index in range(fullBar.size()):
+		
+			match (fullBar[button_index]):
+				"Semicolon":
+					Box.get_child(button_index).text = ";"
+				"Comma":
+					Box.get_child(button_index).text = ","
+				"Period":
+					Box.get_child(button_index).text = "."
+				"Slash":
+					Box.get_child(button_index).text = "/"
+				_:
+					Box.get_child(button_index).text = fullBar[button_index]
+				
+		
 
 
 # checks if the input keys follow the pattern of fullBar and updates the ProgressBar accordingly
@@ -39,6 +64,8 @@ func _input(event: InputEvent) -> void:
 		var key_name = OS.get_keycode_string(current_keycode)
 		if event.pressed:
 			scrollBar_tracker.append(key_name)
+			if key_name in fullBar and visible:
+				$AudioStreamPlayer.play()
 			print(scrollBar_tracker)
 			#everytime a keystroke is input restart the no-input timeout countdown
 			$ProgressBar/Timer.start()
@@ -73,5 +100,8 @@ func _on_progress_bar_bar_is_full() -> void:
 	
 @onready var popup = $"."
 func close_popup():
+	if popup.visible == false:
+		return
+	$"../PopUp_close".play()
 	popup.visible = false
 	get_tree().paused = false

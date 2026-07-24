@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d0f7fyndmi306" path="res://Assets/interface (20260510063538).png" id="1_atlde"]
 [ext_resource type="Texture2D" uid="uid://dsw7gnjfaql5m" path="res://Assets/interface (20260510071510).png" id="2_660oy"]
 [ext_resource type="Script" uid="uid://2e0a3t6tbbhp" path="res://World/Scenes/progress_bar.gd" id="4_o78fl"]
+[ext_resource type="AudioStream" uid="uid://dkrtaqc67s0h6" path="res://Gus additions/SoundAssets/charge_button3.wav" id="5_4m5aq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4m5aq"]
 bg_color = Color(0.91, 0.91, 0.91, 0.69803923)
@@ -19,6 +20,10 @@ border_width_top = 2
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 expand_margin_top = 8.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_4m5aq"]
+streams_count = 1
+stream_0/stream = ExtResource("5_4m5aq")
 
 [node name="Slider" type="CanvasLayer" unique_id=1118713942]
 layer = 10
@@ -128,6 +133,11 @@ size_flags_horizontal = 3
 theme_override_styles/pressed = SubResource("StyleBoxFlat_o78fl")
 toggle_mode = true
 text = ";"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=192570138]
+stream = SubResource("AudioStreamRandomizer_4m5aq")
+volume_db = -19.914
+pitch_scale = 0.55
 
 [connection signal="bar_is_full" from="ProgressBar" to="." method="_on_progress_bar_bar_is_full"]
 [connection signal="changed" from="ProgressBar" to="ProgressBar" method="_on_changed"]

@@ -34,6 +34,8 @@
 [ext_resource type="PackedScene" uid="uid://befg1xbu40ts5" path="res://World/Scenes/TwisterFingers.tscn" id="32_83vhw"]
 [ext_resource type="Texture2D" uid="uid://cjelip1jgm0i8" path="res://Assets/alpha/spotlight_05_a.png" id="32_wthtp"]
 [ext_resource type="AudioStream" uid="uid://c6gbdigehtxbx" path="res://Gus additions/SoundAssets/sparks.wav" id="33_3t6pv"]
+[ext_resource type="AudioStream" uid="uid://2el5s5w813at" path="res://Gus additions/SoundAssets/menu_close.wav" id="33_spop5"]
+[ext_resource type="AudioStream" uid="uid://dx562s0n7rpof" path="res://Gus additions/SoundAssets/menu_open.wav" id="34_tucmc"]
 
 [sub_resource type="Gradient" id="Gradient_73g8m"]
 offsets = PackedFloat32Array(0, 0.8854167, 1)
@@ -676,6 +678,16 @@ visible = false
 [node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=956029370]
 position = Vector2(1006, 510)
 occluder = SubResource("OccluderPolygon2D_klkf4")
+
+[node name="PopUp_open" type="AudioStreamPlayer" parent="." unique_id=1461200015]
+process_mode = 3
+stream = ExtResource("33_spop5")
+volume_db = -5.0
+
+[node name="PopUp_close" type="AudioStreamPlayer" parent="." unique_id=1109078922]
+process_mode = 3
+stream = ExtResource("34_tucmc")
+volume_db = 8.0
 
 [node name="TerminalMalfunction" type="CanvasLayer" parent="." unique_id=712902333]
 

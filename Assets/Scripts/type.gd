@@ -129,16 +129,19 @@ func _check_win(prompt: String) -> void:
 	if current_letter_index == prompt.length() and current_mistakes.length() == 0:
 		sentences_completed += 1
 		#print("done sentences:", sentences_completed)
-
+	
+		
 		if sentences_completed >= sentences_to_win:
 			_win_game()
 		else:
-			match (sentences_completed):
-				1:
-					open_popup1()
-				2:
-					open_popup2()
-			
+			#open a random authentication protocol
+			$"../PopUp_open".play()
+			var popups: Array[Callable] = [
+				open_popup2,
+				open_popup1
+			]
+		
+			popups.pick_random().call()
 			spawn_phrase()
 		
 func find_new_active_enemy(typed_character: String):
@@ -571,10 +574,12 @@ func open_popup1():
 	popup1.visible = true
 	get_tree().paused = true
 	
+	
 @onready var popup2 = $"../TwisterFingers"
 func open_popup2():
 	popup2.visible = true
 	get_tree().paused = true
+	
 
 @onready var sparks_sound = $"../TerminalMalfunction/AudioStreamPlayer"
 @onready var sparks = $"../TerminalMalfunction/GPUParticles2D"

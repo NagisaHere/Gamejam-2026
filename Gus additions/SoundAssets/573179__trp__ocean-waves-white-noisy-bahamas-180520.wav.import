@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ck8capvdn4l53"
+path="res://.godot/imported/573179__trp__ocean-waves-white-noisy-bahamas-180520.wav-a9c7d1bc9bcb07b6fbecdfbfd0daff93.sample"
+
+[deps]
+
+source_file="res://Gus additions/SoundAssets/573179__trp__ocean-waves-white-noisy-bahamas-180520.wav"
+dest_files=["res://.godot/imported/573179__trp__ocean-waves-white-noisy-bahamas-180520.wav-a9c7d1bc9bcb07b6fbecdfbfd0daff93.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

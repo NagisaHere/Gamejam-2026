@@ -23,6 +23,6 @@ func load_data():
 		current_save = ResourceLoader.load(SAVE_PATH)
 	else:
 		current_save = SaveData.new()
-		current_save.test_data = [{"name": "no-one","time": 40, "score": 1000,
+		current_save.test_data = [{"name": "no-one","time": 40, "score": 0,
 		 "levels": 0, "time_limit": 0.0}]
 		save_data()

@@ -22,4 +22,4 @@ func setup(place, name, time_left, fingers_left, levels: int, limit: float) -> v
 	LevelsCleared.text = str(levels)
 	minutes = int(limit / 60)
 	seconds = fmod(limit, 60.0)
-	TimeLimit.text = "%02d:%05.2f" % [minutes, seconds]
+	TimeLimit.text = "%02d:%02.0f" % [minutes, seconds]
