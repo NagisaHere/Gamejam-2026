@@ -36,6 +36,7 @@
 [ext_resource type="AudioStream" uid="uid://c6gbdigehtxbx" path="res://Gus additions/SoundAssets/sparks.wav" id="33_3t6pv"]
 [ext_resource type="AudioStream" uid="uid://2el5s5w813at" path="res://Gus additions/SoundAssets/menu_close.wav" id="33_spop5"]
 [ext_resource type="AudioStream" uid="uid://dx562s0n7rpof" path="res://Gus additions/SoundAssets/menu_open.wav" id="34_tucmc"]
+[ext_resource type="Script" uid="uid://gkbyd7hencl1" path="res://World/Scenes/dropkey_bar.gd" id="37_tucmc"]
 
 [sub_resource type="Gradient" id="Gradient_73g8m"]
 offsets = PackedFloat32Array(0, 0.8854167, 1)
@@ -367,6 +368,9 @@ scale_curve = SubResource("CurveTexture_spop5")
 color = Color(1, 0.8000001, 0, 1)
 color_ramp = SubResource("GradientTexture1D_83vhw")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_toagp"]
+bg_color = Color(0.71668005, 0.5612, 0.92, 0.827451)
+
 [node name="Computer" type="Node2D" unique_id=1815070021]
 script = ExtResource("1_pepux")
 metadata/_edit_vertical_guides_ = [1136.0]
@@ -673,6 +677,7 @@ process_mode = 2
 visible = false
 
 [node name="TwisterFingers" parent="." unique_id=450052298 instance=ExtResource("32_83vhw")]
+layer = 10
 visible = false
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=956029370]
@@ -715,10 +720,46 @@ process_material = SubResource("ParticleProcessMaterial_83vhw")
 stream = ExtResource("33_3t6pv")
 volume_db = -1.778
 
+[node name="DropKeyTimer" type="CanvasLayer" parent="." unique_id=588773428]
+layer = 9
+
+[node name="ProgressBar" type="ProgressBar" parent="DropKeyTimer" unique_id=1464412640]
+offset_left = 911.0
+offset_top = 383.0
+offset_right = 1088.0
+offset_bottom = 410.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_toagp")
+step = 10.0
+value = 100.0
+rounded = true
+script = ExtResource("37_tucmc")
+
+[node name="DropKeyTimer" type="Timer" parent="DropKeyTimer" unique_id=1882046239]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[node name="Timer" type="Timer" parent="DropKeyTimer" unique_id=1632764878]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="DropKeyTimer" unique_id=1729109049]
+offset_left = 917.0
+offset_top = 598.0
+offset_right = 1097.0
+offset_bottom = 657.0
+theme_override_colors/default_color = Color(0.80866665, 0.72, 1, 1)
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "Every 
+0 seconds"
+horizontal_alignment = 1
+
+[connection signal="finger_lost" from="typing" to="DropKeyTimer/ProgressBar" method="_on_typing_finger_lost"]
 [connection signal="fingers_changed" from="typing" to="hands/TypingHand" method="_on_typing_fingers_changed"]
+[connection signal="restart_timer" from="typing" to="DropKeyTimer/ProgressBar" method="_on_typing_restart_timer"]
 [connection signal="finished" from="Startup" to="." method="_on_startup_finished"]
 [connection signal="finished" from="alarm" to="." method="_on_alarm_finished"]
 [connection signal="finished" from="computer ambience" to="." method="_on_computer_ambience_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Fadeout/Fade Transition/Fade_Timer" to="typing" method="_on_fade_timer_timeout"]
 [connection signal="timeout" from="Freeze_timer" to="typing" method="_on_freeze_timer_timeout"]
+[connection signal="timeout" from="DropKeyTimer/DropKeyTimer" to="typing" method="_on_drop_key_timer_timeout"]

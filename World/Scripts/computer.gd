@@ -14,6 +14,8 @@ func _ready() -> void:
 	$Hurt/Bleed.modulate.a = 0.0
 	previous_second = int($Timer.time_left)
 	freeze_screen($Timer.time_left)
+	$IceCoverShader/ColorRect.material.set_shader_parameter("coverage", 0.0)
+	
 	
 
 

@@ -168,6 +168,33 @@ offset_bottom = 462.0
 text = "0"
 horizontal_alignment = 1
 
+[node name="OptionButton" type="CheckButton" parent="DropKeyControl" unique_id=1105380864]
+offset_left = 546.0
+offset_top = 521.0
+offset_right = 734.0
+offset_bottom = 552.0
+theme_override_fonts/font = ExtResource("8_wo42m")
+theme_override_font_sizes/font_size = 20
+text = "Select type "
+
+[node name="Random" type="RichTextLabel" parent="DropKeyControl" unique_id=855991325]
+offset_left = 741.0
+offset_top = 526.0
+offset_right = 826.0
+offset_bottom = 566.0
+theme_override_fonts/normal_font = ExtResource("8_wo42m")
+theme_override_font_sizes/normal_font_size = 20
+text = "Random"
+
+[node name="Time" type="RichTextLabel" parent="DropKeyControl" unique_id=276401788]
+offset_left = 741.0
+offset_top = 553.0
+offset_right = 792.0
+offset_bottom = 593.0
+theme_override_fonts/normal_font = ExtResource("8_wo42m")
+theme_override_font_sizes/normal_font_size = 20
+text = "Time"
+
 [node name="LevelControl" type="Node" parent="." unique_id=1593319058]
 
 [node name="LevelUp" type="TextureButton" parent="LevelControl" unique_id=217382426]
@@ -400,6 +427,7 @@ libraries/ = SubResource("AnimationLibrary_k4rln")
 [connection signal="button_up" from="DropKeyControl/DropKeyDown" to="." method="_on_drop_key_down_button_up"]
 [connection signal="button_down" from="DropKeyControl/DropKeyUp" to="." method="_on_drop_key_up_button_down"]
 [connection signal="button_up" from="DropKeyControl/DropKeyUp" to="." method="_on_drop_key_up_button_up"]
+[connection signal="toggled" from="DropKeyControl/OptionButton" to="." method="_on_option_button_toggled"]
 [connection signal="pressed" from="LevelControl/LevelUp" to="." method="_on_level_up_pressed"]
 [connection signal="pressed" from="LevelControl/LevelDown" to="." method="_on_level_down_pressed"]
 [connection signal="pressed" from="TimeControl/TimeUp" to="." method="_on_min_up_pressed"]
