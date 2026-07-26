@@ -1,12 +1,12 @@
 ~ start 
-do VideoManager.play_video("res://Tutorial/first.ogv")
+do play_local_video("res://Tutorial/first.ogv")
 1/6: Type the phrases as they appear on the terminal. A [color=#639765]Green[/color] letter is a letter that needs to by typed.
 - next ->
 	do NextClickSound()
 	
 
 ~ second
-do VideoManager.play_video("res://Tutorial/second.ogv")
+do play_local_video("res://Tutorial/second.ogv")
 2/6: [color=#4682b4]Blue[/color] letters are previously correctly typed characters, while [color=#a65455]Red[/color] signifies incorrect letters that need to be deleted.
 - back <-
 	do BackClickSound()
@@ -16,7 +16,7 @@ do VideoManager.play_video("res://Tutorial/second.ogv")
 
 
 ~ third
-do VideoManager.play_video("res://Tutorial/third.ogv")
+do play_local_video("res://Tutorial/third.ogv")
 3/6: Pressing [b][u]backspace[/u][/b] to delete a character will deduct a finger from your hands, however if you hold [b][u]backspace[/u][/b] to delete multiple characters, it will count as only deleting 1 finger.
 - back <-
 	do BackClickSound()
@@ -26,7 +26,7 @@ do VideoManager.play_video("res://Tutorial/third.ogv")
 
 
 ~ fourth
-do VideoManager.play_video("res://Tutorial/fourth.ogv")
+do play_local_video("res://Tutorial/fourth.ogv")
 4/6: For every lost finger you add a 5% chance to drop a key space represented by a [color=9901efff]Purple[/color] key, that means when you type you have a [b][i]fingers_lost*5%[/i][/b] chance for your keystroke to not register.
 - back <-
 	do BackClickSound()

@@ -33,21 +33,23 @@ func _physics_process(delta):
 	#Animation
 	if input_vector.length() > 0:
 		anim.play("walk")
+		$SnowParticles.emitting = true
 		
-		if not $"../Walk".playing:
-			$"../Walk".play()
+		if not $"Walk".playing:
+			$"Walk".play()
 		
 		if walk_fade:
 			walk_fade.kill() 
-		$"../Walk".volume_db = 0.0
+		$"Walk".volume_db = 0.0
 	else:
 		anim.play("idle")
+		$SnowParticles.emitting = false
 		
 
-		if $"../Walk".playing and (walk_fade == null or not walk_fade.is_running()):
+		if $"Walk".playing and (walk_fade == null or not walk_fade.is_running()):
 			walk_fade = create_tween()
-			walk_fade.tween_property($"../Walk", "volume_db", -80.0, 1.0)
-			walk_fade.finished.connect($"../Walk".stop)
+			walk_fade.tween_property($"Walk", "volume_db", -80.0, 1.0)
+			walk_fade.finished.connect($"Walk".stop)
 
 	# Flip
 	if input_vector.x < 0:

@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://c421n3iut2546"]
+
+[ext_resource type="Script" uid="uid://bp1vy0eh5hivo" path="res://Gus additions/BongoCat/bongo_cat.gd" id="1_du5re"]
+[ext_resource type="Texture2D" uid="uid://dykt4lcgiib8y" path="res://Gus additions/BongoCat/cat-rest.png" id="2_dmd55"]
+[ext_resource type="Texture2D" uid="uid://ccv2my37n1xsw" path="res://Gus additions/BongoCat/cat-left.png" id="3_j652r"]
+[ext_resource type="Texture2D" uid="uid://dqqerugnjnapk" path="res://Gus additions/BongoCat/cat-right.png" id="4_i82si"]
+[ext_resource type="AudioStream" uid="uid://cjrrdy6whl16d" path="res://Gus additions/BongoCat/sound_garage-cat-meow-8-fx-306184.mp3" id="5_4q2u2"]
+[ext_resource type="AudioStream" uid="uid://iikwx34gh0a3" path="res://Gus additions/SoundAssets/Quiet keyboard press.ogg" id="6_j652r"]
+[ext_resource type="StyleBox" path="res://addons/onscreenkeyboard/customize/styles/defaultBackgroundStyle.tres" id="7_7cdiu"]
+[ext_resource type="Script" uid="uid://bsy50ptcwy13a" path="res://addons/onscreenkeyboard/onscreen_keyboard.gd" id="8_6vs6x"]
+[ext_resource type="StyleBox" path="res://addons/onscreenkeyboard/customize/styles/defaultNormalStyle.tres" id="9_37lj4"]
+[ext_resource type="StyleBox" path="res://addons/onscreenkeyboard/customize/styles/defaultHoverStlyle.tres" id="10_r0wyv"]
+[ext_resource type="StyleBox" uid="uid://cdknrqx1mktev" path="res://addons/onscreenkeyboard/customize/styles/defaultPressedStyle.tres" id="11_myi7c"]
+[ext_resource type="StyleBox" path="res://addons/onscreenkeyboard/customize/styles/defaultNormalSpecialKeysStyle.tres" id="12_dejjv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g3s67"]
+animations = [{
+"frames": [{
+"duration": 0.1,
+"texture": ExtResource("2_dmd55")
+}, {
+"duration": 0.3,
+"texture": ExtResource("3_j652r")
+}, {
+"duration": 0.1,
+"texture": ExtResource("2_dmd55")
+}],
+"loop": false,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.1,
+"texture": ExtResource("2_dmd55")
+}, {
+"duration": 0.3,
+"texture": ExtResource("4_i82si")
+}, {
+"duration": 0.1,
+"texture": ExtResource("2_dmd55")
+}],
+"loop": false,
+"name": &"right",
+"speed": 5.0
+}]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_7cdiu"]
+random_pitch = 1.2271684
+streams_count = 1
+stream_0/stream = ExtResource("5_4q2u2")
+
+[node name="BongoCat" type="CanvasLayer" unique_id=2055529855]
+layer = 1000
+script = ExtResource("1_du5re")
+
+[node name="OnscreenKeyboard" type="PanelContainer" parent="." unique_id=1580740701]
+offset_left = 237.39386
+offset_top = 629.00006
+offset_right = 446.28778
+offset_bottom = 783.235
+rotation = -2.8728154
+scale = Vector2(1, 0.5)
+theme_override_styles/panel = ExtResource("7_7cdiu")
+script = ExtResource("8_6vs6x")
+auto_show = true
+background = ExtResource("7_7cdiu")
+normal = ExtResource("9_37lj4")
+hover = ExtResource("10_r0wyv")
+pressed = ExtResource("11_myi7c")
+special_keys = ExtResource("12_dejjv")
+metadata/_custom_type_script = "uid://bsy50ptcwy13a"
+metadata/_edit_use_anchors_ = true
+
+[node name="Cat" type="AnimatedSprite2D" parent="." unique_id=156168020]
+position = Vector2(166.78772, 498)
+sprite_frames = SubResource("SpriteFrames_g3s67")
+animation = &"right"
+
+[node name="Moo" type="AudioStreamPlayer" parent="." unique_id=2041029352]
+stream = SubResource("AudioStreamRandomizer_7cdiu")
+
+[node name="KeyboardClick" type="AudioStreamPlayer" parent="." unique_id=108137912]
+stream = ExtResource("6_j652r")

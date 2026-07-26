@@ -2,10 +2,42 @@
 
 [ext_resource type="Script" uid="uid://ca1asgk8qr50o" path="res://Gus additions/Settings/pause_menu.gd" id="1_j0r1d"]
 [ext_resource type="Shader" uid="uid://cce055uwkr7kh" path="res://Gus additions/Settings/PauseMenu.gdshader" id="1_ue8hy"]
+[ext_resource type="StyleBox" uid="uid://2kgx3wrhqhxa" path="res://addons/onscreenkeyboard/customize/styles/default_button_normal.tres" id="3_lxkd6"]
+[ext_resource type="StyleBox" uid="uid://bq2fa6y28ke53" path="res://addons/onscreenkeyboard/customize/styles/default_button_hover.tres" id="4_ovc7i"]
+[ext_resource type="Script" uid="uid://c0x857wmcwvrt" path="res://Gus additions/Settings/Tooltip_Button.gd" id="5_kdc83"]
+[ext_resource type="Script" uid="uid://dqa6ix0g0fp64" path="res://Gus additions/Settings/tooltip.gd" id="6_b17km"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j0r1d"]
 shader = ExtResource("1_ue8hy")
 shader_parameter/lod = 0.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kdc83"]
+bg_color = Color(0.02, 0.02, 0.02, 0.6509804)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.8, 0.8, 0.39215687)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vob52"]
+content_margin_left = 7.0
+content_margin_top = 7.0
+content_margin_right = 7.0
+content_margin_bottom = 7.0
+bg_color = Color(0, 0, 0, 0.69803923)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.7176471)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="Animation" id="Animation_btfaa"]
 length = 0.001
@@ -33,6 +65,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PanelContainer:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.6, 0.6, 0.6, 0.94509804)]
+}
 
 [sub_resource type="Animation" id="Animation_ue8hy"]
 resource_name = "blur"
@@ -59,7 +103,19 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(8.064605, 8.064605, 8.064605, 1)]
+"values": [Color(1, 1, 1, 0), Color(3.6180263, 3.6180263, 3.6180263, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PanelContainer:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.6, 0.6, 0.6, 0.94509804)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j0r1d"]
@@ -92,6 +148,7 @@ grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="PauseMenu" unique_id=1554380365]
 modulate = Color(1, 1, 1, 0)
+self_modulate = Color(0.6, 0.6, 0.6, 0.94509804)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -104,30 +161,131 @@ offset_right = 234.0
 offset_bottom = 238.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kdc83")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/PanelContainer" unique_id=1839548255]
 custom_minimum_size = Vector2(180, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/separation = 73
+theme_override_constants/separation = 60
 
 [node name="Resume" type="Button" parent="PauseMenu/PanelContainer/VBoxContainer" unique_id=817516889]
+self_modulate = Color(0.31, 0.31, 0.31, 1)
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_styles/normal = ExtResource("3_lxkd6")
+theme_override_styles/hover = ExtResource("4_ovc7i")
 text = "Resume"
+script = ExtResource("5_kdc83")
+
+[node name="Tooltip" type="PanelContainer" parent="PauseMenu/PanelContainer/VBoxContainer/Resume" unique_id=2021632549]
+top_level = true
+layout_mode = 0
+offset_right = 166.0
+offset_bottom = 38.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vob52")
+script = ExtResource("6_b17km")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PauseMenu/PanelContainer/VBoxContainer/Resume/Tooltip" unique_id=874937844]
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+text = "Resumes the scene"
 
 [node name="Restart" type="Button" parent="PauseMenu/PanelContainer/VBoxContainer" unique_id=1634564082]
+process_mode = 3
+self_modulate = Color(0.31, 0.31, 0.31, 1)
 layout_mode = 2
+theme_override_styles/normal = ExtResource("3_lxkd6")
+theme_override_styles/hover = ExtResource("4_ovc7i")
 text = "Restart"
+script = ExtResource("5_kdc83")
+
+[node name="Tooltip" type="PanelContainer" parent="PauseMenu/PanelContainer/VBoxContainer/Restart" unique_id=1960217716]
+top_level = true
+layout_mode = 0
+offset_right = 114.0
+offset_bottom = 61.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vob52")
+script = ExtResource("6_b17km")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PauseMenu/PanelContainer/VBoxContainer/Restart/Tooltip" unique_id=1114362845]
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+text = "Restarts the section"
 
 [node name="Tutorial" type="Button" parent="PauseMenu/PanelContainer/VBoxContainer" unique_id=1906890783]
+self_modulate = Color(0.31, 0.31, 0.31, 1)
 layout_mode = 2
+theme_override_styles/normal = ExtResource("3_lxkd6")
+theme_override_styles/hover = ExtResource("4_ovc7i")
 text = "Tutorial"
+script = ExtResource("5_kdc83")
+
+[node name="Tooltip" type="PanelContainer" parent="PauseMenu/PanelContainer/VBoxContainer/Tutorial" unique_id=784922105]
+top_level = true
+layout_mode = 0
+offset_right = 150.0
+offset_bottom = 64.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vob52")
+script = ExtResource("6_b17km")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PauseMenu/PanelContainer/VBoxContainer/Tutorial/Tooltip" unique_id=52566509]
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+text = "Refresh on game mechanics"
 
 [node name="MainMenu" type="Button" parent="PauseMenu/PanelContainer/VBoxContainer" unique_id=2127101308]
+self_modulate = Color(0.31, 0.31, 0.31, 1)
 layout_mode = 2
+theme_override_styles/normal = ExtResource("3_lxkd6")
+theme_override_styles/hover = ExtResource("4_ovc7i")
 text = "Main Menu"
+script = ExtResource("5_kdc83")
+
+[node name="Tooltip" type="PanelContainer" parent="PauseMenu/PanelContainer/VBoxContainer/MainMenu" unique_id=1166970946]
+top_level = true
+layout_mode = 0
+offset_right = 125.0
+offset_bottom = 63.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vob52")
+script = ExtResource("6_b17km")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PauseMenu/PanelContainer/VBoxContainer/MainMenu/Tooltip" unique_id=2008148642]
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+text = "Sends back to Main Menu"
+
+[node name="Quit" type="Button" parent="PauseMenu/PanelContainer/VBoxContainer" unique_id=798335645]
+self_modulate = Color(0.31, 0.31, 0.31, 1)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("3_lxkd6")
+theme_override_styles/hover = ExtResource("4_ovc7i")
+text = "Quit"
+script = ExtResource("5_kdc83")
+
+[node name="Tooltip" type="PanelContainer" parent="PauseMenu/PanelContainer/VBoxContainer/Quit" unique_id=1440775866]
+top_level = true
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 38.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vob52")
+script = ExtResource("6_b17km")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PauseMenu/PanelContainer/VBoxContainer/Quit/Tooltip" unique_id=232141455]
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+text = "Quit the game"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="PauseMenu" unique_id=2040124625]
 libraries/ = SubResource("AnimationLibrary_j0r1d")
@@ -136,3 +294,4 @@ libraries/ = SubResource("AnimationLibrary_j0r1d")
 [connection signal="pressed" from="PauseMenu/PanelContainer/VBoxContainer/Restart" to="PauseMenu" method="_on_restart_pressed"]
 [connection signal="pressed" from="PauseMenu/PanelContainer/VBoxContainer/Tutorial" to="PauseMenu" method="_on_tutorial_pressed"]
 [connection signal="pressed" from="PauseMenu/PanelContainer/VBoxContainer/MainMenu" to="PauseMenu" method="_on_main_menu_pressed"]
+[connection signal="pressed" from="PauseMenu/PanelContainer/VBoxContainer/Quit" to="PauseMenu" method="_on_quit_pressed"]

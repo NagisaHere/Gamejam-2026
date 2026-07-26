@@ -18,3 +18,7 @@ func _on_button_pressed() -> void:
 
 func _on_alarm_finished() -> void:
 	$AnimationPlayer/alarm.play()
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if Input.is_action_pressed("skip"):
+		_on_button_pressed()

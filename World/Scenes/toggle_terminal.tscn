@@ -8,12 +8,14 @@ size = Vector2(180.5, 230.5)
 [node name="ToggleTerminal" type="Node2D" unique_id=1176884240]
 script = ExtResource("1_beb6e")
 
-[node name="Label" type="Label" parent="." unique_id=184844701]
-visible = false
-offset_left = 206.0
-offset_top = 13.0
-offset_right = 403.0
-offset_bottom = 36.0
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2073967663]
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=184844701]
+light_mask = 2
+offset_left = 220.0
+offset_top = 275.0
+offset_right = 417.0
+offset_bottom = 298.0
 text = "Press E to toggle terminal"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=297529034]

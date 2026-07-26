@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://cnj05l0xaotbc"]
+
+[ext_resource type="Script" uid="uid://7w2kwrd36o6n" path="res://Gus additions/Cutscene/opening_cut_scene.gd" id="1_ehgg2"]
+[ext_resource type="VideoStream" uid="uid://boe2865xihpqk" path="res://Gus additions/Cutscene/TrialCutscene.ogv" id="2_ehgg2"]
+[ext_resource type="FontFile" uid="uid://cd6nkp8lq4sk8" path="res://Assets/fonts/Alien-Encounters-Solid-Regular.ttf" id="3_ehgg2"]
+[ext_resource type="StyleBox" uid="uid://2kgx3wrhqhxa" path="res://addons/onscreenkeyboard/customize/styles/default_button_normal.tres" id="4_7m6pm"]
+[ext_resource type="StyleBox" uid="uid://bq2fa6y28ke53" path="res://addons/onscreenkeyboard/customize/styles/default_button_hover.tres" id="5_pbbeh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8s0ec"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qr8yv"]
+
+[node name="OpeningCutScene" type="Node2D" unique_id=20640239]
+script = ExtResource("1_ehgg2")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=852819817]
+offset_right = 1280.0
+offset_bottom = 720.0
+scale = Vector2(0.9, 0.9)
+stream = ExtResource("2_ehgg2")
+autoplay = true
+
+[node name="skip_button" type="Button" parent="." unique_id=309180089]
+z_index = 5
+offset_left = 1024.0
+offset_top = 6.0
+offset_right = 1147.0
+offset_bottom = 58.0
+theme_override_colors/font_color = Color(0.69, 0.69, 0.69, 1)
+theme_override_fonts/font = ExtResource("3_ehgg2")
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = ExtResource("4_7m6pm")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_8s0ec")
+theme_override_styles/hover = ExtResource("5_pbbeh")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qr8yv")
+text = "Skip>>>"
+
+[connection signal="finished" from="VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]
+[connection signal="pressed" from="skip_button" to="." method="_on_skip_button_pressed"]

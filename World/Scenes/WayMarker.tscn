@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://brgpjtxhxpby3"]
+
+[ext_resource type="Script" uid="uid://bh21g5wioa883" path="res://World/Scenes/way_marker.gd" id="1_5yo06"]
+[ext_resource type="Texture2D" uid="uid://dod04rv2x82yn" path="res://World/AssetsWorld/Red_Right_Arrow_Transparent_PNG_Clip_Art_Image.png" id="2_ulfkp"]
+
+[node name="WayMarker" type="CanvasLayer" unique_id=1526494968]
+script = ExtResource("1_5yo06")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1236431054]
+self_modulate = Color(0.72, 0.72, 0.72, 1)
+position = Vector2(433.5, 334.5)
+scale = Vector2(0.017290615, 0.01849677)
+texture = ExtResource("2_ulfkp")
+
+[node name="Label" type="Label" parent="." unique_id=2006579390]
+offset_left = 416.0
+offset_top = 322.0
+offset_right = 464.0
+offset_bottom = 345.0
+pivot_offset = Vector2(38, 14)
+theme_override_font_sizes/font_size = 16
+text = "57.5m"

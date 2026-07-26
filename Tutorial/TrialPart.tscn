@@ -14,6 +14,10 @@
 [ext_resource type="AudioStream" uid="uid://dxkneow34sox5" path="res://Gus additions/SoundAssets/722375__qubodup__error-1.wav" id="13_jyurp"]
 [ext_resource type="AudioStream" uid="uid://bmiw6bnte8l3e" path="res://Gus additions/SoundAssets/327738__distillerystudio__error_01.wav" id="14_8tthm"]
 [ext_resource type="AudioStream" uid="uid://mqj6e1171o6h" path="res://Gus additions/SoundAssets/computer ambience.wav" id="14_ar1gl"]
+[ext_resource type="FontFile" uid="uid://cd6nkp8lq4sk8" path="res://Assets/fonts/Alien-Encounters-Solid-Regular.ttf" id="15_p1vff"]
+[ext_resource type="StyleBox" uid="uid://2kgx3wrhqhxa" path="res://addons/onscreenkeyboard/customize/styles/default_button_normal.tres" id="15_qcwpo"]
+[ext_resource type="StyleBox" uid="uid://bq2fa6y28ke53" path="res://addons/onscreenkeyboard/customize/styles/default_button_hover.tres" id="16_p1vff"]
+[ext_resource type="StyleBox" uid="uid://cwgkcfxja7708" path="res://addons/onscreenkeyboard/customize/styles/default_button_pressed.tres" id="17_7a4s8"]
 
 [sub_resource type="GDScript" id="GDScript_jphvt"]
 script/source = "extends Node2D
@@ -28,7 +32,9 @@ func _ready() -> void:
 	$typing.fingers_changed.connect($CanvasLayer.set_fingers_remaining)
 	redGlow.modulate.a = 0.0
 	
-
+func _unhandled_input(event: InputEvent) -> void:
+	if Input.is_action_pressed(\"skip\"):
+		_on_skip_button_pressed()
 
 func _on_skip_button_pressed() -> void:
 	get_tree().change_scene_to_file(\"res://World/Scenes/WorldAnimation.tscn\")
@@ -378,12 +384,6 @@ fill = 1
 fill_from = Vector2(0.48958334, 0.48958334)
 fill_to = Vector2(1, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_16q2i"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g2f8q"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ar1gl"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qcwpo"]
 
 [node name="Trial Part" type="Node2D" unique_id=1815070021]
@@ -496,48 +496,35 @@ metadata/_edit_lock_ = true
 
 [node name="skip_button" type="Button" parent="." unique_id=1327825595]
 z_index = 5
-offset_left = 948.0
-offset_top = -11.0
-offset_right = 1146.0
-offset_bottom = 65.0
+offset_left = 997.0
+offset_top = 11.0
+offset_right = 1133.0
+offset_bottom = 57.0
 theme_override_colors/font_color = Color(0.69, 0.69, 0.69, 1)
-theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxEmpty_16q2i")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_g2f8q")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_ar1gl")
+theme_override_fonts/font = ExtResource("15_p1vff")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = ExtResource("15_qcwpo")
+theme_override_styles/pressed = ExtResource("17_7a4s8")
+theme_override_styles/hover = ExtResource("16_p1vff")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_qcwpo")
 text = "Skip>>>"
 
 [node name="reload_button" type="Button" parent="." unique_id=1727089982]
 z_index = 5
-offset_left = 943.0
-offset_top = 582.0
-offset_right = 1141.0
-offset_bottom = 658.0
+offset_left = 973.0
+offset_top = 589.0
+offset_right = 1132.0
+offset_bottom = 652.0
 theme_override_colors/font_color = Color(0.69, 0.69, 0.69, 1)
-theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxEmpty_16q2i")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_g2f8q")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_ar1gl")
+theme_override_fonts/font = ExtResource("15_p1vff")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("15_qcwpo")
+theme_override_styles/pressed = ExtResource("17_7a4s8")
+theme_override_styles/hover = ExtResource("16_p1vff")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_qcwpo")
 text = "Reload⟳"
-
-[node name="Tutorial" type="Button" parent="." unique_id=1878573411]
-z_index = 5
-offset_left = -10.0
-offset_top = -15.0
-offset_right = 76.0
-offset_bottom = 87.0
-theme_override_colors/font_color = Color(0.69, 0.69, 0.69, 1)
-theme_override_font_sizes/font_size = 74
-theme_override_styles/normal = SubResource("StyleBoxEmpty_16q2i")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_g2f8q")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_ar1gl")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_qcwpo")
-text = "ⓘ"
 
 [connection signal="finished" from="Startup" to="." method="_on_startup_finished"]
 [connection signal="finished" from="computer ambience" to="." method="_on_computer_ambience_finished"]
 [connection signal="pressed" from="skip_button" to="." method="_on_skip_button_pressed"]
 [connection signal="pressed" from="reload_button" to="." method="_on_reload_button_pressed"]
-[connection signal="pressed" from="Tutorial" to="." method="_on_tutorial_pressed"]

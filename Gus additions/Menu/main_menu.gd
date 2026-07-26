@@ -44,8 +44,13 @@ func _on_fade_timer_timeout() -> void:
 		menu_fade.tween_property($"Howling wind audio", "volume_db", -80.0, 1.5)
 		menu_fade.finished.connect($"Howling wind audio".stop)
 		await menu_fade.finished
-		#get_tree().change_scene_to_file("res://World/Scenes/WorldAnimation.tscn")
-		get_tree().change_scene_to_file("res://Tutorial/Tutorial.tscn")
+		#Only play intro if it is the first time through
+		if SaveManager.playIntro == false:
+			get_tree().change_scene_to_file("res://World/Scenes/computer.tscn")
+			return
+		
+		SaveManager.playIntro = false
+		get_tree().change_scene_to_file("res://Gus additions/Cutscene/Opening_CutScene.tscn")
 
 	elif button_type == "quit":
 		get_tree().change_scene_to_file("res://placeholder_game_scene.tscn")

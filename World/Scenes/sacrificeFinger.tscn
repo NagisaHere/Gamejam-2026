@@ -1,0 +1,167 @@
+[gd_scene format=3 uid="uid://drnjifjqtjn4u"]
+
+[ext_resource type="PackedScene" uid="uid://ch2db7q0k0rwi" path="res://World/Scenes/typing_hand.tscn" id="1_7c2ji"]
+
+[sub_resource type="GDScript" id="GDScript_7c2ji"]
+script/source = "extends Node2D
+
+@export var left_hand_states: Array[Texture2D]
+@export var right_hand_states: Array[Texture2D]
+
+@onready var left_hand := $LeftHand
+@onready var right_hand := $RightHand
+@onready var animation_player := $AnimationPlayer
+@onready var buttons = $\"../../CanvasLayer\".get_children()
+
+var fingers = {1:true,2:true,3:true,4:true,5:true,
+				6:true,7:true,8:true,9:true,0:true}
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.is_echo():
+			return
+		var current_keycode = event.keycode
+		var key_name = OS.get_keycode_string(current_keycode)
+		
+		for key_button in buttons:
+				if key_button.text == key_name:
+					key_button.button_pressed = event.pressed
+		
+		if event.pressed:
+			if key_name in [\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\",\"0\"]:
+				fingers[int(key_name)] = false
+				show_state(fingers)
+		else:
+			return
+			
+		
+
+func show_state(fingers_dict):
+	for finger in fingers_dict:
+		if fingers_dict[finger] == true:
+			return
+		else:
+			if finger <= 5:
+				#left_hand.texture = left_hand_states[left_index]
+				print(fingers_dict)
+			else:
+				#right_hand.texture = left_hand_states[left_index]
+				print(fingers_dict)
+			
+		
+	
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7c2ji"]
+bg_color = Color(0.6392157, 0.07058824, 0, 1)
+
+[node name="SacrificeFinger" type="Node2D" unique_id=554996260]
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=1517773705]
+
+[node name="TypingHand" parent="CanvasLayer2" unique_id=832879252 instance=ExtResource("1_7c2ji")]
+position = Vector2(563.99994, 320)
+scale = Vector2(0.475, 0.475)
+script = SubResource("GDScript_7c2ji")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=204512040]
+
+[node name="Label1" type="Button" parent="CanvasLayer" unique_id=1792382131]
+offset_left = 467.0
+offset_top = 245.0
+offset_right = 485.0
+offset_bottom = 276.0
+size_flags_horizontal = 4
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7c2ji")
+toggle_mode = true
+text = "1"
+
+[node name="Label2" type="Button" parent="CanvasLayer" unique_id=1307956632]
+offset_left = 491.0
+offset_top = 259.0
+offset_right = 509.0
+offset_bottom = 290.0
+size_flags_horizontal = 4
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7c2ji")
+toggle_mode = true
+text = "2"
+
+[node name="Label3" type="Button" parent="CanvasLayer" unique_id=1780823933]
+offset_left = 511.0
+offset_top = 278.0
+offset_right = 529.0
+offset_bottom = 309.0
+size_flags_horizontal = 4
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7c2ji")
+toggle_mode = true
+text = "3"
+
+[node name="Label4" type="Button" parent="CanvasLayer" unique_id=935901485]
+offset_left = 517.0
+offset_top = 311.0
+offset_right = 535.0
+offset_bottom = 342.0
+size_flags_horizontal = 4
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7c2ji")
+toggle_mode = true
+text = "4"
+
+[node name="Label5" type="Button" parent="CanvasLayer" unique_id=405729942]
+offset_left = 509.0
+offset_top = 351.0
+offset_right = 527.0
+offset_bottom = 382.0
+size_flags_horizontal = 4
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7c2ji")
+toggle_mode = true
+text = "5"
+
+[node name="Label6" type="Button" parent="CanvasLayer" unique_id=2037124270]
+offset_left = 602.0
+offset_top = 340.0
+offset_right = 620.0
+offset_bottom = 371.0
+size_flags_horizontal = 4
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7c2ji")
+toggle_mode = true
+text = "6"
+
+[node name="Label7" type="Button" parent="CanvasLayer" unique_id=960776409]
+offset_left = 591.0
+offset_top = 292.0
+offset_right = 609.0
+offset_bottom = 323.0
+size_flags_horizontal = 4
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7c2ji")
+toggle_mode = true
+text = "7"
+
+[node name="Label8" type="Button" parent="CanvasLayer" unique_id=1521619764]
+offset_left = 600.0
+offset_top = 257.0
+offset_right = 618.0
+offset_bottom = 288.0
+size_flags_horizontal = 4
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7c2ji")
+toggle_mode = true
+text = "8"
+
+[node name="Label9" type="Button" parent="CanvasLayer" unique_id=56756406]
+offset_left = 626.0
+offset_top = 247.0
+offset_right = 644.0
+offset_bottom = 278.0
+size_flags_horizontal = 4
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7c2ji")
+toggle_mode = true
+text = "9"
+
+[node name="Label10" type="Button" parent="CanvasLayer" unique_id=86042625]
+offset_left = 651.0
+offset_top = 245.0
+offset_right = 669.0
+offset_bottom = 276.0
+size_flags_horizontal = 4
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7c2ji")
+toggle_mode = true
+text = "0"

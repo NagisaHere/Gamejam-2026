@@ -25,11 +25,12 @@ var typing_states := [
 
 
 func _ready():
-	typing_game.fingers_changed.connect(_on_fingers_changed)
+	#typing_game.fingers_changed.connect(_on_fingers_changed)
 	animation_player.play("typing_loop")
 
-func _on_fingers_changed(value):
+func _on_typing_fingers_changed(value):
 	print("remaining fingers:", value)
+	await get_tree().create_timer(0.20).timeout
 	show_typing_state(10 - value)
 
 

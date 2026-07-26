@@ -1,0 +1,163 @@
+[gd_scene format=3 uid="uid://ctgdbb1mbjjj2"]
+
+[ext_resource type="Texture2D" uid="uid://d0f7fyndmi306" path="res://Assets/interface (20260510063538).png" id="1_vpf4f"]
+[ext_resource type="Texture2D" uid="uid://dsw7gnjfaql5m" path="res://Assets/interface (20260510071510).png" id="2_famby"]
+
+[sub_resource type="GDScript" id="GDScript_so7gw"]
+script/source = "extends Node2D
+
+var scrollBar_tracker = []
+var line1 = [\"A\",\"Z\"]
+var line2 = [\"S\",\"E\"]
+var fullBar = line1+line2
+
+var line1_complete = false
+
+# checks if the input keys follow the pattern of fullBar and updates the ProgressBar accordingly
+func _process(delta: float) -> void:
+	if scrollBar_tracker.size() > fullBar.size():
+		reset_progressBars()
+		return
+	
+	for letter_index in range(scrollBar_tracker.size()):
+		if scrollBar_tracker[letter_index] != fullBar[letter_index]:
+			print(\"reseting1\")
+			reset_progressBars()
+			return
+			
+	#percent of progress through fullBar inputted
+	#make one float to avoid integer division
+	var percentage_complete1 = clamp(float(scrollBar_tracker.size())/line1.size() * 100, 0, 100)
+	var percentage_complete2 = clamp(float(scrollBar_tracker.size() - line1.size())/line2.size() * 100, 0, 100)
+	update_line1(percentage_complete1)
+	update_line2(percentage_complete2)
+
+#grabs keystrokes inputted and puts them in scrollBar_Tracker
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.is_echo():
+			return
+		var current_keycode = event.keycode
+		var key_name = OS.get_keycode_string(current_keycode)
+		if event.pressed:
+			scrollBar_tracker.append(key_name)
+			print(scrollBar_tracker)
+			#everytime a keystroke is input restart the no-input timeout countdown
+			$Timer.start()
+		else:
+			return
+
+#percentage out of 100
+func update_line1(percentage: float) -> void:
+	$esz/ProgressBar1.value = percentage
+
+func update_line2(percentage: float) -> void:
+	$wsx/ProgressBar2.value = percentage
+
+#timer for No-input timeout
+func _on_timer_timeout() -> void:
+	reset_progressBars()
+	
+func reset_progressBars():
+	update_line1(0)
+	update_line2(0)
+	scrollBar_tracker = []
+
+func _on_progress_bar_1_bar_1_is_full() -> void:
+	pass # Replace with function body.
+
+func _on_progress_bar_2_bar_2_is_full() -> void:
+	pass # Replace with function body.
+"
+
+[sub_resource type="GDScript" id="GDScript_0bijf"]
+script/source = "extends ProgressBar
+signal bar1_is_full
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	value_changed.connect(_check_if_full)
+
+func _check_if_full(new_value: float) -> void:
+	if new_value >= max_value:
+		bar1_is_full.emit()
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_by8s3"]
+script/source = "extends ProgressBar
+signal bar2_is_full
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	value_changed.connect(_check_if_full)
+
+func _check_if_full(new_value: float) -> void:
+	if new_value >= max_value:
+		bar2_is_full.emit()
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[node name="Xpattern" type="Node2D" unique_id=23336200]
+script = SubResource("GDScript_so7gw")
+
+[node name="Sprite2D4" type="Sprite2D" parent="." unique_id=1911006271]
+position = Vector2(575.29663, 325.9041)
+scale = Vector2(0.44628382, 0.43537498)
+texture = ExtResource("1_vpf4f")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=872259112]
+position = Vector2(575, 330.00003)
+scale = Vector2(0.44628382, 0.43537498)
+texture = ExtResource("2_famby")
+
+[node name="Timer" type="Timer" parent="." unique_id=1633599628]
+one_shot = true
+
+[node name="esz" type="CanvasLayer" parent="." unique_id=1809114881]
+
+[node name="ProgressBar1" type="ProgressBar" parent="esz" unique_id=615276280]
+anchors_preset = -1
+anchor_left = 0.12552086
+anchor_top = 0.22012386
+anchor_right = 0.9435317
+anchor_bottom = 1.1056192
+offset_left = 190.92189
+offset_top = 73.06775
+offset_right = -524.0781
+offset_bottom = -382.93225
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.81246793
+script = SubResource("GDScript_0bijf")
+metadata/_edit_use_anchors_ = true
+
+[node name="wsx" type="CanvasLayer" parent="." unique_id=1702123954]
+
+[node name="ProgressBar2" type="ProgressBar" parent="wsx" unique_id=1203602341]
+anchors_preset = -1
+anchor_left = -0.056186862
+anchor_top = 0.09727101
+anchor_right = 0.81284153
+anchor_bottom = 0.95784634
+offset_left = 487.72733
+offset_top = 244.96841
+offset_right = -227.27258
+offset_bottom = -211.03162
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 5.5197883
+script = SubResource("GDScript_by8s3")
+metadata/_edit_use_anchors_ = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="bar1_is_full" from="esz/ProgressBar1" to="." method="_on_progress_bar_1_bar_1_is_full"]
+[connection signal="changed" from="esz/ProgressBar1" to="esz/ProgressBar1" method="_on_changed"]
+[connection signal="bar2_is_full" from="wsx/ProgressBar2" to="." method="_on_progress_bar_2_bar_2_is_full"]
+[connection signal="changed" from="wsx/ProgressBar2" to="wsx/ProgressBar2" method="_on_changed"]

@@ -1,7 +1,7 @@
-extends CanvasLayer
+extends Control
 
 func _ready():
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(8.0).timeout
 	get_tree().change_scene_to_file("res://Gus additions/Scoreboard/Scoreboard.tscn")
 
 

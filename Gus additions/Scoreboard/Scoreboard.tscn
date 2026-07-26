@@ -4,30 +4,70 @@
 [ext_resource type="PackedScene" uid="uid://duq2aie5xo0dt" path="res://Gus additions/Scoreboard/scoreboard_row.tscn" id="2_0v5ew"]
 [ext_resource type="Texture2D" uid="uid://vox5ym6df8uk" path="res://Gus additions/Scoreboard/concept_art (20260422122241).png" id="3_0v5ew"]
 [ext_resource type="Script" uid="uid://8y5qy2yt1iu3" path="res://Gus additions/Scoreboard/scoreboard_scroller.gd" id="3_rukjy"]
-[ext_resource type="FontFile" uid="uid://cjinfi8c1iesd" path="res://Gus additions/Scoreboard/Zabulen-Yqwnj.otf" id="5_rukjy"]
+[ext_resource type="FontFile" uid="uid://cd6nkp8lq4sk8" path="res://Assets/fonts/Alien-Encounters-Solid-Regular.ttf" id="5_ls7ig"]
 [ext_resource type="AudioStream" uid="uid://dm8ajxbt71obn" path="res://Gus additions/SoundAssets/Competetive music.wav" id="6_5ww5k"]
-[ext_resource type="FontFile" uid="uid://cy20ni1pqq46h" path="res://Gus additions/Scoreboard/Aquire-BW0ox.otf" id="7_v53b6"]
+[ext_resource type="FontFile" uid="uid://6phg4vtpxiph" path="res://Assets/fonts/Alien-Encounters-Bold-Italic.ttf" id="6_ls7ig"]
+[ext_resource type="StyleBox" uid="uid://2kgx3wrhqhxa" path="res://addons/onscreenkeyboard/customize/styles/default_button_normal.tres" id="8_ls7ig"]
+[ext_resource type="StyleBox" uid="uid://cwgkcfxja7708" path="res://addons/onscreenkeyboard/customize/styles/default_button_pressed.tres" id="9_5mlwh"]
+[ext_resource type="StyleBox" uid="uid://bq2fa6y28ke53" path="res://addons/onscreenkeyboard/customize/styles/default_button_hover.tres" id="9_g3pyu"]
 
 [sub_resource type="Theme" id="Theme_1oo4x"]
 
-[sub_resource type="Gradient" id="Gradient_wpv6j"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.23, 0.23, 0.23, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_1oo4x"]
-gradient = SubResource("Gradient_wpv6j")
-width = 631
-height = 46
-fill_from = Vector2(0, 0.35612535)
-fill_to = Vector2(0.982906, 0.4074074)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5ww5k"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v53b6"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sawqb"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ls7ig"]
+
+[sub_resource type="Animation" id="Animation_06t4h"]
+resource_name = "Fade_in"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7vrkn"]
+resource_name = "Fade_out"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_fu7sn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v53b6"]
+_data = {
+&"Fade_in": SubResource("Animation_06t4h"),
+&"Fade_out": SubResource("Animation_7vrkn"),
+&"RESET": SubResource("Animation_fu7sn")
+}
 
 [node name="placeholder game scene" type="Node2D" unique_id=2046757466]
 script = ExtResource("1_yemvh")
@@ -52,10 +92,10 @@ offset_bottom = 686.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel" unique_id=930138343]
 layout_mode = 0
-offset_left = 235.0
-offset_top = 123.0
-offset_right = 867.0
-offset_bottom = 553.0
+offset_left = 176.0
+offset_top = 132.0
+offset_right = 996.0
+offset_bottom = 562.0
 theme = SubResource("Theme_1oo4x")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScrollContainer" unique_id=1211571040]
@@ -66,51 +106,87 @@ script = ExtResource("3_rukjy")
 
 [node name="TextureRect" type="TextureRect" parent="Panel" unique_id=2006525659]
 layout_mode = 0
-offset_left = 235.0
-offset_top = 72.0
-offset_right = 867.0
-offset_bottom = 118.0
-texture = SubResource("GradientTexture2D_1oo4x")
+offset_left = 277.0
+offset_top = 81.0
+offset_right = 909.0
+offset_bottom = 127.0
 stretch_mode = 2
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="Panel/TextureRect" unique_id=1058129959]
 layout_mode = 0
-offset_left = 230.0
-offset_top = 1.0
-offset_right = 394.0
-offset_bottom = 48.0
-theme_override_font_sizes/normal_font_size = 30
+offset_left = 464.0
+offset_top = 22.0
+offset_right = 653.0
+offset_bottom = 69.0
+theme_override_fonts/normal_font = ExtResource("5_ls7ig")
+theme_override_font_sizes/normal_font_size = 26
 bbcode_enabled = true
 text = "Time Left"
 
+[node name="RichTextLabel6" type="RichTextLabel" parent="Panel/TextureRect" unique_id=1606360392]
+layout_mode = 0
+offset_left = 348.0
+offset_top = 22.0
+offset_right = 537.0
+offset_bottom = 69.0
+theme_override_fonts/normal_font = ExtResource("5_ls7ig")
+theme_override_font_sizes/normal_font_size = 26
+bbcode_enabled = true
+text = "Levels"
+
+[node name="RichTextLabel7" type="RichTextLabel" parent="Panel/TextureRect" unique_id=2127250143]
+layout_mode = 0
+offset_left = 204.0
+offset_top = 22.0
+offset_right = 393.0
+offset_bottom = 69.0
+theme_override_fonts/normal_font = ExtResource("5_ls7ig")
+theme_override_font_sizes/normal_font_size = 26
+bbcode_enabled = true
+text = "Time Limit"
+
 [node name="RichTextLabel" type="RichTextLabel" parent="Panel/TextureRect" unique_id=1248033906]
 layout_mode = 0
-offset_left = 14.0
-offset_top = 2.0
-offset_right = 117.0
-offset_bottom = 50.0
-theme_override_font_sizes/normal_font_size = 30
+offset_left = -7.0
+offset_top = 25.0
+offset_right = 96.0
+offset_bottom = 73.0
+theme_override_fonts/normal_font = ExtResource("5_ls7ig")
+theme_override_font_sizes/normal_font_size = 26
 bbcode_enabled = true
 text = "Name"
 
+[node name="RichTextLabel5" type="RichTextLabel" parent="Panel/TextureRect" unique_id=1695684541]
+layout_mode = 0
+offset_left = -108.0
+offset_top = 25.0
+offset_right = 11.0
+offset_bottom = 73.0
+theme_override_fonts/normal_font = ExtResource("5_ls7ig")
+theme_override_font_sizes/normal_font_size = 26
+bbcode_enabled = true
+text = "Place
+"
+
 [node name="RichTextLabel3" type="RichTextLabel" parent="Panel/TextureRect" unique_id=420869449]
 layout_mode = 0
-offset_left = 451.0
-offset_top = 1.0
-offset_right = 634.0
-offset_bottom = 47.0
-theme_override_font_sizes/normal_font_size = 30
+offset_left = 613.0
+offset_top = 21.0
+offset_right = 847.0
+offset_bottom = 67.0
+theme_override_fonts/normal_font = ExtResource("5_ls7ig")
+theme_override_font_sizes/normal_font_size = 27
 bbcode_enabled = true
 text = "Fingers Left"
 
 [node name="RichTextLabel4" type="RichTextLabel" parent="Panel/TextureRect" unique_id=1036136634]
 layout_mode = 0
-offset_left = 159.0
-offset_top = -64.0
-offset_right = 506.0
-offset_bottom = 8.0
-theme_override_fonts/normal_font = ExtResource("5_rukjy")
-theme_override_font_sizes/normal_font_size = 56
+offset_left = 77.0
+offset_top = -56.0
+offset_right = 505.0
+offset_bottom = 16.0
+theme_override_fonts/normal_font = ExtResource("6_ls7ig")
+theme_override_font_sizes/normal_font_size = 50
 bbcode_enabled = true
 text = "Leaderboard"
 
@@ -120,17 +196,30 @@ volume_db = -20.645
 autoplay = true
 
 [node name="Button" type="Button" parent="." unique_id=1942617716]
-offset_left = 920.0
-offset_top = 21.0
-offset_right = 1129.0
-offset_bottom = 103.0
-theme_override_fonts/font = ExtResource("7_v53b6")
-theme_override_font_sizes/font_size = 37
-theme_override_styles/normal = SubResource("StyleBoxEmpty_5ww5k")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_v53b6")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_sawqb")
+offset_left = 925.0
+offset_top = 15.0
+offset_right = 1144.0
+offset_bottom = 80.0
+theme_override_fonts/font = ExtResource("5_ls7ig")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = ExtResource("8_ls7ig")
+theme_override_styles/pressed = ExtResource("9_5mlwh")
+theme_override_styles/hover = ExtResource("9_g3pyu")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ls7ig")
 text = "Main Menu"
+
+[node name="Fade Transition" type="ColorRect" parent="." unique_id=79606890]
+visible = false
+offset_left = -2.0216575
+offset_top = -1.9999999
+offset_right = 479.97833
+offset_bottom = 254.0
+scale = Vector2(2.4471273, 2.6212912)
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Fade Transition" unique_id=1973155048]
+libraries/ = SubResource("AnimationLibrary_v53b6")
 
 [connection signal="finished" from="Competetive Music" to="." method="_on_competetive_music_finished"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

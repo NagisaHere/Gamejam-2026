@@ -3,6 +3,7 @@ extends Control
 func _ready() -> void:
 	$".".hide()
 	$AnimationPlayer.play("RESET")
+	#PauseMenu.get_node("VideoManager").play_video("res://Tutorial/first.ogv")
 
 func resume():
 	get_tree().paused =false
@@ -39,5 +40,12 @@ func _on_main_menu_pressed() -> void:
 
 
 func _on_tutorial_pressed() -> void:
-		resume()
-		get_tree().change_scene_to_file("res://Tutorial/Tutorial.tscn")
+	$AnimationPlayer.play_backwards("blur")
+	$".".hide()
+	var overlay = preload("res://Tutorial/Tutorial.tscn").instantiate()
+	add_child(overlay)
+	#get_tree().change_scene_to_file("res://Tutorial/Tutorial.tscn")
+
+
+func _on_quit_pressed() -> void:
+	get_tree().quit()

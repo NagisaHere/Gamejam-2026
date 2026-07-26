@@ -3,10 +3,39 @@
 [ext_resource type="Script" uid="uid://bmalasmg7rppk" path="res://Tutorial/Tutorial.gd" id="1_yhiv6"]
 [ext_resource type="Resource" uid="uid://bmnskkiear3p8" path="res://Tutorial/tutorial.dialogue" id="2_yhiv6"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="3_3oavh"]
+[ext_resource type="Shader" uid="uid://btrfowcrl0sex" path="res://Tutorial/TutorialShader.gdshader" id="3_x3xat"]
 [ext_resource type="Script" uid="uid://bb52rsfwhkxbn" path="res://addons/dialogue_manager/dialogue_responses_menu.gd" id="4_l41xm"]
-[ext_resource type="Script" uid="uid://bcuulk7ptu4tf" path="res://Tutorial/video_manager.gd" id="5_3oavh"]
+[ext_resource type="StyleBox" uid="uid://2kgx3wrhqhxa" path="res://addons/onscreenkeyboard/customize/styles/default_button_normal.tres" id="5_hgldx"]
+[ext_resource type="FontFile" uid="uid://cd6nkp8lq4sk8" path="res://Assets/fonts/Alien-Encounters-Solid-Regular.ttf" id="5_jm7vr"]
+[ext_resource type="StyleBox" uid="uid://bq2fa6y28ke53" path="res://addons/onscreenkeyboard/customize/styles/default_button_hover.tres" id="6_jm7vr"]
 [ext_resource type="AudioStream" uid="uid://bn56sk8ive5yn" path="res://Gus additions/SoundAssets/clickNext.wav" id="6_l41xm"]
 [ext_resource type="AudioStream" uid="uid://cst1pnrpl6yhy" path="res://Gus additions/SoundAssets/clickBack.wav" id="7_hgldx"]
+[ext_resource type="StyleBox" uid="uid://cwgkcfxja7708" path="res://addons/onscreenkeyboard/customize/styles/default_button_pressed.tres" id="8_p46jp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p46jp"]
+shader = ExtResource("3_x3xat")
+shader_parameter/brightness = 1.0000000475
+shader_parameter/contrast = 1.0000000475
+shader_parameter/saturation = 1.0000000475
+shader_parameter/gamma = 1.05
+shader_parameter/curvature = 0.0
+shader_parameter/corner_soften = 0.06
+shader_parameter/vignette = 0.09200000437
+shader_parameter/scanline_strength = 0.04
+shader_parameter/scanline_density = 1.15
+shader_parameter/interlace_strength = 0.2
+shader_parameter/mask_strength = 0.22
+shader_parameter/mask_scale = 1.0
+shader_parameter/chroma_offset_px = 0.8
+shader_parameter/luma_smear_px = 2.2
+shader_parameter/jitter_px = 0.3200000152
+shader_parameter/wobble_px = 0.286000013585
+shader_parameter/tape_noise = 0.22
+shader_parameter/tape_lines = 0.35
+shader_parameter/roll_speed = 0.1
+shader_parameter/roll_strength = 0.15
+shader_parameter/glow_strength = 0.25
+shader_parameter/glow_threshold = 0.65
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spyqn"]
 bg_color = Color(0, 0, 0, 1)
@@ -147,30 +176,24 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yhiv6"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3oavh"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l41xm"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hgldx"]
 
 [node name="ExampleBalloon" type="CanvasLayer" unique_id=1434168376]
-layer = 93
+layer = 99
 script = ExtResource("1_yhiv6")
 dialogue_resource = ExtResource("2_yhiv6")
 auto_start = true
+will_block_other_input = false
 metadata/_edit_vertical_guides_ = [-120.0]
 
-[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=552462366 groups=["global_video_player"]]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-expand = true
-loop = true
-script = ExtResource("5_3oavh")
+[node name="VideoManager" type="VideoStreamPlayer" parent="." unique_id=225327853]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VHS shader" type="ColorRect" parent="." unique_id=1157055228]
+material = SubResource("ShaderMaterial_p46jp")
+offset_right = 1148.0
+offset_bottom = 644.0
 
 [node name="Balloon" type="Control" parent="." unique_id=359403728]
 unique_name_in_owner = true
@@ -275,15 +298,16 @@ text = "Response example"
 [node name="skip_button" type="Button" parent="Balloon" unique_id=417724651]
 z_index = 5
 layout_mode = 0
-offset_left = 959.0
-offset_top = -12.0
-offset_right = 1157.0
-offset_bottom = 64.0
+offset_left = 1025.0
+offset_top = 5.0
+offset_right = 1148.0
+offset_bottom = 57.0
 theme_override_colors/font_color = Color(0.69, 0.69, 0.69, 1)
-theme_override_font_sizes/font_size = 45
-theme_override_styles/normal = SubResource("StyleBoxEmpty_yhiv6")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_3oavh")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_l41xm")
+theme_override_fonts/font = ExtResource("5_jm7vr")
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = ExtResource("5_hgldx")
+theme_override_styles/pressed = ExtResource("8_p46jp")
+theme_override_styles/hover = ExtResource("6_jm7vr")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_hgldx")
 text = "Skip>>>"
 
