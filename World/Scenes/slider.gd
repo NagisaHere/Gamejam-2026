@@ -47,6 +47,8 @@ func _process(delta: float) -> void:
 		return
 		
 	if scrollBar_tracker.size() > fullBar.size():
+		if finished == true:
+				return
 		reset_progressBar()
 		return
 	

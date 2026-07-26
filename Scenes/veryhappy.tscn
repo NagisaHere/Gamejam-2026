@@ -133,12 +133,12 @@ autoplay = &"Zoom_Out"
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1576170388]
 modulate = Color(0.38, 0.454, 0.5, 1)
 layout_mode = 0
-offset_left = 295.0
-offset_top = 204.0
-offset_right = 864.0
-offset_bottom = 302.0
+offset_left = 221.0
+offset_top = 223.0
+offset_right = 989.0
+offset_bottom = 392.0
 theme_override_font_sizes/normal_font_size = 60
 bbcode_enabled = true
-text = "[pulse freq=3 color=\"#00ffe5\" height=10.0]LAWSUIT SECURED![/pulse]"
+text = "[pulse freq=3 color=\"#00ffe5\" height=10.0]MISSION ACCOMPLISHED![/pulse]"
 visible_characters = 0
 visible_ratio = 0.0

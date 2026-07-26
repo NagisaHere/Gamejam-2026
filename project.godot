@@ -43,7 +43,10 @@ project/assembly_name="frigid-digits"
 
 [editor]
 
+movie_writer/video_quality=1.0
 movie_writer/movie_file="res://Tutorial/example_tutorial.ogv"
+movie_writer/disable_vsync=true
+movie_writer/fps=30
 
 [editor_plugins]
 
@@ -140,3 +143,4 @@ locale/translations_pot_files=PackedStringArray("res://Tutorial/tutorial.dialogu
 
 textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
+anti_aliasing/quality/msaa_2d=1

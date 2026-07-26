@@ -101,7 +101,7 @@ func _unhandled_input(_event: InputEvent) -> void:
 	if will_block_other_input:
 		get_viewport().set_input_as_handled()
 	if Input.is_action_pressed("practice"):
-		if dialogue_line and "Press F to go to PRACTICE" in dialogue_line.text:
+		if dialogue_line and "Press F to accept mission" in dialogue_line.text:
 			if PauseMenu.get_node("VideoManager"):
 				PauseMenu.get_node("VideoManager").stop_video()
 			
