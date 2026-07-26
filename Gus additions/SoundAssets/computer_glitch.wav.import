@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://caifh7vh78rmx"
+path="res://.godot/imported/computer_glitch.wav-9391f67b44f57ae2b16774d01d2d288f.sample"
+
+[deps]
+
+source_file="res://Gus additions/SoundAssets/computer_glitch.wav"
+dest_files=["res://.godot/imported/computer_glitch.wav-9391f67b44f57ae2b16774d01d2d288f.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

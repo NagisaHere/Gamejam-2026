@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dsw7gnjfaql5m" path="res://Assets/interface (20260510071510).png" id="2_660oy"]
 [ext_resource type="Script" uid="uid://2e0a3t6tbbhp" path="res://World/Scenes/progress_bar.gd" id="4_o78fl"]
 [ext_resource type="AudioStream" uid="uid://dkrtaqc67s0h6" path="res://Gus additions/SoundAssets/charge_button3.wav" id="5_4m5aq"]
+[ext_resource type="FontFile" uid="uid://6phg4vtpxiph" path="res://Assets/fonts/Alien-Encounters-Bold-Italic.ttf" id="6_ybj1r"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4m5aq"]
 bg_color = Color(0.91, 0.91, 0.91, 0.69803923)
@@ -44,9 +45,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 260.0
-offset_top = 181.0
+offset_top = 159.0
 offset_right = -443.0
-offset_bottom = -248.0
+offset_bottom = -286.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_4m5aq")
@@ -58,9 +59,9 @@ one_shot = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1932981986]
 offset_left = 267.0
-offset_top = 410.0
+offset_top = 372.0
 offset_right = 699.0
-offset_bottom = 450.0
+offset_bottom = 412.0
 size_flags_horizontal = 3
 alignment = 1
 
@@ -138,6 +139,18 @@ text = ";"
 stream = SubResource("AudioStreamRandomizer_4m5aq")
 volume_db = -19.914
 pitch_scale = 0.55
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=946861628]
+offset_left = 254.0
+offset_top = 429.0
+offset_right = 701.0
+offset_bottom = 511.0
+theme_override_colors/default_color = Color(0.78999996, 1, 0.37, 1)
+theme_override_fonts/normal_font = ExtResource("6_ybj1r")
+theme_override_font_sizes/normal_font_size = 31
+bbcode_enabled = true
+text = "Slide across the Keys to Unlock the next Phrase"
+horizontal_alignment = 1
 
 [connection signal="bar_is_full" from="ProgressBar" to="." method="_on_progress_bar_bar_is_full"]
 [connection signal="changed" from="ProgressBar" to="ProgressBar" method="_on_changed"]

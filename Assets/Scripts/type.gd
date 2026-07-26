@@ -17,6 +17,10 @@ var current_mistakes: String = ""
 var killed_fingers: Array[int] = []
 var drop_rate = SaveManager.dropkey_level/float(100)
 
+var dropkey_ready = false
+signal restart_timer
+signal finger_lost
+
 #Hand modifiers
 var no_left := false
 var no_right := false
@@ -58,7 +62,18 @@ func _ready() -> void:
 	
 	if random_freeze_modifier == true:
 		$"../Freeze_timer".start()
-		
+	
+	#var popups: Array[Callable] = [
+	#			open_popup2,
+	#			open_popup1
+	#		]
+	#popups.pick_random().call()
+	if SaveManager.time_mode:
+		$"../DropKeyTimer/ProgressBar".show()
+		$"../DropKeyTimer/RichTextLabel".show()
+	else:
+		$"../DropKeyTimer/ProgressBar".hide()
+		$"../DropKeyTimer/RichTextLabel".hide()
 			
 func kill_left():
 	for fingers_toKill in [0,1,2,3,4]:
@@ -239,6 +254,8 @@ func _unhandled_input(event: InputEvent) -> void:
 					trigger_ice_spike(1.3,0.7)
 					$"../Camera2D".trigger_shake()
 					$"../Freezing Finger".play()
+					finger_lost.emit()
+					flash_dropkey_time()
 					
 				
 					if fingers_remaining == 0:
@@ -268,13 +285,26 @@ func _unhandled_input(event: InputEvent) -> void:
 			var special_chars = "!@#$%^&*"
 			key_typed = special_chars[randi() % special_chars.length()]
 		
-		if next_character != " " and randf() < (10 - fingers_remaining) * drop_rate:
+		if next_character != " " and randf() < (10 - fingers_remaining) * drop_rate and not SaveManager.time_mode:
 			active_enemy.set_next_character(current_letter_index, current_mistakes, true)
 			show_warning_message()
 			#Sound of faulty key, like fallout one
 			$"../Input not registered".play()
 			pop_letter_off_screen(current_letter_index)
 			terminal_spark()
+			dropkey_ready = false
+			restart_timer.emit()
+			return
+			
+		if next_character != " " and dropkey_ready and SaveManager.time_mode:
+			active_enemy.set_next_character(current_letter_index, current_mistakes, true)
+			show_warning_message()
+			#Sound of faulty key, like fallout one
+			$"../Input not registered".play()
+			pop_letter_off_screen(current_letter_index)
+			terminal_spark()
+			dropkey_ready = false
+			restart_timer.emit()
 			return
 
 		if active_enemy == null:
@@ -616,3 +646,19 @@ func terminal_spark():
 
 	sparks3.emitting = false
 	
+
+
+func _on_drop_key_timer_timeout() -> void:
+	dropkey_ready = true
+
+const flashes = 3
+func flash_dropkey_time():
+	var tween = create_tween().set_loops(flashes)
+	
+	# Instantly switch to Red, wait 0.2 seconds
+	tween.tween_callback(func(): $"../DropKeyTimer/RichTextLabel".modulate = Color.RED)
+	tween.tween_interval(0.2)
+	
+	# Instantly switch to White, wait 0.2 seconds
+	tween.tween_callback(func(): $"../DropKeyTimer/RichTextLabel".modulate = Color(0.761, 0.65, 1.0, 1.0))
+	tween.tween_interval(0.2)

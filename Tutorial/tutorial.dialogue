@@ -1,12 +1,12 @@
 ~ start 
-do play_local_video("res://Tutorial/first.ogv")
+do play_local_video("res://Tutorial/Tutorial_combined_pt1.ogv")
 1/6: Type the phrases as they appear on the terminal. A [color=#639765]Green[/color] letter is a letter that needs to by typed.
 - next ->
 	do NextClickSound()
 	
 
 ~ second
-do play_local_video("res://Tutorial/second.ogv")
+do play_local_video("res://Tutorial/Tutorial_combined_pt2.ogv")
 2/6: [color=#4682b4]Blue[/color] letters are previously correctly typed characters, while [color=#a65455]Red[/color] signifies incorrect letters that need to be deleted.
 - back <-
 	do BackClickSound()
@@ -16,7 +16,7 @@ do play_local_video("res://Tutorial/second.ogv")
 
 
 ~ third
-do play_local_video("res://Tutorial/third.ogv")
+do play_local_video("res://Tutorial/Tutorial_combined_pt3.ogv")
 3/6: Pressing [b][u]backspace[/u][/b] to delete a character will deduct a finger from your hands, however if you hold [b][u]backspace[/u][/b] to delete multiple characters, it will count as only deleting 1 finger.
 - back <-
 	do BackClickSound()
@@ -26,8 +26,12 @@ do play_local_video("res://Tutorial/third.ogv")
 
 
 ~ fourth
-do play_local_video("res://Tutorial/fourth.ogv")
-4/6: For every lost finger you add a 5% chance to drop a key space represented by a [color=9901efff]Purple[/color] key, that means when you type you have a [b][i]fingers_lost*5%[/i][/b] chance for your keystroke to not register.
+if SaveManager.time_mode:
+	do play_local_video("res://Tutorial/Tutorial_combined_alt_pt4.ogv")
+	4/6: Every 10 seconds the terminal will malfunction. This will cause your keystoke to not register, represented as a [color=9901efff]Purple[/color] character. Every finger you lose will cause the timer to go faster
+else:
+	do play_local_video("res://Tutorial/Tutorial_combined_pt4.ogv")
+	4/6: For every lost finger you add a 2.5% chance for the terminal to malfunction. This will cause your keystoke to not register, represented as a [color=9901efff]Purple[/color] character. [center] [/center]
 - back <-
 	do BackClickSound()
 	=> third
@@ -36,7 +40,8 @@ do play_local_video("res://Tutorial/fourth.ogv")
 
 
 ~ fifth
-5/6: You must finish within the timer will at least [b][u]1[/u][/b] finger remaining.
+do play_local_video("res://Tutorial/Tutorial_combined_pt5.ogv")
+5/6: You must finish tracing all passwords before the security timer autolocks the terminal. You will need at least [b][u]1[/u][/b] finger remaining.
 - back <-
 	do BackClickSound()
 	=> fourth
@@ -45,7 +50,8 @@ do play_local_video("res://Tutorial/fourth.ogv")
 
 
 ~ sixth
-6/6: Your score on the leaderboard will depend on mainly the number of [b][u]fingers[/u][/b] you have remaining, then [b][u]time[/u][/b] will be taken into account. [center][pulse freq=1.0 color=#ffffff40 ease=-2.0]Press F to go to PRACTICE[/pulse][/center]
+do play_local_video("res://Tutorial/Tutorial_combined_pt6.ogv")
+6/6: Your score on the leaderboard will depend firstly on the number of [b][u]fingers[/u][/b] you have remaining, then [b][u]time[/u][/b] will be taken into account. [center][pulse freq=1.0 color=#ffffff40 ease=-2.0]Press F to accept mission[/pulse][/center]
 - back <-
 	do BackClickSound()
 	=> fifth

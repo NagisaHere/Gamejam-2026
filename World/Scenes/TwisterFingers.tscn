@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://d0f7fyndmi306" path="res://Assets/interface (20260510063538).png" id="1_0bpt5"]
 [ext_resource type="Script" uid="uid://d2j6l6cdwmx7o" path="res://World/Scenes/twister_fingers.gd" id="1_tfe0v"]
 [ext_resource type="Texture2D" uid="uid://dsw7gnjfaql5m" path="res://Assets/interface (20260510071510).png" id="2_tfe0v"]
+[ext_resource type="FontFile" uid="uid://6phg4vtpxiph" path="res://Assets/fonts/Alien-Encounters-Bold-Italic.ttf" id="4_c0pf4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tfe0v"]
 bg_color = Color(0.6, 0.52000004, 0, 1)
@@ -76,3 +77,15 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_tfe0v")
 toggle_mode = true
 text = "6"
 clip_text = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1234135319]
+offset_left = 249.0
+offset_top = 426.0
+offset_right = 737.0
+offset_bottom = 508.0
+theme_override_colors/default_color = Color(0.7882353, 1, 0.36862746, 1)
+theme_override_fonts/normal_font = ExtResource("4_c0pf4")
+theme_override_font_sizes/normal_font_size = 31
+bbcode_enabled = true
+text = "Hold down all buttons at the same time to unlock"
+horizontal_alignment = 1

@@ -191,6 +191,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="VHS shader" type="ColorRect" parent="." unique_id=1157055228]
+visible = false
 material = SubResource("ShaderMaterial_p46jp")
 offset_right = 1148.0
 offset_bottom = 644.0

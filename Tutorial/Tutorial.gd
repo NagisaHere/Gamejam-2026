@@ -101,12 +101,12 @@ func _unhandled_input(_event: InputEvent) -> void:
 	if will_block_other_input:
 		get_viewport().set_input_as_handled()
 	if Input.is_action_pressed("practice"):
-		if dialogue_line and "Press F to go to PRACTICE" in dialogue_line.text:
+		if dialogue_line and "Press F to accept mission" in dialogue_line.text:
 			if PauseMenu.get_node("VideoManager"):
 				PauseMenu.get_node("VideoManager").stop_video()
 			
 			if self == get_tree().current_scene:
-				get_tree().change_scene_to_file("res://Tutorial/TrialPart.tscn")
+				get_tree().change_scene_to_file("res://World/Scenes/WorldAnimation.tscn")
 			else:
 				queue_free()
 				get_tree().paused = false
@@ -262,7 +262,7 @@ func _on_skip_button_pressed() -> void:
 	#If it's not the overlay then progress
 	if self == get_tree().current_scene:
 		print("branch")
-		get_tree().change_scene_to_file("res://Tutorial/TrialPart.tscn")
+		get_tree().change_scene_to_file("res://World/Scenes/WorldAnimation.tscn")
 	else:
 		queue_free()
 		get_tree().paused = false

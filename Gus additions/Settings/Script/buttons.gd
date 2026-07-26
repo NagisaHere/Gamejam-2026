@@ -23,6 +23,10 @@ func _ready() -> void:
 	display_settings();
 	$BongoCat/CheckBox.button_pressed = SaveManager.BongoCat
 	
+	#check if random or toggled mode
+	_on_option_button_toggled(SaveManager.time_mode)
+	$DropKeyControl/OptionButton.button_pressed = SaveManager.time_mode
+	
 	
 
 
@@ -201,3 +205,14 @@ func _on_drop_key_down_button_down() -> void:
 
 func _on_drop_key_down_button_up() -> void:
 	is_holding_dropkeyDOWN = false
+
+
+func _on_option_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		$DropKeyControl/Random.modulate = Color(0.38, 0.38, 0.38, 1.0)
+		$DropKeyControl/Time.modulate = Color(1.0, 1.0, 1.0, 1.0)
+		SaveManager.time_mode = true
+	else:
+		$DropKeyControl/Time.modulate = Color(0.38, 0.38, 0.38, 1.0)
+		$DropKeyControl/Random.modulate = Color(1.0, 1.0, 1.0, 1.0)
+		SaveManager.time_mode = false

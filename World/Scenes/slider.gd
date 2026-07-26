@@ -7,18 +7,25 @@ var Bar1 = ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Semicolon"]
 var Bar2 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"]
 var Bar3 = ["Z", "X", "C", "V", "B", "N", "M", "Comma", "Period", "Slash"]
 var Bars = [Bar1,Bar2,Bar3]
+var finished = false
 
 @onready var Box = $HBoxContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	finished = false
 
 func _notification(what: int) -> void:
+	if not is_node_ready():
+		await ready
+	if what == NOTIFICATION_PAUSED and visible:
+		close_popup()
 	if what == NOTIFICATION_UNPAUSED and visible:
+		scrollBar_tracker = []
 		fullBar = Bars.pick_random()
 		for button_index in range(fullBar.size()):
-		
+			print("button index")
+			print(button_index)
 			match (fullBar[button_index]):
 				"Semicolon":
 					Box.get_child(button_index).text = ";"
@@ -36,12 +43,19 @@ func _notification(what: int) -> void:
 
 # checks if the input keys follow the pattern of fullBar and updates the ProgressBar accordingly
 func _process(delta: float) -> void:
+	if visible == false:
+		return
+		
 	if scrollBar_tracker.size() > fullBar.size():
+		if finished == true:
+				return
 		reset_progressBar()
 		return
 	
 	for letter_index in range(scrollBar_tracker.size()):
 		if scrollBar_tracker[letter_index] != fullBar[letter_index]:
+			if finished == true:
+				return
 			reset_progressBar()
 			return
 			
@@ -57,6 +71,8 @@ func _process(delta: float) -> void:
 
 #grabs keystrokes inputted and puts them in scrollBar_Tracker
 func _input(event: InputEvent) -> void:
+	if visible == false:
+		return
 	if event is InputEventKey:
 		if event.is_echo():
 			return
@@ -78,6 +94,8 @@ func update_ProgressBar(percentage: float) -> void:
 
 #timer for No-input timeout
 func _on_timer_timeout() -> void:
+	if finished == true:
+		return
 	reset_progressBar()
 	
 func reset_progressBar():
@@ -89,6 +107,7 @@ func reset_progressBar():
 		
 #when successful execute vfx e.t.c
 func _on_progress_bar_bar_is_full() -> void:
+	finished = true
 	for button in range(fullBar.size()):
 		var stylebox = Box.get_child(button).get_theme_stylebox("pressed")
 		stylebox.border_color = Color.YELLOW
