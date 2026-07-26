@@ -220,8 +220,10 @@ class MyCallbacks: public BLECharacteristicCallbacks {
               break;
               
             case CMD_STOP_ALL:
-              for(int s = 0; s < NUM_SERVOS; s++) {
-                  writeServo(servoPins[s], SERVO_MAX);
+              // Restore initial (open) pose on win/death
+              initial_servo_state();
+              for (int v = 0; v < NUM_VIBS; v++) {
+                  digitalWrite(vibratePins[v], LOW);
               }
               break;
             case CMD_START:

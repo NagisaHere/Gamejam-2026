@@ -42,6 +42,9 @@ func _win_game() -> void:
 	SaveManager.temp_time = $"../Timer".time_left
 	SaveManager.temp_score = fingers_remaining
 
+	if not OS.has_feature("web"):
+		_stop_all_servos()
+
 	# 2. Change to the popup scene
 	# This current scene (and this script) will now be destroyed
 	get_tree().change_scene_to_file("res://popup.tscn")
@@ -86,6 +89,8 @@ func find_new_active_enemy(typed_character: String):
 	return
 
 func _game_over() -> void:
+	if not OS.has_feature("web"):
+		_stop_all_servos()
 	$"../Death/DeathGlow".modulate.a = 20 #fade is in computer
 	$"../Fadeout/Fade Transition".show()
 	$"../Fadeout/Fade Transition/Fade_Timer".start()
@@ -304,6 +309,20 @@ func _kill_finger(finger: int):
 		print("BLE: Sent kill command '", command, "' to ", hand_label, " glove for finger index: ", finger)
 	else:
 		print("BLE Error: No connected ", hand_label, " glove to send command to.")
+
+# Reset both gloves to initial servo state (CMD_STOP_ALL = 'X')
+func _stop_all_servos() -> void:
+	var data_to_send = "X".to_utf8_buffer()
+	if connected_device_r != null:
+		connected_device_r.write_characteristic(SERVICE_UUID, CHAR_UUID_RX, data_to_send, false)
+		print("BLE: Sent STOP_ALL ('X') to RIGHT glove")
+	else:
+		print("BLE Error: No connected RIGHT glove for STOP_ALL")
+	if connected_device_l != null:
+		connected_device_l.write_characteristic(SERVICE_UUID, CHAR_UUID_RX, data_to_send, false)
+		print("BLE: Sent STOP_ALL ('X') to LEFT glove")
+	else:
+		print("BLE Error: No connected LEFT glove for STOP_ALL")
 
 func _on_characteristic_written(char_uuid: String):
 	print("Data successfully written to characteristic: ", char_uuid)
