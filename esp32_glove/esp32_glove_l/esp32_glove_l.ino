@@ -11,13 +11,16 @@
 #define SERVICE_UUID           "6E400001-B5A3-F393-E0A9-E50E24DCCA9E" // UART Service
 #define CHARACTERISTIC_UUID_RX "6E400002-B5A3-F393-E0A9-E50E24DCCA9E" // RX Characteristic (ESP32 Receives)
 
-#define CMD_THUMB    '0'
-#define CMD_INDEX    '1'
-#define CMD_MIDDLE   '2'
-#define CMD_RING     '3'
-#define CMD_PINKY    '4'
-#define CMD_STOP_ALL '5' // Added to replace the old SERVO_CMD_STOP
+// Left hand: CMD 5-9 (thumb, index, middle, ring, pinky)
+#define CMD_THUMB    '5'
+#define CMD_INDEX    '6'
+#define CMD_MIDDLE   '7'
+#define CMD_RING     '8'
+#define CMD_PINKY    '9'
+#define CMD_STOP_ALL 'X'
 #define CMD_START    'S'
+
+#define BLE_DEVICE_NAME "ESP32S3_GLOVE_L"
 
 #define SERVO_PIN_1 4
 #define SERVO_PIN_2 5
@@ -42,13 +45,13 @@
 #define SERVO_MAX 180
 
 #define NUM_SERVOS 5
-#define NUM_VIBS 5 // Fixed missing definition
+#define NUM_VIBS 5
 
 #define PWM_FREQ_HZ 50
 #define PWM_RES_BITS 12
 
 int servoPins[NUM_SERVOS] = {SERVO_PIN_1, SERVO_PIN_2, SERVO_PIN_3, SERVO_PIN_4, SERVO_PIN_5};
-int vibratePins[NUM_VIBS] = {VIBRATE_PIN_1, VIBRATE_PIN_2, VIBRATE_PIN_3, VIBRATE_PIN_4, VIBRATE_PIN_5}; // Fixed missing array
+int vibratePins[NUM_VIBS] = {VIBRATE_PIN_1, VIBRATE_PIN_2, VIBRATE_PIN_3, VIBRATE_PIN_4, VIBRATE_PIN_5};
 
 // for sound shennanigans
 // Instantiate Hardware UART 1
@@ -184,57 +187,56 @@ pinkie - ???
 
 class MyCallbacks: public BLECharacteristicCallbacks {
     void onWrite(BLECharacteristic *pCharacteristic) {
-      String rxValue = pCharacteristic->getValue().c_str(); // Explicitly read as a string
-      
-      if (rxValue.length() > 0) {
-        Serial.print("Received from Godot: ");
-        Serial.println(rxValue);
-        
-        // Handle global fallback commands ('S' or '5')
-        if (rxValue.length() == 1) {
-          char cmd = rxValue[0];
-          if (cmd == CMD_START) {
-            startupSweep();
-            initial_servo_state();
-            return;
-            
-          } else if (cmd == CMD_STOP_ALL) {
-            for(int s = 0; s < NUM_SERVOS; s++) {
-                writeServo(servoPins[s], SERVO_MAX);
-                digitalWrite(vibratePins[s], LOW); // Turn off all vibration motors
-            }
-            return;
-          }
-        }
+      String rxValue = pCharacteristic->getValue();
 
-        // Look for our string separator ':'
-        int colonIndex = rxValue.indexOf(':');
+      if (rxValue.length() > 0) {
+        Serial.print("Received (LEFT): ");
         
-        if (colonIndex != -1) {
-          // Split into finger index and target servo angle
-          String fingerStr = rxValue.substring(0, colonIndex);
-          String angleStr = rxValue.substring(colonIndex + 1);
+        for (int i = 0; i < rxValue.length(); i++) {
+          char cmd = rxValue[i];
+          Serial.print(cmd);
           
-          int fingerID = fingerStr.toInt();
-          int targetAngle = angleStr.toInt();
-          
-          // Guard against safe array boundaries and mechanical limits
-          fingerID = constrain(fingerID, 0, NUM_SERVOS - 1);
-          targetAngle = constrain(targetAngle, SERVO_MIN, SERVO_MAX);
-          
-          // Move the specific finger to the requested angle
-          writeServo(servoPins[fingerID], targetAngle);
-          
-          // If the finger is relaxed (at or near SERVO_MAX), kill its vibration motor
-          if (targetAngle >= (SERVO_MAX - 10)) {
-            digitalWrite(vibratePins[fingerID], LOW);
+          switch (cmd) {
+            case CMD_THUMB:
+              writeServo(servoPins[0], SERVO_MIN);
+              break;
+              
+            case CMD_INDEX:
+              writeServo(servoPins[1], SERVO_MIN);
+              digitalWrite(vibratePins[1], HIGH);
+              break;
+              
+            case CMD_MIDDLE:
+              writeServo(servoPins[2], SERVO_MIN);
+              digitalWrite(vibratePins[2], HIGH);
+              break;
+              
+            case CMD_RING:
+              writeServo(servoPins[3], SERVO_MIN);
+              break;
+              
+            case CMD_PINKY:
+              writeServo(servoPins[4], SERVO_MIN);
+              break;
+              
+            case CMD_STOP_ALL:
+              // Restore initial (open) pose on win/death
+              initial_servo_state();
+              for (int v = 0; v < NUM_VIBS; v++) {
+                  digitalWrite(vibratePins[v], LOW);
+              }
+              break;
+            case CMD_START:
+              startupSweep();
+              initial_servo_state();
+              break;
+              
+            default:
+              // Ignore right-hand CMDs (0-4) and other unexpected chars
+              break;
           }
-          
-          Serial.print("Servo Pin ");
-          Serial.print(servoPins[fingerID]);
-          Serial.print(" set to Angle: ");
-          Serial.println(targetAngle);
         }
+        Serial.println(); // Add a newline in the serial monitor
       }
     }
 };
@@ -247,7 +249,6 @@ void setup() {
     initServoPin(servoPins[i]);
   }
 
-  // Fixed the loop logic: changed i++ to j++ and used the new vibratePins array
   for (int j = 0; j < NUM_VIBS; j++) {
     pinMode(vibratePins[j], OUTPUT);
   }
@@ -256,7 +257,7 @@ void setup() {
   setup_sound();
   initial_servo_state();
   // Name the device
-  BLEDevice::init("ESP32S3_BLE_UART");
+  BLEDevice::init(BLE_DEVICE_NAME);
 
   // Create the BLE Server
   BLEServer *pServer = BLEDevice::createServer();
@@ -280,7 +281,7 @@ void setup() {
   pAdvertising->setScanResponse(true);
   BLEDevice::startAdvertising();
   
-  Serial.println("ESP32-S3 BLE UART Started. Waiting for connections...");
+  Serial.println("ESP32-S3 LEFT glove BLE UART Started. Waiting for connections...");
 }
 
 void loop() {

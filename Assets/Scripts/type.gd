@@ -100,6 +100,9 @@ func _win_game() -> void:
 	SaveManager.temp_time = $"../Timer".time_left
 	SaveManager.temp_score = fingers_remaining
 
+	if not OS.has_feature("web"):
+		_stop_all_servos()
+
 	# 2. Change to the popup scene
 	# This current scene (and this script) will now be destroyed
 	get_tree().change_scene_to_file("res://popup.tscn")
@@ -157,7 +160,8 @@ func find_new_active_enemy(typed_character: String):
 
 #game over transition
 func _game_over() -> void:
-	#Death time effects
+	if not OS.has_feature("web"):
+		_stop_all_servos()
 	$"../Death/DeathGlow".modulate.a = 20 #fade is in computer
 	
 	#gameover transition
@@ -178,6 +182,12 @@ func show_warning_message():
 
 	warning_label.visible = false
 
+# determine what fingers have not been killed
+# 0-4 = right hand, 5-9 = left hand
+func _determine_esp32_message():
+#  If all fingers are dead, return immediately
+	if killed_fingers.size() >= 10:
+		print("All fingers are dead. Cannot select a new one.")
 # determine what fingers have not been killed 
 #Kill a remaining finger.
 func _determine_esp32_message():
@@ -188,7 +198,7 @@ func _determine_esp32_message():
 
 	var available_fingers: Array[int] = []
 	# find alive fingies
-	for i in range(5):
+	for i in range(10):
 		if not killed_fingers.has(i):
 			available_fingers.append(i)
 	
@@ -300,13 +310,15 @@ func _unhandled_input(event: InputEvent) -> void:
 
 # BLUETOOTH RELATED THINGIES
 # UUIDs from your ESP32 code (Note: BLE plugins often require lowercase UUIDs)
-const TARGET_DEVICE_NAME = "ESP32S3_BLE_UART"
+const TARGET_DEVICE_RIGHT = "ESP32S3_GLOVE_R"
+const TARGET_DEVICE_LEFT = "ESP32S3_GLOVE_L"
 const SERVICE_UUID = "6e400001-b5a3-f393-e0a9-e50e24dcca9e"
 const CHAR_UUID_RX = "6e400002-b5a3-f393-e0a9-e50e24dcca9e"
 # BluetoothManager
 var bluetooth_manager = null
 # BleDevice (need to remove typehints otherwise web broke)
-var connected_device = null
+var connected_device_r = null
+var connected_device_l = null
 
 
 
@@ -315,91 +327,101 @@ var connected_device = null
 func _on_adapter_initialized(success: bool, error: String):
 	if success:
 		print("Bluetooth Adapter Ready! Starting scan...")
-		# Start scanning for 10 seconds
-		bluetooth_manager.start_scan(10.0)
+		# Start scanning for 15 seconds (need both gloves)
+		bluetooth_manager.start_scan(15.0)
 	else:
 		print("Failed to initialize Bluetooth: ", error)
 
 # connect
 func _on_device_discovered(device_info: Dictionary):
 	var device_name = device_info.get("name", "Unknown")
-	
-	# Check if we found our ESP32
-	if device_name == TARGET_DEVICE_NAME:
-		var address = device_info.get("address")
-		print("Found ESP32 at address: ", address)
-		
-		# Stop scanning immediately to save resources
+	var address = device_info.get("address")
+
+	if device_name == TARGET_DEVICE_RIGHT and connected_device_r == null:
+		print("Found RIGHT glove at address: ", address)
+		connect_to_esp32(address, "R")
+	elif device_name == TARGET_DEVICE_LEFT and connected_device_l == null:
+		print("Found LEFT glove at address: ", address)
+		connect_to_esp32(address, "L")
+
+	if connected_device_r != null and connected_device_l != null:
 		bluetooth_manager.stop_scan()
-		
-		# Proceed to connection
-		connect_to_esp32(address)
 
 # eh placeholder function
 func _on_scan_stopped():
-	if connected_device == null:
-		print("Scan finished. ESP32 not found. Make sure it is powered on and advertising.")
+	if connected_device_r == null:
+		print("Scan finished. RIGHT glove not found. Make sure it is powered on and advertising.")
+	if connected_device_l == null:
+		print("Scan finished. LEFT glove not found. Make sure it is powered on and advertising.")
 
 # --- DEVICE CONNECTION & COMMUNICATION ---
 
-func connect_to_esp32(address: String):
-	# Fetch the specific BleDevice object
-	connected_device = bluetooth_manager.connect_device(address)
-	
-	if connected_device:
-		# Wire up the device-specific signals
-		connected_device.connect("connected", _on_device_connected)
-		connected_device.connect("services_discovered", _on_services_discovered)
-		connected_device.connect("characteristic_written", _on_characteristic_written)
-		
-		print("Attempting to connect...")
-		connected_device.connect_async()
+func connect_to_esp32(address: String, hand: String):
+	var device = bluetooth_manager.connect_device(address)
+	if hand == "R":
+		connected_device_r = device
+	else:
+		connected_device_l = device
+
+	if device:
+		device.connect("connected", _on_device_connected.bind(hand))
+		device.connect("services_discovered", _on_services_discovered.bind(hand))
+		device.connect("characteristic_written", _on_characteristic_written)
+
+		print("Attempting to connect to ", hand, " glove...")
+		device.connect_async()
 
 # send start sequence upon start connection
-func _on_device_connected():
-	print("Successfully Connected to ESP32! Discovering services...")
+func _on_device_connected(hand: String):
+	print("Successfully Connected to ", hand, " glove! Discovering services...")
+	var device = connected_device_r if hand == "R" else connected_device_l
 	# You must discover services before you can read/write to them
-	connected_device.discover_services()
+	device.discover_services()
 
-func _on_services_discovered(services: Array):
-	print("Services discovered. Sending Servo command...")
-	
-	# Send the '1' command (convert string to PackedByteArray/utf8 buffer)
+func _on_services_discovered(services: Array, hand: String):
+	print("Services discovered on ", hand, " glove. Sending start command...")
+
+	var device = connected_device_r if hand == "R" else connected_device_l
 	var data_to_send = "S".to_utf8_buffer()
-	
+
 	# write_characteristic(service_uuid, char_uuid, data, with_response)
 	# with_response = false is standard for simple UART streams
-	connected_device.write_characteristic(SERVICE_UUID, CHAR_UUID_RX, data_to_send, false)
+	device.write_characteristic(SERVICE_UUID, CHAR_UUID_RX, data_to_send, false)
 
-# 0 for thumb, 1 for index, 2 for middle, 3 for ring, 4 for pinky
-func _kill_finger(finger: int) -> void:
-	if finger > 9 or finger < 0:
+# 0-4 right (thumb..pinky), 5-9 left (thumb..pinky)
+func _kill_finger(finger: int):
+	killed_fingers.append(finger)
+	if finger < 0 or finger > 9:
+		print("Invalid finger index: ", finger)
 		return
-		
-	if not killed_fingers.has(finger):
-		killed_fingers.append(finger)
-	_move_finger_to_angle(finger, 0) # Pulls down to 0 degrees
-	
+
+	var command = str(finger)
+	var device = connected_device_r if finger <= 4 else connected_device_l
+	var hand_label = "RIGHT" if finger <= 4 else "LEFT"
+
+	var data_to_send = command.to_utf8_buffer()
+	if device != null:
+		device.write_characteristic(SERVICE_UUID, CHAR_UUID_RX, data_to_send, false)
+		print("BLE: Sent kill command '", command, "' to ", hand_label, " glove for finger index: ", finger)
+	else:
+		print("BLE Error: No connected ", hand_label, " glove to send command to.")
+
+# Reset both gloves to initial servo state (CMD_STOP_ALL = 'X')
+func _stop_all_servos() -> void:
+	var data_to_send = "X".to_utf8_buffer()
+	if connected_device_r != null:
+		connected_device_r.write_characteristic(SERVICE_UUID, CHAR_UUID_RX, data_to_send, false)
+		print("BLE: Sent STOP_ALL ('X') to RIGHT glove")
+	else:
+		print("BLE Error: No connected RIGHT glove for STOP_ALL")
+	if connected_device_l != null:
+		connected_device_l.write_characteristic(SERVICE_UUID, CHAR_UUID_RX, data_to_send, false)
+		print("BLE: Sent STOP_ALL ('X') to LEFT glove")
+	else:
+		print("BLE Error: No connected LEFT glove for STOP_ALL")
 
 func _on_characteristic_written(char_uuid: String):
 	print("Data successfully written to characteristic: ", char_uuid)
-	# Optional: Disconnect after sending if you only need a single burst
-	# connected_device.disconnect()
-
-func _move_finger_to_angle(finger: int, target_angle: int) -> void:
-	# Ensure the angle stays within your hardware's 0-180 limits
-	var safe_angle = clamp(target_angle, 0, 180)
-	
-	# Build the parsed string (e.g., "1:180")
-	var command: String = str(finger) + ":" + str(safe_angle)
-	var data_to_send = command.to_utf8_buffer()
-	
-	if connected_device != null:
-		connected_device.write_characteristic(SERVICE_UUID, CHAR_UUID_RX, data_to_send, false)
-		print("BLE: Sent Target Command -> ", command)
-	else:
-		print("BLE Error: No connected device to send command to.")
-
 # Convenient wrapper to free a single finger instantly
 func _unrestrict_finger(finger: int) -> void:
 	if killed_fingers.has(finger):
