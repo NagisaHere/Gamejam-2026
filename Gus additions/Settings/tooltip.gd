@@ -1,6 +1,6 @@
 extends PanelContainer
 
-const OFFSET: Vector2 = Vector2.ONE * 10.0
+@export var OFFSET: Vector2 = Vector2.ONE * 10.0
 var opacity_tween: Tween = null
 
 func _input(event: InputEvent) -> void:

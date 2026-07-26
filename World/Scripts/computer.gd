@@ -4,6 +4,7 @@ extends Node2D
 @onready var redGlow = $"alarm overlay/RedGlow"
 @onready var previous_second: int
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$hands/TypingHand.show_typing_state(0)

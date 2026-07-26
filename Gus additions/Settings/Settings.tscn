@@ -11,11 +11,30 @@
 [ext_resource type="AudioStream" uid="uid://cst1pnrpl6yhy" path="res://Gus additions/SoundAssets/clickBack.wav" id="8_jplrr"]
 [ext_resource type="FontFile" uid="uid://cd6nkp8lq4sk8" path="res://Assets/fonts/Alien-Encounters-Solid-Regular.ttf" id="8_wo42m"]
 [ext_resource type="AudioStream" uid="uid://bn56sk8ive5yn" path="res://Gus additions/SoundAssets/clickNext.wav" id="9_5hvgk"]
+[ext_resource type="Script" uid="uid://dqa6ix0g0fp64" path="res://Gus additions/Settings/tooltip.gd" id="9_8qnsy"]
+[ext_resource type="Script" uid="uid://ber3y113xhnqg" path="res://Gus additions/Settings/label_tooltips.gd" id="9_hapno"]
+[ext_resource type="StyleBox" uid="uid://dk3nny6lj7spq" path="res://addons/onscreenkeyboard/customize/styles/settings_tooltip.tres" id="9_winry"]
 [ext_resource type="AudioStream" uid="uid://npol4wpw1l1k" path="res://Gus additions/SoundAssets/change_difficulty.wav" id="10_5hvgk"]
 [ext_resource type="AudioStream" uid="uid://bc5ddlunt1gsf" path="res://Gus additions/SoundAssets/ClockTickUp.wav" id="11_k4rln"]
 [ext_resource type="AudioStream" uid="uid://13anuk4jtj83" path="res://Gus additions/SoundAssets/ClockTickDown.wav" id="12_wo42m"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pmadn"]
+
+[sub_resource type="GDScript" id="GDScript_hapno"]
+script/source = "extends CheckButton
+@onready var tooltip = $Tooltip
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	mouse_entered.connect(on_mouse_entered)
+	mouse_exited.connect(on_mouse_exited)
+
+func on_mouse_entered():
+	tooltip.toggle(true)
+
+func on_mouse_exited():
+	tooltip.toggle(false)
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e6r47"]
 
@@ -27,6 +46,22 @@ bg_color = Color(0.3956, 0.82903993, 0.86, 0.63529414)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e6r47"]
 bg_color = Color(0.39, 0.39, 0.39, 0.7411765)
+
+[sub_resource type="GDScript" id="GDScript_winry"]
+script/source = "extends CheckBox
+@onready var tooltip = $Tooltip
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	mouse_entered.connect(on_mouse_entered)
+	mouse_exited.connect(on_mouse_exited)
+
+func on_mouse_entered():
+	tooltip.toggle(true)
+
+func on_mouse_exited():
+	tooltip.toggle(false)
+"
 
 [sub_resource type="Animation" id="Animation_06t4h"]
 resource_name = "Fade_in"
@@ -127,16 +162,6 @@ text = "Main Menu"
 
 [node name="DropKeyControl" type="Node" parent="." unique_id=445449262]
 
-[node name="DropKeyLabel" type="RichTextLabel" parent="DropKeyControl" unique_id=1564794326]
-offset_left = 587.0
-offset_top = 308.0
-offset_right = 709.0
-offset_bottom = 345.0
-theme_override_fonts/normal_font = ExtResource("8_wo42m")
-theme_override_font_sizes/normal_font_size = 20
-bbcode_enabled = true
-text = "Time Limit"
-
 [node name="DropKeyDown" type="TextureButton" parent="DropKeyControl" unique_id=555660807]
 offset_left = 726.0
 offset_top = 489.0
@@ -168,15 +193,6 @@ offset_bottom = 462.0
 text = "0"
 horizontal_alignment = 1
 
-[node name="OptionButton" type="CheckButton" parent="DropKeyControl" unique_id=1105380864]
-offset_left = 546.0
-offset_top = 521.0
-offset_right = 734.0
-offset_bottom = 552.0
-theme_override_fonts/font = ExtResource("8_wo42m")
-theme_override_font_sizes/font_size = 20
-text = "Select type "
-
 [node name="Random" type="RichTextLabel" parent="DropKeyControl" unique_id=855991325]
 offset_left = 741.0
 offset_top = 526.0
@@ -194,6 +210,62 @@ offset_bottom = 593.0
 theme_override_fonts/normal_font = ExtResource("8_wo42m")
 theme_override_font_sizes/normal_font_size = 20
 text = "Time"
+
+[node name="OptionButton" type="CheckButton" parent="DropKeyControl" unique_id=1105380864]
+offset_left = 546.0
+offset_top = 521.0
+offset_right = 734.0
+offset_bottom = 552.0
+theme_override_fonts/font = ExtResource("8_wo42m")
+theme_override_font_sizes/font_size = 20
+text = "Select type "
+script = SubResource("GDScript_hapno")
+
+[node name="Tooltip" type="PanelContainer" parent="DropKeyControl/OptionButton" unique_id=2129377233]
+top_level = true
+layout_mode = 0
+offset_right = 232.0
+offset_bottom = 64.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("9_winry")
+script = ExtResource("9_8qnsy")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="DropKeyControl/OptionButton/Tooltip" unique_id=1258600658]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+text = "Select dropkey mode. Random fail or Charge bar"
+
+[node name="DropKeyLabel" type="RichTextLabel" parent="DropKeyControl" unique_id=1075981298]
+offset_left = 584.0
+offset_top = 421.0
+offset_right = 692.0
+offset_bottom = 465.0
+theme_override_fonts/normal_font = ExtResource("8_wo42m")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "DropKey
+rate"
+horizontal_alignment = 1
+script = ExtResource("9_hapno")
+
+[node name="Tooltip" type="PanelContainer" parent="DropKeyControl/DropKeyLabel" unique_id=1174092009]
+top_level = true
+layout_mode = 0
+offset_top = 150.0
+offset_right = 152.0
+offset_bottom = 210.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("9_winry")
+script = ExtResource("9_8qnsy")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="DropKeyControl/DropKeyLabel/Tooltip" unique_id=1594293538]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+text = "Adjust key not register rate"
 
 [node name="LevelControl" type="Node" parent="." unique_id=1593319058]
 
@@ -237,20 +309,26 @@ theme_override_fonts/normal_font = ExtResource("8_wo42m")
 theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "Levels"
+script = ExtResource("9_hapno")
+
+[node name="Tooltip" type="PanelContainer" parent="LevelControl/LevelLabel" unique_id=531197720]
+top_level = true
+layout_mode = 0
+offset_left = 188.0
+offset_right = 364.0
+offset_bottom = 60.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("9_winry")
+script = ExtResource("9_8qnsy")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="LevelControl/LevelLabel/Tooltip" unique_id=2056222965]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+text = "Adjust sentences to complete"
 
 [node name="TimeControl" type="Node" parent="." unique_id=2085651880]
-
-[node name="TTCLabel" type="RichTextLabel" parent="TimeControl" unique_id=1075981298]
-offset_left = 584.0
-offset_top = 421.0
-offset_right = 692.0
-offset_bottom = 465.0
-theme_override_fonts/normal_font = ExtResource("8_wo42m")
-theme_override_font_sizes/normal_font_size = 20
-bbcode_enabled = true
-text = "DropKey
-rate"
-horizontal_alignment = 1
 
 [node name="TimeCount" type="RichTextLabel" parent="TimeControl" unique_id=1595599323]
 offset_left = 692.0
@@ -309,6 +387,34 @@ offset_right = 802.0
 offset_bottom = 329.0
 text = "0"
 horizontal_alignment = 1
+
+[node name="TCCLabel" type="RichTextLabel" parent="TimeControl" unique_id=1564794326]
+offset_left = 587.0
+offset_top = 308.0
+offset_right = 709.0
+offset_bottom = 345.0
+theme_override_fonts/normal_font = ExtResource("8_wo42m")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "Time Limit"
+script = ExtResource("9_hapno")
+
+[node name="Tooltip" type="PanelContainer" parent="TimeControl/TCCLabel" unique_id=1707731384]
+top_level = true
+layout_mode = 0
+offset_top = 75.0
+offset_right = 152.0
+offset_bottom = 118.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("9_winry")
+script = ExtResource("9_8qnsy")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TimeControl/TCCLabel/Tooltip" unique_id=723894090]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+text = "Adjust time limit"
 
 [node name="Difficulty" type="Node" parent="." unique_id=207337893]
 
@@ -400,12 +506,53 @@ pitch_scale = 1.24
 [node name="BongoCat" type="Node" parent="." unique_id=665015180]
 
 [node name="CheckBox" type="CheckBox" parent="BongoCat" unique_id=1286572758]
-offset_left = 356.0
-offset_top = 403.0
-offset_right = 459.0
-offset_bottom = 437.0
+offset_left = 373.0
+offset_top = 414.0
+offset_right = 476.0
+offset_bottom = 448.0
 theme_override_font_sizes/font_size = 16
 text = "BongoCat"
+script = SubResource("GDScript_winry")
+
+[node name="Tooltip" type="PanelContainer" parent="BongoCat/CheckBox" unique_id=484341964]
+top_level = true
+layout_mode = 0
+offset_left = -521.0
+offset_top = 227.0
+offset_right = -52.0
+offset_bottom = 533.0
+pivot_offset = Vector2(1, 309)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("9_winry")
+script = ExtResource("9_8qnsy")
+OFFSET = Vector2(10, -100)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BongoCat/CheckBox/Tooltip" unique_id=653100782]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⡷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⡿⠋⠈⠻⣮⣳⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⣾⡿⠋⠀⠀⠀⠀⠙⣿⣿⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣶⣿⡿⠟⠛⠉⠀⠀⠀⠀⠀⠀⠀⠈⠛⠛⠿⠿⣿⣷⣶⣤⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⣾⡿⠟⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠛⠻⠿⣿⣶⣦⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⣀⣠⣤⣤⣀⡀⠀⠀⣀⣴⣿⡿⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠿⣿⣷⣦⣄⡀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣄⠀⠀
+⢀⣤⣾⡿⠟⠛⠛⢿⣿⣶⣾⣿⠟⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠿⣿⣷⣦⣀⣀⣤⣶⣿⡿⠿⢿⣿⡀⠀
+⣿⣿⠏⠀⢰⡆⠀⠀⠉⢿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⢿⡿⠟⠋⠁⠀⠀⢸⣿⠇⠀
+⣿⡟⠀⣀⠈⣀⡀⠒⠃⠀⠙⣿⡆⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠇⠀
+⣿⡇⠀⠛⢠⡋⢙⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⣿⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⠀⠀
+⣿⣧⠀⠀⠀⠓⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠛⠋⠀⠀⢸⣧⣤⣤⣶⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⡿⠀⠀
+⣿⣿⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠻⣷⣶⣶⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⣿⠁⠀⠀
+⠈⠛⠻⠿⢿⣿⣷⣶⣦⣤⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⡏⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠉⠙⠛⠻⠿⢿⣿⣷⣶⣦⣤⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠿⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢿⣿⡄⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠙⠛⠻⠿⢿⣿⣷⣶⣦⣤⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⡄⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠛⠛⠿⠿⣿⣷⣶⣶⣤⣤⣀⡀⠀⠀⠀⢀⣴⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⡿⣄
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠛⠛⠿⠿⣿⣷⣶⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣹
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⠀⠀⠀⠀⠀⠀⢸⣧
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣿⣆⠀⠀⠀⠀⠀⠀⢀⣀⣠⣤⣶⣾⣿⣿⣿⣿⣤⣄⣀⡀⠀⠀⠀⣿
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⢿⣻⣷⣶⣾⣿⣿⡿⢯⣛⣛⡋⠁⠀⠀⠉⠙⠛⠛⠿⣿⣿⡷⣶⣿"
 
 [node name="Transition" type="Node" parent="." unique_id=80663703]
 

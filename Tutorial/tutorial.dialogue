@@ -26,8 +26,12 @@ do play_local_video("res://Tutorial/Tutorial_combined_pt3.ogv")
 
 
 ~ fourth
-do play_local_video("res://Tutorial/Tutorial_combined_pt4.ogv")
-4/6: For every lost finger you add a 2.5% chance for the terminal to malfunction. This will cause your keystoke to not register, represented as a [color=9901efff]Purple[/color] character. [center] [/center]
+if SaveManager.time_mode:
+	do play_local_video("res://Tutorial/Tutorial_combined_alt_pt4.ogv")
+	4/6: Every 10 seconds the terminal will malfunction. This will cause your keystoke to not register, represented as a [color=9901efff]Purple[/color] character. Every finger you lose will cause the timer to go faster
+else:
+	do play_local_video("res://Tutorial/Tutorial_combined_pt4.ogv")
+	4/6: For every lost finger you add a 2.5% chance for the terminal to malfunction. This will cause your keystoke to not register, represented as a [color=9901efff]Purple[/color] character. [center] [/center]
 - back <-
 	do BackClickSound()
 	=> third

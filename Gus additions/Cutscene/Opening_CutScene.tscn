@@ -1,26 +1,105 @@
 [gd_scene format=3 uid="uid://cnj05l0xaotbc"]
 
 [ext_resource type="Script" uid="uid://7w2kwrd36o6n" path="res://Gus additions/Cutscene/opening_cut_scene.gd" id="1_ehgg2"]
-[ext_resource type="VideoStream" uid="uid://boe2865xihpqk" path="res://Gus additions/Cutscene/TrialCutscene.ogv" id="2_ehgg2"]
+[ext_resource type="VideoStream" uid="uid://dmr8umgifc226" path="res://Gus additions/Cutscene/cutscene_v3.ogv" id="2_ehgg2"]
 [ext_resource type="FontFile" uid="uid://cd6nkp8lq4sk8" path="res://Assets/fonts/Alien-Encounters-Solid-Regular.ttf" id="3_ehgg2"]
 [ext_resource type="StyleBox" uid="uid://2kgx3wrhqhxa" path="res://addons/onscreenkeyboard/customize/styles/default_button_normal.tres" id="4_7m6pm"]
 [ext_resource type="StyleBox" uid="uid://bq2fa6y28ke53" path="res://addons/onscreenkeyboard/customize/styles/default_button_hover.tres" id="5_pbbeh"]
+[ext_resource type="Texture2D" uid="uid://bakbjbwtf6cpp" path="res://Assets/Transparent/shape_b.png" id="6_46nmt"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8s0ec"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qr8yv"]
 
+[sub_resource type="Animation" id="Animation_uv0h2"]
+resource_name = "Glow"
+length = 83.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointLight2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 79.04),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DirectionalLight2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 79.03156),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PointLight2D:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 2, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.5, -0.27981186, 0, 0.29722214, 0, 0, -0.3820343, 0.11666667, 0, 0),
+"times": PackedFloat32Array(79.037796, 80.71667, 82.5)
+}
+
+[sub_resource type="Animation" id="Animation_7m6pm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointLight2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DirectionalLight2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PointLight2D:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pbbeh"]
+_data = {
+&"Glow": SubResource("Animation_uv0h2"),
+&"RESET": SubResource("Animation_7m6pm")
+}
+
 [node name="OpeningCutScene" type="Node2D" unique_id=20640239]
 script = ExtResource("1_ehgg2")
 
-[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=852819817]
-offset_right = 1280.0
-offset_bottom = 720.0
-scale = Vector2(0.9, 0.9)
-stream = ExtResource("2_ehgg2")
-autoplay = true
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1444324861]
 
-[node name="skip_button" type="Button" parent="." unique_id=309180089]
+[node name="skip_button" type="Button" parent="CanvasLayer" unique_id=309180089]
 z_index = 5
 offset_left = 1024.0
 offset_top = 6.0
@@ -35,5 +114,34 @@ theme_override_styles/hover = ExtResource("5_pbbeh")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_qr8yv")
 text = "Skip>>>"
 
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=852819817]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.999939
+offset_top = 12.0
+offset_right = 1926.0
+offset_bottom = 1092.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.6, 0.6)
+stream = ExtResource("2_ehgg2")
+autoplay = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=802792346]
+libraries/ = SubResource("AnimationLibrary_pbbeh")
+autoplay = &"Glow"
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=1186365816]
+energy = 0.7
+blend_mode = 1
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=317119304]
+position = Vector2(542, 328)
+scale = Vector2(0.5917969, 0.5361328)
+color = Color(0.66999996, 0.945, 1, 1)
+energy = 0.0
+texture = ExtResource("6_46nmt")
+
+[connection signal="pressed" from="CanvasLayer/skip_button" to="." method="_on_skip_button_pressed"]
 [connection signal="finished" from="VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]
-[connection signal="pressed" from="skip_button" to="." method="_on_skip_button_pressed"]

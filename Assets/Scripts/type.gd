@@ -245,6 +245,7 @@ func _unhandled_input(event: InputEvent) -> void:
 					$"../Camera2D".trigger_shake()
 					$"../Freezing Finger".play()
 					finger_lost.emit()
+					flash_dropkey_time()
 					
 				
 					if fingers_remaining == 0:
@@ -627,3 +628,15 @@ func terminal_spark():
 
 func _on_drop_key_timer_timeout() -> void:
 	dropkey_ready = true
+
+const flashes = 3
+func flash_dropkey_time():
+	var tween = create_tween().set_loops(flashes)
+	
+	# Instantly switch to Red, wait 0.2 seconds
+	tween.tween_callback(func(): $"../DropKeyTimer/RichTextLabel".modulate = Color.RED)
+	tween.tween_interval(0.2)
+	
+	# Instantly switch to White, wait 0.2 seconds
+	tween.tween_callback(func(): $"../DropKeyTimer/RichTextLabel".modulate = Color(0.761, 0.65, 1.0, 1.0))
+	tween.tween_interval(0.2)
