@@ -89,7 +89,8 @@ func restrict_fingers(fingers:Array, restriction_angle:int) -> void:
 	for finger in fingers:
 		#only restrict fingers that are alive
 		if not killed_fingers.has(finger):
-			_move_finger_to_angle(finger, restriction_angle)
+			#_move_finger_to_angle(finger, restriction_angle)
+			_send_finger_char(finger) # two-hands single-char (angle ignored)
 	
 func _on_freeze_timer_timeout() -> void:
 	#grab remaining fingers
@@ -106,7 +107,8 @@ func _on_freeze_timer_timeout() -> void:
 	for finger in range(0,numberOf_random_frozen_fingers):
 		random_frozen_fingers.append(available_fingers.pick_random())
 	for finger in random_frozen_fingers:
-		_move_finger_to_angle(finger, 0)
+		#_move_finger_to_angle(finger, 0)
+		_send_finger_char(finger) # two-hands single-char
 	#TODO maybe make it killed so it doesn't overlap maybe
 	
 
@@ -197,18 +199,14 @@ func show_warning_message():
 
 	warning_label.visible = false
 
+
 # determine what fingers have not been killed
 # 0-4 = right hand, 5-9 = left hand
+# Kill a remaining finger.
 func _determine_esp32_message():
 #  If all fingers are dead, return immediately
 	if killed_fingers.size() >= 10:
 		print("All fingers are dead. Cannot select a new one.")
-# determine what fingers have not been killed 
-#Kill a remaining finger.
-func _determine_esp32_message():
-#  If all fingers are dead, return immediately
-	if killed_fingers.size() >= 5:
-		#print("All fingers are dead. Cannot select a new one.")
 		return
 
 	var available_fingers: Array[int] = []
@@ -419,8 +417,8 @@ func _on_services_discovered(services: Array, hand: String):
 	device.write_characteristic(SERVICE_UUID, CHAR_UUID_RX, data_to_send, false)
 
 # 0-4 right (thumb..pinky), 5-9 left (thumb..pinky)
-func _kill_finger(finger: int):
-	killed_fingers.append(finger)
+# Sends single-char command '0'-'9' to the matching glove (two-hands protocol)
+func _send_finger_char(finger: int) -> void:
 	if finger < 0 or finger > 9:
 		print("Invalid finger index: ", finger)
 		return
@@ -435,6 +433,10 @@ func _kill_finger(finger: int):
 		print("BLE: Sent kill command '", command, "' to ", hand_label, " glove for finger index: ", finger)
 	else:
 		print("BLE Error: No connected ", hand_label, " glove to send command to.")
+
+func _kill_finger(finger: int):
+	killed_fingers.append(finger)
+	_send_finger_char(finger)
 
 # Reset both gloves to initial servo state (CMD_STOP_ALL = 'X')
 func _stop_all_servos() -> void:
@@ -452,11 +454,30 @@ func _stop_all_servos() -> void:
 
 func _on_characteristic_written(char_uuid: String):
 	print("Data successfully written to characteristic: ", char_uuid)
+
+# Angle protocol disabled — gloves use two-hands single-char cmds ('0'-'9') instead.
+# func _move_finger_to_angle(finger: int, target_angle: int) -> void:
+# 	if finger < 0 or finger > 9:
+# 		print("Invalid finger index: ", finger)
+# 		return
+# 	var safe_angle = clamp(target_angle, 0, 180)
+# 	var local_finger = finger if finger <= 4 else finger - 5
+# 	var device = connected_device_r if finger <= 4 else connected_device_l
+# 	var hand_label = "RIGHT" if finger <= 4 else "LEFT"
+# 	var command: String = str(local_finger) + ":" + str(safe_angle)
+# 	var data_to_send = command.to_utf8_buffer()
+# 	if device != null:
+# 		device.write_characteristic(SERVICE_UUID, CHAR_UUID_RX, data_to_send, false)
+# 		print("BLE: Sent Target Command -> ", command, " to ", hand_label, " glove (global finger ", finger, ")")
+# 	else:
+# 		print("BLE Error: No connected ", hand_label, " glove to send command to.")
+
 # Convenient wrapper to free a single finger instantly
 func _unrestrict_finger(finger: int) -> void:
 	if killed_fingers.has(finger):
 		killed_fingers.erase(finger)
-	_move_finger_to_angle(finger, 180) # Relaxes completely back to 180 degrees
+	#_move_finger_to_angle(finger, 180) # Relaxes completely back to 180 degrees
+	# Single-char protocol has no per-finger relax; STOP_ALL ('X') resets the whole glove.
 
 
 
