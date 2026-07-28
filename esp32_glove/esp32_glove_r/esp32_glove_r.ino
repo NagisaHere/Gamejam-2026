@@ -191,7 +191,30 @@ class MyCallbacks: public BLECharacteristicCallbacks {
 
       if (rxValue.length() > 0) {
         Serial.print("Received (RIGHT): ");
-        
+        Serial.println(rxValue);
+
+        // Angle protocol: "<finger>:<angle>" e.g. "1:90" (local finger 0-4)
+        int colonIndex = rxValue.indexOf(':');
+        if (colonIndex != -1) {
+          int fingerID = rxValue.substring(0, colonIndex).toInt();
+          int targetAngle = rxValue.substring(colonIndex + 1).toInt();
+          fingerID = constrain(fingerID, 0, NUM_SERVOS - 1);
+          targetAngle = constrain(targetAngle, SERVO_MIN, SERVO_MAX);
+
+          writeServo(servoPins[fingerID], targetAngle);
+          if (targetAngle >= (SERVO_MAX - 10)) {
+            digitalWrite(vibratePins[fingerID], LOW);
+          } else if (targetAngle <= (SERVO_MIN + 10) && (fingerID == 1 || fingerID == 2)) {
+            digitalWrite(vibratePins[fingerID], HIGH);
+          }
+
+          Serial.print("Servo Pin ");
+          Serial.print(servoPins[fingerID]);
+          Serial.print(" set to Angle: ");
+          Serial.println(targetAngle);
+          return;
+        }
+
         for (int i = 0; i < rxValue.length(); i++) {
           char cmd = rxValue[i];
           Serial.print(cmd);
